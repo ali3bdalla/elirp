@@ -27,7 +27,7 @@ class StoreReceivedBillVendorTransactionJobTest extends TestCase
             'document_id' => $document->id,
             'company_id' => $document->company_id,
         ]);
-        $precision = config('money.' . $document->currency_code . '.precision');
+        $precision = 2;
         $payable = Account::default(AccountSlugsEnum::DEFAULT_PAYABLE_ACCOUNT());
         $job = new StoreReceivedBillVendorTransactionJob($entry, $document);
         $transaction = $job->handle();

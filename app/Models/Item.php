@@ -7,6 +7,7 @@ use App\Data\HasCompany;
 use App\Data\HasUserActions;
 use App\Frame\ModelFrame;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -27,4 +28,13 @@ class Item extends ModelFrame
     use HasCompany;
     use HasUserActions;
     use CanBeEnabled;
+    
+    protected $fillable  =  ['company_id', 'name', 'description', 'sku', 'has_detail', 'fixed_price', 'is_service',
+'sale_price', 'purchase_price', 'enabled'];
+    
+    public function taxes(): HasMany
+    {
+        return $this->hasMany(ItemTax::class, 'item_id');
+    }
+
 }

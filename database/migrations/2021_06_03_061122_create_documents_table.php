@@ -22,7 +22,7 @@ class CreateDocumentsTable extends Migration
             $table->string('status');
             $table->dateTime('issued_at');
             $table->dateTime('due_at');
-            $table->double('amount', 15, 4);
+            $table->double('amount', 100, 4);
             $table->string('currency_code');
             $table->double('currency_rate', 15, 8);
             $table->unsignedBigInteger('contact_id');

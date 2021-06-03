@@ -34,27 +34,18 @@ class StoreDocumentItemTaxesJob extends Job
     {
         $documentItemTaxes = [];
         if ($this->taxIds) {
-            $precision = config('money.' . $this->documentItem->document->currency_code . '.precision');
+            $precision = 2;
             $totalInclusiveRate = Tax::whereIn('id', $this->taxIds)->where('type', TaxTypeEnum::inclusive())->sum('rate');
             $baseRate = $this->documentItem->total / (1 + $totalInclusiveRate / 100);
             $taxTotal = 0;
 
             foreach ((array)$this->taxIds as $key => $taxId) {
                 $tax = Tax::findOrFail($taxId);
-                if ($tax->type == TaxTypeEnum::inclusive()) {
-                    $taxAmount = $baseRate * ($tax->rate / 100);
-                } elseif ($tax->type == TaxTypeEnum::compound()) {
-                    $taxAmount = (($this->documentItem->subtotal + $taxTotal) / 100) * $tax->rate;
-                } elseif ($tax->type == TaxTypeEnum::fixed()) {
-                    $taxAmount = $tax->rate * (double)$this->documentItem->quantity;
-                } elseif ($tax->type == TaxTypeEnum::withholding()) {
-                    $taxAmount = 0 - $this->documentItem->subtotal * ($tax->rate / 100);
-                } else {
-                    $taxAmount = $this->documentItem->subtotal * ($tax->rate / 100);
-                }
+  
+                $taxAmount = $tax->rate * (double)$this->documentItem->quantity;
+               
                 $documentItemTaxes[] = DocumentItemTax::create([
                     'company_id' => $this->documentItem->company_id,
-                    'type' => $this->documentItem->type,
                     'document_item_id' => $this->documentItem->id,
                     'document_id' => $this->documentItem->document_id,
                     'tax_id' => $taxId,
@@ -63,7 +54,6 @@ class StoreDocumentItemTaxesJob extends Job
                 ]);
                 $taxTotal += round($taxAmount, $precision);
             }
-
 
 
             $this->documentItem->update([

@@ -7,6 +7,7 @@ use App\Data\HasCompany;
 use App\Data\HasUserActions;
 use App\Frame\ModelFrame;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\HigherOrderCollectionProxy;
 
@@ -20,4 +21,11 @@ class Entry extends ModelFrame
     use HasCompany;
     use HasUserActions;
     use CanBeEnabled;
+    
+    protected $fillable = ['company_id','amount','document_id','description','is_pending'];
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class, 'entry_id');
+    }
+    
 }

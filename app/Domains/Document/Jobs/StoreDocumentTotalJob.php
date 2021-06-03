@@ -40,7 +40,7 @@ class StoreDocumentTotalJob extends Job
             'totals.*.operator' => 'required|in:addition,subtraction'
         ]);
 
-        $precision = config('money.' . $this->document->currency_code . '.precision');
+        $precision = 2;
         $itemsQuery = $this->document->items();
         $subtotal = $itemsQuery->clone()->sum('subtotal');
         $total = $itemsQuery->clone()->sum('total');
@@ -88,7 +88,7 @@ class StoreDocumentTotalJob extends Job
         }
 
 
-        $taxes = $this->document->item_taxes()->groupBy('tax_id')->selectRaw('tax_id, sum(amount) as total_amount')->get();
+        $taxes = $this->document->itemsTaxes()->groupBy('tax_id')->selectRaw('tax_id, sum(amount) as total_amount')->get();
         foreach ($taxes as $tax) {
             $taxEntity = Tax::findOrFail($tax['tax_id']);
             $totals[] = DocumentTotal::create([

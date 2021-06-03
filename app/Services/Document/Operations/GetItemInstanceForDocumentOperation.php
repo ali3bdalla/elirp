@@ -11,14 +11,14 @@ use Lucid\Units\Operation;
 class GetItemInstanceForDocumentOperation extends Operation
 {
     private Collection $collection;
-    private DocumentTypeEnum $documentType;
+    private  $documentType;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(DocumentTypeEnum $documentType, $request)
+    public function __construct($documentType, $request)
     {
         $this->collection = collect($request);
         $this->documentType = $documentType;

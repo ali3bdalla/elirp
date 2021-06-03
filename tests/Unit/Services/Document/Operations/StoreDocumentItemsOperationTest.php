@@ -17,7 +17,7 @@ use Tests\TestCase;
 class StoreDocumentItemsOperationTest extends TestCase
 {
     use WithFaker;
-
+    
     public function test_store_document_items_operation()
     {
         $user = User::factory()->create();
@@ -26,11 +26,11 @@ class StoreDocumentItemsOperationTest extends TestCase
             'company_id' => $user->company_id,
             'type' => $this->faker->randomElement(DocumentTypeEnum::toValues())
         ]);
-
+        
         $items = Item::factory()->count($this->faker->numberBetween(1, 10))->create([
             'company_id' => $user->company_id
         ]);
-
+        
         $taxes = Tax::factory()->fixed()->count($this->faker->numberBetween(1, 3))->create([
             'company_id' => $user->company_id
         ]);
@@ -46,15 +46,15 @@ class StoreDocumentItemsOperationTest extends TestCase
                 'tax_ids' => $taxesIds
             ];
         }
-
-
+        
+        
         $job = new StoreDocumentItemsOperation($document, $request, 0);
         $documentItems = $job->handle();
         $this->assertIsArray($documentItems);
         $this->assertSame(count($documentItems), count($request['items']));
         foreach ($documentItems as $documentItem) {
             $data = collect($request['items'])->where('item_id', $documentItem->item_id)->first();
-            $precision = config('money.' . $document->currency_code . '.precision');
+            $precision = 2;
             $this->assertInstanceOf(DocumentItem::class, $documentItem);
             $this->assertEquals($documentItem->total, round($data['price'] * $data['quantity'], $precision));
             $this->assertEquals($documentItem->discount_rate, (double)$data['discount']);
@@ -78,7 +78,7 @@ class StoreDocumentItemsOperationTest extends TestCase
                 } else {
                     $taxAmount = $documentItem->subtotal * ($tax->rate / 100);
                 }
-
+                
                 $this->assertEquals(round($taxAmount, $precision), $documentItemTax->amount);
                 $taxTotal += round($taxAmount, $precision);
             }

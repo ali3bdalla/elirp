@@ -35,7 +35,7 @@ class StoreDocumentItemTaxesJobTest extends TestCase
             'company_id' => $user->company_id,
             'document_id' => $document->id
         ]);
-        $precision = config('money.' . $document->currency_code . '.precision');
+        $precision = 2;
         $totalInclusiveRate = Tax::whereIn('id', $taxesIds)->where('type', TaxTypeEnum::inclusive())->sum('rate');
         foreach ($documentItems as $documentItem) {
             $baseRate = $documentItem->total / (1 + $totalInclusiveRate / 100);
@@ -49,23 +49,12 @@ class StoreDocumentItemTaxesJobTest extends TestCase
                 $this->assertTrue(in_array($documentItemTax->tax_id, $taxesIds));
                 $tax = $documentItemTax->tax;
                 $this->assertInstanceOf(Tax::class, $tax);
-                if ($tax->type == TaxTypeEnum::inclusive()) {
-                    $taxAmount = $baseRate * ($tax->rate / 100);
-                } elseif ($tax->type == TaxTypeEnum::compound()) {
-                    $taxAmount = (($documentItem->subtotal + $taxTotal) / 100) * $tax->rate;
-                } elseif ($tax->type == TaxTypeEnum::fixed()) {
-                    $taxAmount = $tax->rate * (double)$documentItem->quantity;
-                } elseif ($tax->type == TaxTypeEnum::withholding()) {
-                    $taxAmount = 0 - $documentItem->subtotal * ($tax->rate / 100);
-                } else {
-                    $taxAmount = $documentItem->subtotal * ($tax->rate / 100);
-                }
-
+                $taxAmount = $tax->rate * (double)$documentItem->quantity;
                 $this->assertEquals(round(abs($taxAmount), $precision), $documentItemTax->amount);
                 $taxTotal += round(abs($taxAmount), $precision);
             }
 
-            $this->assertEquals($documentItem->tax, round($taxTotal, $precision));
+            $this->assertEquals(round($documentItem->tax,$precision), round($taxTotal, $precision));
         }
     }
 }

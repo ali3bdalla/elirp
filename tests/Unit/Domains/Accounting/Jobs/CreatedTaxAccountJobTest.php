@@ -2,6 +2,8 @@
 
 namespace Tests\Unit\Domains\Accounting\Jobs;
 
+use App\Enums\AccountGroupEnum;
+use App\Enums\AccountSlugsEnum;
 use App\Events\Tax\TaxCreatedEvent;
 use App\Listeners\Tax\CreateTaxAccountListener;
 use App\Models\Account;
@@ -18,7 +20,12 @@ class CreatedTaxAccountJobTest extends TestCase
         Event::fake();
         $user = User::factory()->create();
         $tax = Tax::factory()->create([
+            'company_id' => $user->company_id
+        ]);
+        Account::factory()->create([
             'company_id' => $user->company_id,
+            'slug' => AccountSlugsEnum::DEFAULT_TAX_ACCOUNT(),
+            'type' => AccountGroupEnum::TAX(),
         ]);
         $job = new CreatedTaxAccountJob($tax);
         $taxAccount = $job->handle();

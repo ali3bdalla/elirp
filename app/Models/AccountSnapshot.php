@@ -15,4 +15,11 @@ class AccountSnapshot extends ModelFrame
     use SoftDeletes;
     use HasCompany;
     use HasUserActions;
+    
+    protected $fillable = ['account_id','company_id','debit','credit'];
+    
+    public function account()
+    {
+        return $this->belongsTo(Account::class,'account_id');
+    }
 }

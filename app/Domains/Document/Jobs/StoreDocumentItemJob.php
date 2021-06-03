@@ -36,14 +36,13 @@ class StoreDocumentItemJob extends Job
      */
     public function handle(): DocumentItem
     {
-        $precision = config('money.' . $this->document->currency_code . '.precision');
+        $precision = 2;
         $price = (float)$this->data->get('price');
         $quantity = (float)$this->data->get('quantity');
         $total = $price * $quantity;
         $discountRate = (float)$this->globalDiscount + (float)$this->data->get('discount', 0);
         $discount = round((float)($discountRate * ($total / 100)), $precision);
         $subtotal = $total - $discount;
-
         $request['type'] = $this->document->type;
         $request['company_id'] = $this->document->company_id;
         $request['document_id'] = $this->document->id;

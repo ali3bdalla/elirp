@@ -25,7 +25,6 @@ class TaxCreatedEventTest extends TestCase
             'company_id' => $user->company_id
         ]);
 
-
         Event::assertDispatched(TaxCreatedEvent::class);
     }
 

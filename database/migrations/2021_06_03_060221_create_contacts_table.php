@@ -18,7 +18,6 @@ class CreateContactsTable extends Migration
             $table->unsignedBigInteger('company_id');
             $table->string('name')->nullable();
             $table->string('email')->nullable();
-            $table->integer('user_id')->nullable();
             $table->string('tax_number')->nullable();
             $table->string('phone')->nullable();
             $table->text('address')->nullable();

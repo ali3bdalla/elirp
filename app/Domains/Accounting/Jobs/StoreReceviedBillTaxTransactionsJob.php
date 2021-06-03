@@ -35,7 +35,7 @@ class StoreReceviedBillTaxTransactionsJob extends Job
      */
     public function handle(): array
     {
-        $taxes = $this->document->item_taxes()->whereHas('tax')->groupBy('tax_id')->selectRaw('tax_id,sum(amount) as tax_mount')->pluck('tax_mount', 'tax_id')->toArray();
+        $taxes = $this->document->itemsTaxes()->whereHas('tax')->groupBy('tax_id')->selectRaw('tax_id,sum(amount) as tax_mount')->pluck('tax_mount', 'tax_id')->toArray();
         $result = [];
         foreach ($taxes as $taxId => $taxAmount) {
             $tax = Tax::find($taxId);

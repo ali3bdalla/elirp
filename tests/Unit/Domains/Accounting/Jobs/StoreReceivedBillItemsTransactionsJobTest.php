@@ -27,7 +27,7 @@ class StoreReceivedBillItemsTransactionsJobTest extends TestCase
             'document_id' => $document->id,
             'company_id' => $document->company_id,
         ]);
-        $precision = config('money.' . $document->currency_code . '.precision');
+        $precision = 2;
         $stock = Account::default(AccountSlugsEnum::DEFAULT_STOCK_ACCOUNT());
         $job = new StoreReceivedBillItemsTransactionsJob($entry, $document);
         $transactions = $job->handle();

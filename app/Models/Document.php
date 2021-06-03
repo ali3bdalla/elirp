@@ -7,6 +7,7 @@ use App\Data\HasCompany;
 use App\Data\HasUserActions;
 use App\Frame\ModelFrame;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -35,4 +36,31 @@ class Document extends ModelFrame
     use HasCompany;
     use HasUserActions;
     use CanBeEnabled;
+    protected $fillable = [
+        'company_id',
+        'type',
+        'document_number',
+        'order_number',
+        'status',
+        'issued_at',
+        'due_at',
+        'amount',
+        'currency_code',
+        'currency_rate',
+        'contact_id',
+        'contact_name',
+        'contact_email',
+        'contact_tax_number',
+        'contact_phone',
+        'contact_address',
+        'notes',
+        'category_id',
+        'parent_id',
+        'footer',
+    ];
+    public function itemsTaxes(): HasMany
+    {
+        return $this->hasMany(DocumentItemTax::class, 'document_id');
+    }
+    
 }

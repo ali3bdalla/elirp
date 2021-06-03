@@ -16,9 +16,10 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('company_id');
+            $table->boolean('is_pending')->default(false);
             $table->boolean('enabled')->default(true);
-            $table->double('amount', 15, 4);
-            $table->string('currency_code', 3)->nullable();
+            $table->double('amount', 100, 4);
+            $table->string('currency_code', 20)->nullable();
             $table->double('currency_rate', 15, 8)->nullable();
             $table->unsignedBigInteger('account_id');
             $table->unsignedBigInteger('document_id')->nullable();

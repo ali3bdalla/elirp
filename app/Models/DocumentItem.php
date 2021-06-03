@@ -18,4 +18,19 @@ class DocumentItem extends ModelFrame
     use SoftDeletes;
     use HasCompany;
     use HasUserActions;
+    protected $fillable = [
+        'company_id',
+        'type',
+        'document_id',
+        'item_id',
+        'name',
+        'description',
+        'quantity',
+        'price',
+        'total',
+        'subtotal',
+        'tax',
+        'discount_rate',
+        'discount_type',
+    ];
 }

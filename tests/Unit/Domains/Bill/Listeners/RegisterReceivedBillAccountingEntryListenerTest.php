@@ -30,7 +30,7 @@ class RegisterReceivedBillAccountingEntryListenerTest extends TestCase
         $document->update([
             'amount' => $documentItems->sum('subtotal')
         ]);
-        $precision = config('money.' . $document->currency_code . '.precision');
+        $precision = 2;
         $this->actingAs($user);
 
 

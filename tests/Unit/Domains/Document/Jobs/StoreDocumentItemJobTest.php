@@ -36,7 +36,7 @@ class StoreDocumentItemJobTest extends TestCase
         ];
         $job = new StoreDocumentItemJob($document, $item, $data, 0);
         $result = $job->handle();
-        $precision = config('money.' . $document->currency_code . '.precision');
+        $precision = 2;
 
         $this->assertInstanceOf(DocumentItem::class, $result);
         $this->assertEquals($result->total, round($data['price'] * $data['quantity'], $precision));

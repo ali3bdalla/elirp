@@ -10,6 +10,7 @@ use App\Models\Document;
 use App\Models\DocumentItem;
 use App\Models\Tax;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
 
@@ -35,7 +36,7 @@ class StoreDocumentTotalJobTest extends TestCase
             'company_id' => $user->company_id,
             'document_id' => $document->id
         ]);
-        $precision = config('money.' . $document->currency_code . '.precision');
+        $precision = 2;
         foreach ($documentItems as $documentItem) {
             $subJob = new StoreDocumentItemTaxesJob($documentItem, $taxesIds);
             $subJob->handle();
@@ -55,8 +56,10 @@ class StoreDocumentTotalJobTest extends TestCase
     public function test_store_document_total_job_invalid_additional_totals()
     {
         $this->expectException(ValidationException::class);
+        Event::fake();
         $user = User::factory()->create();
 
+        
         $document = Document::factory()->invoice()->create([
             'company_id' => $user->company_id,
             'type' => $this->faker->randomElement(DocumentTypeEnum::toValues())
@@ -65,7 +68,7 @@ class StoreDocumentTotalJobTest extends TestCase
         $taxes = Tax::factory()->count($this->faker->numberBetween(1, 3))->create([
             'company_id' => $user->company_id
         ]);
-
+        
         $taxesIds = $taxes->pluck('id')->toArray();
         $documentItems = DocumentItem::factory()->count($this->faker->numberBetween(1, 5))->create([
             'company_id' => $user->company_id,

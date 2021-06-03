@@ -4,6 +4,8 @@ namespace Database\Factories;
 
 use App\Data\CanBeEnabled;
 use App\Data\HasCompany;
+use App\Models\Company;
+use App\Models\Tax;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -50,6 +52,17 @@ class UserFactory extends Factory
             return [
                 'email_verified_at' => null,
             ];
+        });
+    }
+    
+    public function configure()
+    {
+        return $this->afterMaking(function (User $user) {
+            if (!$user->company_id) {
+                $user->company_id = Company::factory()->create()->id;
+            }
+            return $user;
+        })->afterCreating(function (User $user) {
         });
     }
     
