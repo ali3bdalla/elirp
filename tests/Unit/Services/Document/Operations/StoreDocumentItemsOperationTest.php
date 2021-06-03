@@ -22,7 +22,7 @@ class StoreDocumentItemsOperationTest extends TestCase
     {
         $user = User::factory()->create();
         $this->actingAs($user);
-        $document = Document::factory()->invoice()->create([
+        $document = Document::factory()->INVOICE()->create([
             'company_id' => $user->company_id,
             'type' => $this->faker->randomElement(DocumentTypeEnum::toValues())
         ]);

@@ -4,6 +4,7 @@ namespace Tests\Unit\Domains\Accounting\Jobs;
 
 use App\Domains\Accounting\Jobs\CreatedTaxAccountJob;
 use App\Domains\Accounting\Jobs\StoreReceivedBillVendorTransactionJob;
+use App\Enums\AccountGroupEnum;
 use App\Enums\AccountSlugsEnum;
 use App\Enums\DocumentStatusEnum;
 use App\Enums\DocumentTypeEnum;
@@ -23,11 +24,11 @@ use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use App\Domains\Accounting\Jobs\StoreReceviedBillTaxTransactionsJob;
 
-class StoreReceviedBillTaxTransactionsJobTest extends TestCase
+class StoreReceivedBillTaxTransactionsJobTest extends TestCase
 {
     use WithFaker;
 
-    public function test_store_recevied_bill_tax_transactions_job()
+    public function test_store_received_bill_tax_transactions_job()
     {
         $user = User::factory()->create();
         $this->actingAs($user);
@@ -42,7 +43,23 @@ class StoreReceviedBillTaxTransactionsJobTest extends TestCase
         $currency = Currency::factory()->enabledFactoryState()->create([
             'company_id' => $user->company_id
         ]);
-
+        
+        $payable = Account::factory()->create([
+            'slug' => AccountSlugsEnum::DEFAULT_PAYABLE_ACCOUNT(),
+            'group' => AccountGroupEnum::PAYABLE(),
+            'company_id' => $user->company_id
+        ]);
+        Account::factory()->create([
+            'company_id' => $user->company_id,
+            'slug' => AccountSlugsEnum::DEFAULT_STOCK_ACCOUNT(),
+            'type' => AccountGroupEnum::CURRENT_ASSETS(),
+        ]);
+    
+        Account::factory()->create([
+            'company_id' => $user->company_id,
+            'slug' => AccountSlugsEnum::DEFAULT_TAX_ACCOUNT(),
+            'type' => AccountGroupEnum::TAX(),
+        ]);
         $request = [
             'contact_id' => $contact->id,
             'document_number' => $this->faker->sentence,
@@ -53,7 +70,7 @@ class StoreReceviedBillTaxTransactionsJobTest extends TestCase
             'currency_code' => $currency->code,
             'currency_rate' => $currency->rate
         ];
-
+        
         $taxes = Tax::factory()->count($this->faker->numberBetween(1, 3))->create([
             'company_id' => $user->company_id
         ]);

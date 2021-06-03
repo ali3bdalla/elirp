@@ -27,9 +27,10 @@ class EntryFactory extends Factory
             'amount' => 0,
             'company_id' => null,
             'document_id' => null,
-            'reference' => $this->faker->unique(),
+            'reference' => $this->faker->uuid,
             'description' => $this->faker->sentence,
             'enabled' => true,
+            'is_pending' => false
         ];
     }
     public function configure(): EntryFactory

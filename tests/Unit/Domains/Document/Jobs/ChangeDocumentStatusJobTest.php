@@ -12,7 +12,7 @@ class ChangeDocumentStatusJobTest extends TestCase
 {
     public function test_mark_document_as_paid_job()
     {
-       $document = Document::factory()->bill()->create([
+       $document = Document::factory()->BILL()->create([
             'status' => DocumentStatusEnum::pending()
         ]);
 
@@ -27,7 +27,7 @@ class ChangeDocumentStatusJobTest extends TestCase
     }
     public function test_mark_document_as_received_job()
     {
-       $document = Document::factory()->bill()->create([
+       $document = Document::factory()->BILL()->create([
             'status' => DocumentStatusEnum::pending()
         ]);
 

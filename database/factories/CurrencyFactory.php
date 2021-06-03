@@ -30,7 +30,7 @@ class CurrencyFactory extends Factory
         return [
             'company_id' => null,
             'name' => $this->faker->currencyCode,
-            'code' => '',
+            'code' => 'usd',
             'rate' => 1,
             'precision' =>  2,
             'symbol' => "$",

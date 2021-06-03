@@ -8,9 +8,20 @@ use App\Data\HasUserActions;
 use App\Enums\AccountSlugsEnum;
 use App\Frame\ModelFrame;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
+/**
+ * @property mixed parent_id
+ * @property AccountGroupEnum|mixed group
+ * @property bool|mixed auto_generated
+ * @property mixed name
+ * @property \Illuminate\Support\HigherOrderCollectionProxy|mixed company_id
+ * @property mixed type
+ * @property mixed id
+ * @method static find($account_id)
+ */
 class Account extends ModelFrame
 {
     use HasFactory;
@@ -22,12 +33,16 @@ class Account extends ModelFrame
     
     public static function default(AccountSlugsEnum $enum)
     {
-        return (new static)->where('slug', $enum)->first();
+        return (new static)->where('slug', $enum)->firstOrFail();
     }
     public function tax()
     {
         return $this->hasOne(Tax::class,'account_id');
     }
     
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class);
+    }
     
 }

@@ -26,7 +26,7 @@ class MarkBillAsReceivedFeatureTest extends TestCase
     {
         Event::fake();
         Queue::fake();
-        $document = Document::factory()->bill()->create([
+        $document = Document::factory()->BILL()->create([
             'status' => DocumentStatusEnum::pending()
         ]);
 
@@ -45,7 +45,7 @@ class MarkBillAsReceivedFeatureTest extends TestCase
     public function test_mark_bill_as_received_feature_should_queue_listeners()
     {
         Queue::fake();
-        $document = Document::factory()->bill()->create([
+        $document = Document::factory()->BILL()->create([
             'status' => DocumentStatusEnum::pending()
         ]);
 
@@ -69,7 +69,7 @@ class MarkBillAsReceivedFeatureTest extends TestCase
     public function test_mark_bill_as_received_feature_should_queue_register_accounting_class()
     {
         Queue::fake();
-        $document = Document::factory()->bill()->create([
+        $document = Document::factory()->BILL()->create([
             'status' => DocumentStatusEnum::pending()
         ]);
 

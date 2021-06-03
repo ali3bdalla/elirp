@@ -13,6 +13,8 @@ use Illuminate\Support\HigherOrderCollectionProxy;
 
 /**
  * @property HigherOrderCollectionProxy|mixed company_id
+ * @property mixed is_pending
+ * @property mixed id
  */
 class Entry extends ModelFrame
 {

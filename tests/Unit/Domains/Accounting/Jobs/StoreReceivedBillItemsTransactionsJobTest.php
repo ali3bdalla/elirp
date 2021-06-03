@@ -3,6 +3,7 @@
 namespace Tests\Unit\Domains\Accounting\Jobs;
 
 use App\Domains\Accounting\Jobs\StoreReceivedBillItemsTransactionsJob;
+use App\Enums\AccountGroupEnum;
 use App\Enums\AccountSlugsEnum;
 use App\Models\Account;
 use App\Models\Entry;
@@ -18,7 +19,7 @@ class StoreReceivedBillItemsTransactionsJobTest extends TestCase
     use WithFaker;
     public function test_store_received_bill_items_transactions_job()
     {
-        $document = Document::factory()->bill()->create();
+        $document = Document::factory()->BILL()->create();
         $documentItems = DocumentItem::factory()->count($this->faker->numberBetween(1, 5))->create([
             'document_id' => $document->id,
             'type' => $document->type
@@ -27,7 +28,11 @@ class StoreReceivedBillItemsTransactionsJobTest extends TestCase
             'document_id' => $document->id,
             'company_id' => $document->company_id,
         ]);
-        $precision = 2;
+        Account::factory()->create([
+            'company_id' => $document->company_id,
+            'slug' => AccountSlugsEnum::DEFAULT_STOCK_ACCOUNT(),
+            'type' => AccountGroupEnum::TAX(),
+        ]);
         $stock = Account::default(AccountSlugsEnum::DEFAULT_STOCK_ACCOUNT());
         $job = new StoreReceivedBillItemsTransactionsJob($entry, $document);
         $transactions = $job->handle();
@@ -35,7 +40,7 @@ class StoreReceivedBillItemsTransactionsJobTest extends TestCase
         foreach ($transactions as $transaction) {
             $this->assertInstanceOf(Transaction::class, $transaction);
             $item = $documentItems->where('id', $transaction->item_id)->first();
-            $this->assertEquals(round($transaction->amount, $precision), round($item->subtotal, $precision));
+            $this->assertEquals(round($transaction->amount), round($item->subtotal));
             $this->assertEquals($transaction->account_id, $stock->id);
         }
     }

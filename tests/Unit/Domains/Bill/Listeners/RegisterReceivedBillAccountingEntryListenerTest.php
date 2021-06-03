@@ -3,9 +3,12 @@
 
 namespace Tests\Unit\Domains\Bill\Listeners;
 
+use App\Enums\AccountGroupEnum;
 use App\Enums\AccountingTypeEnum;
+use App\Enums\AccountSlugsEnum;
 use App\Events\Bill\BillHasBeenMarkedAsReceivedEvent;
 use App\Listeners\Bill\RegisterReceivedBillAccountingEntryListener;
+use App\Models\Account;
 use App\Models\Entry;
 use App\Models\User;
 use App\Models\Document;
@@ -20,7 +23,12 @@ class RegisterReceivedBillAccountingEntryListenerTest extends TestCase
     public function test_register_received_bill_accounting_entry_listener()
     {
         $user = User::factory()->create();
-        $document = Document::factory()->bill()->create([
+        $document = Document::factory()->BILL()->create([
+            'company_id' => $user->company_id
+        ]);
+        $payable = Account::factory()->create([
+            'slug' => AccountSlugsEnum::DEFAULT_PAYABLE_ACCOUNT(),
+            'group' => AccountGroupEnum::PAYABLE(),
             'company_id' => $user->company_id
         ]);
         $documentItems = DocumentItem::factory()->count($this->faker->numberBetween(1, 5))->create([

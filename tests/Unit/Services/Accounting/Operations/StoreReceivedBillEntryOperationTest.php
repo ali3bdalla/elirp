@@ -19,7 +19,7 @@ class StoreReceivedBillEntryOperationTest extends TestCase
     public function test_store_received_bill_entry_operation()
     {
         $user = User::factory()->create();
-        $document = Document::factory()->bill()->create([
+        $document = Document::factory()->BILL()->create([
             'company_id' => $user->company_id
         ]);
         $documentItems = DocumentItem::factory()->count($this->faker->numberBetween(1, 5))->create([

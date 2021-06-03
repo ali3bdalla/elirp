@@ -21,7 +21,7 @@ class StoreDocumentItemOperationTest extends TestCase
     public function test_store_document_item_operation()
     {
         $user = User::factory()->create();
-        $document = Document::factory()->invoice()->create([
+        $document = Document::factory()->INVOICE()->create([
             'company_id' => $user->company_id,
             'type' => $this->faker->randomElement(DocumentTypeEnum::toValues())
         ]);

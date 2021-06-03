@@ -14,7 +14,7 @@ class GenerateDocumentPaymentUsingDefaultCashJobTest extends TestCase
     use WithFaker;
     public function test_generate_document_payment_using_default_cash_job()
     {
-        $document = Document::factory()->bill()->create([
+        $document = Document::factory()->BILL()->create([
             'status' => DocumentStatusEnum::received()
         ]);
         $documentItems = DocumentItem::factory()->count($this->faker->numberBetween(1, 5))->create([

@@ -13,7 +13,7 @@ class ValidateReceiableBillJobTest extends TestCase
     public function test_validate_receiable_bill_job_invalid_document_type()
     {
         $this->expectException(ValidationException::class);
-        $document = Document::factory()->invoice()->create([
+        $document = Document::factory()->INVOICE()->create([
            'status' => DocumentStatusEnum::pending()
        ]);
 
@@ -24,7 +24,7 @@ class ValidateReceiableBillJobTest extends TestCase
     public function test_validate_receiable_bill_job_invalid_document_status()
     {
         $this->expectException(ValidationException::class);
-        $document = Document::factory()->bill()->create([
+        $document = Document::factory()->BILL()->create([
             'status' => DocumentStatusEnum::received()
         ]);
 
@@ -35,7 +35,7 @@ class ValidateReceiableBillJobTest extends TestCase
 
     public function test_validate_receiable_bill_job()
     {
-        $document = Document::factory()->bill()->create([
+        $document = Document::factory()->BILL()->create([
             'status' => DocumentStatusEnum::pending()
         ]);
 

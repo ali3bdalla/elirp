@@ -19,7 +19,7 @@ class CreateDocumentRecurringJobTest extends TestCase
     public function test_create_document_recurring_job()
     {
         $user = User::factory()->create();
-        $document = Document::factory()->bill()->create([
+        $document = Document::factory()->BILL()->create([
             'company_id' => $user->company_id,
             'type' => $this->faker->randomElement(DocumentTypeEnum::toValues())
         ]);

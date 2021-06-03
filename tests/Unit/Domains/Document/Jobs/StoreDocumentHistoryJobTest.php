@@ -11,7 +11,7 @@ class StoreDocumentHistoryJobTest extends TestCase
 {
     public function test_store_document_history_job()
     {
-        $document = Document::factory()->bill()->create();
+        $document = Document::factory()->BILL()->create();
         $job = new StoreDocumentHistoryJob($document, 0, trans('messages.success.added', ['type' => $document->document_number]));
         $result = $job->handle();
 

@@ -14,7 +14,7 @@ class UploadDocumentAttachmentJobTest extends TestCase
     public function test_upload_document_attachment_job()
     {
         $user = User::factory()->create();
-        $document = Document::factory()->invoice()->create([
+        $document = Document::factory()->INVOICE()->create([
            'company_id' => $user->company_id
         ]);
 
@@ -29,7 +29,7 @@ class UploadDocumentAttachmentJobTest extends TestCase
     {
         $this->expectException(ValidationException::class);
         $user = User::factory()->create();
-        $document = Document::factory()->invoice()->create([
+        $document = Document::factory()->INVOICE()->create([
             'company_id' => $user->company_id
         ]);
 
@@ -43,7 +43,7 @@ class UploadDocumentAttachmentJobTest extends TestCase
     {
         $this->expectException(ValidationException::class);
         $user = User::factory()->create();
-        $document = Document::factory()->invoice()->create([
+        $document = Document::factory()->INVOICE()->create([
             'company_id' => $user->company_id
         ]);
 

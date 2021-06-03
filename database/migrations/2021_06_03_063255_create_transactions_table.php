@@ -27,6 +27,7 @@ class CreateTransactionsTable extends Migration
             $table->unsignedBigInteger('entry_id');
             $table->unsignedBigInteger('item_id')->nullable();
             $table->text('description')->nullable();
+            $table->string('type')->nullable();
             $table->string('reference')->default(uniqid());
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->foreign('company_id')->references('id')->on('companies');
