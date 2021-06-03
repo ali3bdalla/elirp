@@ -15,7 +15,7 @@ class CreateCompaniesTable extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
-            $table->string('domain');
+            $table->string('domain')->nullable();
             $table->boolean('enabled')->default(true);
             $table->string('locale')->default('en');
             $table->timestamps();

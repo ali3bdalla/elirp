@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Data\CanBeEnabled;
 use App\Data\HasUserActions;
 use App\Frame\ModelFrame;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,4 +12,5 @@ class Company extends ModelFrame
     use HasFactory;
     use HasUserActions;
     use SoftDeletes;
+    use CanBeEnabled;
 }

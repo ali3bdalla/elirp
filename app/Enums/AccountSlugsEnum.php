@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-use App\Models\Accounting\Account;
+use App\Models\Account;
 use Spatie\Enum\Laravel\Enum;
 
 /**

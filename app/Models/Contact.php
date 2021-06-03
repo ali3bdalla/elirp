@@ -9,6 +9,9 @@ use App\Frame\ModelFrame;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property mixed company_id
+ */
 class Contact extends ModelFrame
 {
     use HasFactory;

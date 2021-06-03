@@ -9,6 +9,9 @@ use App\Frame\ModelFrame;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property \Illuminate\Support\HigherOrderCollectionProxy|mixed company_id
+ */
 class Tax extends ModelFrame
 {
     use HasFactory;

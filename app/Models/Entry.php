@@ -8,7 +8,11 @@ use App\Data\HasUserActions;
 use App\Frame\ModelFrame;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\HigherOrderCollectionProxy;
 
+/**
+ * @property HigherOrderCollectionProxy|mixed company_id
+ */
 class Entry extends ModelFrame
 {
     use HasFactory;

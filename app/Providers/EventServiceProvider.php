@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\Bill\BillHasBeenMarkedAsReceivedEvent;
+use App\Events\Tax\TaxCreatedEvent;
+use App\Listeners\Bill\RegisterReceivedBillAccountingEntryListener;
+use App\Listeners\Tax\CreateTaxAccountListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -18,6 +22,12 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        BillHasBeenMarkedAsReceivedEvent::class => [
+            RegisterReceivedBillAccountingEntryListener::class
+        ],
+        TaxCreatedEvent::class => [
+            CreateTaxAccountListener::class
+        ]
     ];
 
     /**

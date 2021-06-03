@@ -18,7 +18,7 @@ class CreateCurrenciesTable extends Migration
             $table->unsignedBigInteger('company_id');
             $table->string('name');
             $table->string('code');
-            $table->double('rate', 15, 8);
+            $table->double('rate', 15, 8)->nullable();
             $table->string('precision')->nullable();
             $table->string('symbol')->nullable();
             $table->integer('symbol_first')->default(1);
@@ -26,7 +26,7 @@ class CreateCurrenciesTable extends Migration
             $table->string('thousands_separator')->nullable();
             $table->boolean('enabled')->default(true);
             $table->foreign('company_id')->references('id')->on('companies');
-            $table->unique(['company_id', 'code', 'deleted_at']);
+//            $table->unique(['company_id', 'code', 'deleted_at']);
             $table->timestamps();
             $table->softDeletes();
         });
