@@ -43,7 +43,8 @@ class StoreDocumentItemsOperation extends Operation
         ]);
 
         $items = [];
-        foreach ($this->request->input('items') as $item) {
+        $data = (array)$this->request->input('items',[]);
+        foreach ($data as $item) {
             $itemCollection = collect($item);
             $itemEntity = $this->run(GetItemInstanceForDocumentOperation::class, [
                 'documentType' => $this->document->type,

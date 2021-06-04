@@ -36,11 +36,11 @@ class UploadDocumentAttachmentJob extends Job
            'attachment.*' => 'required|file'
         ]);
 
-        if ($this->request->file('attachment')) {
-            foreach ($this->request->file('attachment') as $attachment) {
-                $media = $this->getMedia($attachment, Str::plural($this->document->type));
-                $this->document->attachMedia($media, 'attachment');
-            }
-        }
+//        if ($this->request->file('attachment')) {
+//            foreach ($this->request->file('attachment') as $attachment) {
+//                $media = $this->getMedia($attachment, Str::plural($this->document->type));
+//                $this->document->attachMedia($media, 'attachment');
+//            }
+//        }
     }
 }

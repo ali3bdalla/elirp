@@ -20,13 +20,13 @@ use Lucid\Units\Feature;
 
 class CreateCompanyFeature extends Feature
 {
-    private CreateCompanyRequest $request;
-
-    public function __construct(CreateCompanyRequest $request)
+    private $request;
+    
+    public function __construct($request)
     {
-        $this->request = $request;
+        $this->request = parse_request_instance($request);
     }
-
+    
     /**
      * @return Company
      */
@@ -34,7 +34,6 @@ class CreateCompanyFeature extends Feature
     {
         $request = $this->request;
         return DB::transaction(function () use ($request) {
-            event(new CompanyCreating($this->request));
             $company = $this->run(StoreCompanyJob::class, [
                 'companyName' => $request->input('company_name'),
                 'companyEmail' => $request->input('company_email'),
@@ -48,25 +47,12 @@ class CreateCompanyFeature extends Feature
             $this->run(SeedCompanyCurrenciesJob::class, [
                 'company' => $company
             ]);
-            $this->run(SeedCompanyEmailTemplatesJob::class, [
-                'company' => $company
-            ]);
-            $this->run(SeedCompanyReportsJob::class, [
-                'company' => $company
-            ]);
-            $this->run(SeedCompanySettingOperation::class, [
-                'company' => $company
-            ]);
-
+            
             $this->run(CreateSupervisorUserOperation::class, [
                 'company' => $company,
                 'email' => $request->input('supervisor_email'),
                 'password' => $request->input('supervisor_password'),
             ]);
-            $this->run(SeedCategoriesJob::class, [
-                'company' => $company
-            ]);
-            event(new CompanyCreated($company));
             return $company;
         });
     }

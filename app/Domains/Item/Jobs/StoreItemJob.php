@@ -39,13 +39,13 @@ class StoreItemJob extends Job
         $data['is_service'] = $this->request->input('is_service', false);
         $data['has_detail'] = $this->request->input('has_detail', false);
 
-        $item =  Auth::user()->company->items()->create($data);
+        return  Auth::user()->company->items()->create($data);
 
-        if ($this->request->file('picture')) {
-            $media = $this->getMedia($this->request->file('picture'), 'items');
-            $item->attachMedia($media, 'picture');
-        }
+//        if ($this->request->file('picture')) {
+//            $media = $this->getMedia($this->request->file('picture'), 'items');
+//            $item->attachMedia($media, 'picture');
+//        }
 
-        return $item;
+//        return $item;
     }
 }
