@@ -33,9 +33,9 @@ class CreateNewUserJob extends Job
     /**
      * Execute the job.
      *
-     * @return void
+     * @return User
      */
-    public function handle()
+    public function handle() : User
     {
         return User::create([
             'name' => $this->name,

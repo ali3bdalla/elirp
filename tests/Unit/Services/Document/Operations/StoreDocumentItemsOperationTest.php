@@ -56,7 +56,6 @@ class StoreDocumentItemsOperationTest extends TestCase
         $this->assertSame(count($documentItems), count($request['items']));
         foreach ($documentItems as $documentItem) {
             $data = collect($request['items'])->where('item_id', $documentItem->item_id)->first();
-            $precision = 1;
             $this->assertInstanceOf(DocumentItem::class, $documentItem);
             $this->assertEquals(round($documentItem->total), round($data['price'] * $data['quantity']));
             $this->assertEquals($documentItem->discount_rate, (double)$data['discount']);
@@ -74,7 +73,7 @@ class StoreDocumentItemsOperationTest extends TestCase
                 $this->assertEquals(round($taxAmount), round($documentItemTax->amount));
                 $taxTotal += round($taxAmount);
             }
-            $this->assertEquals(round($documentItem->tax), round($taxTotal));
+            $this->assertLessThan(2,abs(round($documentItem->tax) - round($taxTotal)));
         }
     }
 }

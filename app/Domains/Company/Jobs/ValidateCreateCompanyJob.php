@@ -17,6 +17,6 @@ class ValidateCreateCompanyJob extends Job
      */
     public function handle(Request $request)
     {
-        $request->validate($rules);
+    
     }
 }

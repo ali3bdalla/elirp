@@ -11,7 +11,6 @@ use Lucid\Units\Job;
 class StoreDocumentTotalJob extends Job
 {
     private Document $document;
-    private $items;
     private FormRequest $request;
 
     /**
@@ -29,7 +28,7 @@ class StoreDocumentTotalJob extends Job
     /**
      * Execute the job.
      *
-     * @return array<DocumentTotal>
+     * @return array
      */
     public function handle(): array
     {

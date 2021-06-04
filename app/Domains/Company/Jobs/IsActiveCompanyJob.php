@@ -9,11 +9,7 @@ class IsActiveCompanyJob extends Job
 {
     private Company $company;
 
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
+
     public function __construct(Company $company)
     {
         //
@@ -23,14 +19,10 @@ class IsActiveCompanyJob extends Job
     /**
      * Execute the job.
      *
-     * @return void
+     * @return boolean
      */
-    public function handle()
+    public function handle(): bool
     {
-        if (Company::getCurrent()) {
-            return Company::getCurrent()->id === $this->company->id;
-        }
-
-        return true;
+        return $this->company->id > 0;
     }
 }

@@ -27,11 +27,11 @@ class UploadCompanyLogoJob extends Job
     /**
      * Execute the job.
      *
-     * @return void
+     * @return null
      */
     public function handle(Request $request)
     {
-        $company_logo = null;
+        return null;
 //        if ($request->file('logo')) {
 //            $company_logo = $this->getMedia($request->file('logo'), 'settings', $this->company->id);
 //
@@ -40,6 +40,6 @@ class UploadCompanyLogoJob extends Job
 //            }
 //        }
 
-        return $company_logo;
+//        return $company_logo;
     }
 }
