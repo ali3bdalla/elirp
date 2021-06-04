@@ -2,8 +2,8 @@
 name: Testing Laravel with PostgreSQL
 on: [push, pull_request]
 jobs:
-  laravel:
-    name: Laravel (PHP ${{ matrix.php-versions }})
+  postgres-db-check:
+    name:  (PHP ${{ matrix.php-versions }})
     runs-on: ubuntu-latest
     env:
       BROADCAST_DRIVER: log
@@ -34,7 +34,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-versions: [  '7.4']
+        php-versions: [  '7.4' , '8.0' ]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -58,8 +58,6 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --no-progress --prefer-dist --optimize-autoloader
       - name: Prepare the application
-        #          php -r "file_exists('.env') || copy('.env.example', '.env');"
-
         run: |
           cp .env.phpunit .env
           php artisan key:generate
@@ -70,21 +68,6 @@ jobs:
         env:
           DB_PORT: ${{ job.services.postgres.ports[5432] }}
           REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
-      - name: Unit Testing (Domains)
-        run: vendor/bin/phpunit ./tests/Unit/Domains --coverage-text
-        env:
-          DB_PORT: ${{ job.services.postgres.ports[5432] }}
-          REDIS_PORT: ${{ job.services.redis.ports['6379'] }}
-          BROADCAST_DRIVER: log
-          CACHE_DRIVER: redis
-          QUEUE_CONNECTION: redis
-          SESSION_DRIVER: redis
-          DB_CONNECTION: pgsql
-          DB_HOST: localhost
-          APP_ENV: testing
-          DB_PASSWORD: postgres
-          DB_USERNAME: postgres
-          DB_DATABASE: postgres
 
       - name: Run Unit Tests
         run: vendor/bin/phpunit  --coverage-text
