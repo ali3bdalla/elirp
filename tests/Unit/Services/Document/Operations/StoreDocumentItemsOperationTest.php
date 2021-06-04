@@ -58,7 +58,7 @@ class StoreDocumentItemsOperationTest extends TestCase
             $data = collect($request['items'])->where('item_id', $documentItem->item_id)->first();
             $precision = 1;
             $this->assertInstanceOf(DocumentItem::class, $documentItem);
-            $this->assertEquals(round($documentItem->total, $precision), round($data['price'] * $data['quantity'], $precision));
+            $this->assertEquals(round($documentItem->total), round($data['price'] * $data['quantity']));
             $this->assertEquals($documentItem->discount_rate, (double)$data['discount']);
             $this->assertEquals($documentItem->type, $document->type);
             $taxTotal = 0;
@@ -71,10 +71,10 @@ class StoreDocumentItemsOperationTest extends TestCase
                 $taxAmount = $tax->rate * (double)$documentItem->quantity;
                 
                 
-                $this->assertEquals(round($taxAmount, $precision), round($documentItemTax->amount,$precision));
-                $taxTotal += round($taxAmount, $precision);
+                $this->assertEquals(round($taxAmount), round($documentItemTax->amount));
+                $taxTotal += round($taxAmount);
             }
-            $this->assertEquals(round($documentItem->tax, $precision), round($taxTotal, $precision));
+            $this->assertEquals(round($documentItem->tax), round($taxTotal));
         }
     }
 }

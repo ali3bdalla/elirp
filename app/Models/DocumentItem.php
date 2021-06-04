@@ -21,6 +21,7 @@ use Illuminate\Support\HigherOrderCollectionProxy;
  * @property mixed id
  * @property mixed quantity
  * @property mixed tax
+ * @property mixed item_id
  */
 class DocumentItem extends ModelFrame
 {
