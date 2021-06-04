@@ -12,19 +12,19 @@ class CreateBaseEntryJob extends Job
      * @var null
      */
     private $documentId;
-    private string $description;
+    private $description;
     /**
      * @var false
      */
-    private bool $isPending;
-    private int $amount;
+    private $isPending;
+    private $amount;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($documentId = null, $description = "", $isPending = false, int $amount = 0)
+    public function __construct($documentId = null, $description = "", $isPending = false, $amount = 0)
     {
         //
         $this->documentId = $documentId;
@@ -38,11 +38,11 @@ class CreateBaseEntryJob extends Job
      *
      * @return void
      */
-    public function handle()
+    public function handle() : Entry
     {
-        $user = Auth::user();
+       
         return Entry::create([
-            'company_id' => $user->company_id,
+            'company_id' => company_id(),
             'document_id' => $this->documentId,
             'description' => $this->description,
             'is_pending' => $this->isPending,

@@ -17,7 +17,6 @@ class CreateBaseEntryJobTest extends TestCase
         $this->actingAs($user);
         $job = new CreateBaseEntryJob();
         $result = $job->handle();
-        ;
         $this->assertInstanceOf(Entry::class, $result);
     }
 }
