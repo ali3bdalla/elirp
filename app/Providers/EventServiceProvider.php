@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Events\Bill\BillHasBeenMarkedAsReceivedEvent;
+use App\Events\Document\BillDocumentCreatedEvent;
+use App\Events\Document\InvoiceDocumentCreatedEvent;
 use App\Events\Tax\TaxCreatedEvent;
 use App\Listeners\Bill\RegisterReceivedBillAccountingEntryListener;
 use App\Listeners\Tax\CreateTaxAccountListener;
@@ -21,6 +23,12 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+        InvoiceDocumentCreatedEvent::class => [
+        
+        ],
+        BillDocumentCreatedEvent::class => [
+            
         ],
         BillHasBeenMarkedAsReceivedEvent::class => [
             RegisterReceivedBillAccountingEntryListener::class

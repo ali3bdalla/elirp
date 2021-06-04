@@ -2,6 +2,7 @@
 
 namespace App\Services\Purchase\Features;
 
+use App\Domains\Document\Jobs\CreateDocumentHistoryJob;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Enums\DocumentTypeEnum;
 use App\Services\Document\Operations\StoreDocumentOperation;
@@ -23,9 +24,8 @@ class StoreBillFeature extends Feature
             'request' => $this->request,
             'documentTypeEnum' => DocumentTypeEnum::BILL()
         ]);
-        $response['redirect'] = route('bills.show', [$document->id]);
-        $message = trans('messages.success.added', ['type' => trans_choice('general.bills', 1)]);
-        flash($message)->success();
-        return response()->json($response);
+    
+       
+        return $document;
     }
 }

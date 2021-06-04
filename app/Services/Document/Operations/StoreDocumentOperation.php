@@ -9,8 +9,6 @@ use App\Domains\Document\Jobs\StoreDocumentTotalJob;
 use App\Domains\Document\Jobs\UploadDocumentAttachmentJob;
 use App\Enums\DocumentTypeEnum;
 use App\Events\Document\BillDocumentCreatedEvent;
-use App\Events\Document\DocumentCreated;
-use App\Events\Document\DocumentCreating;
 use App\Events\Document\InvoiceDocumentCreatedEvent;
 use App\Models\Document;
 use Illuminate\Foundation\Http\FormRequest;
@@ -21,18 +19,18 @@ class StoreDocumentOperation extends Operation
 {
     private FormRequest $request;
     private DocumentTypeEnum $documentTypeEnum;
-
+    
     /**
      * Create a new operation instance.
      *
      * @return void
      */
-    public function __construct($request,  $documentTypeEnum)
+    public function __construct($request, $documentTypeEnum)
     {
         $this->request = parse_request_instance($request);
         $this->documentTypeEnum = $documentTypeEnum;
     }
-
+    
     /**
      * Execute the operation.
      *
@@ -41,7 +39,6 @@ class StoreDocumentOperation extends Operation
     public function handle(): Document
     {
         return DB::transaction(function () {
-//            event(new DocumentCreating($this->request));
             $document = $this->run(StoreDocumentJob::class, [
                 'request' => $this->request,
                 'documentTypeEnum' => $this->documentTypeEnum
@@ -58,29 +55,25 @@ class StoreDocumentOperation extends Operation
             $this->run(StoreDocumentTotalJob::class, [
                 'document' => $document,
             ]);
-
+            
             $this->run(CreateDocumentRecurringJob::class, [
                 'document' => $document,
                 'request' => $this->request
             ]);
-
-
-
+            
+            
             $this->run(StoreDocumentHistoryJob::class, [
                 'document' => $document,
                 'notify' => 0,
                 'description' => trans('messages.success.added', ['type' => $document->document_number])
             ]);
-
-
-//            event(new DocumentCreated($document, $this->request));
             if ($document->type == DocumentTypeEnum::INVOICE()) {
                 event(new InvoiceDocumentCreatedEvent($document));
             } else {
                 event(new BillDocumentCreatedEvent($document));
             }
-
-
+            
+            
             return $document;
         });
     }
