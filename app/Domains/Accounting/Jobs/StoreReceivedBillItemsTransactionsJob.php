@@ -48,7 +48,7 @@ class StoreReceivedBillItemsTransactionsJob extends Job
             $data['currency_rate'] = $this->document->currency_rate;
             $data['currency_code'] = $this->document->currency_code;
             $data['type'] = AccountingTypeEnum::DEBIT();
-            $data['item_id'] = $item->id;
+            $data['item_id'] = $item->item_id;
             $result[] = $stock->transactions()->create($data);
         }
         

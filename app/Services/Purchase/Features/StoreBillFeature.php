@@ -21,7 +21,7 @@ class StoreBillFeature extends Feature
     {
         $document = $this->run(StoreDocumentOperation::class, [
             'request' => $this->request,
-            'documentTypeEnum' => DocumentTypeEnum::bill()
+            'documentTypeEnum' => DocumentTypeEnum::BILL()
         ]);
         $response['redirect'] = route('bills.show', [$document->id]);
         $message = trans('messages.success.added', ['type' => trans_choice('general.bills', 1)]);

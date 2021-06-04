@@ -12,6 +12,7 @@ use App\Models\DocumentItemTax;
 use App\Models\Tax;
 use App\Services\Document\Operations\StoreDocumentItemsOperation;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 
 class StoreDocumentItemsOperationTest extends TestCase
@@ -20,6 +21,7 @@ class StoreDocumentItemsOperationTest extends TestCase
     
     public function test_store_document_items_operation()
     {
+        Event::fake();
         $user = User::factory()->create();
         $this->actingAs($user);
         $document = Document::factory()->INVOICE()->create([
@@ -54,35 +56,25 @@ class StoreDocumentItemsOperationTest extends TestCase
         $this->assertSame(count($documentItems), count($request['items']));
         foreach ($documentItems as $documentItem) {
             $data = collect($request['items'])->where('item_id', $documentItem->item_id)->first();
-            $precision = 2;
+            $precision = 1;
             $this->assertInstanceOf(DocumentItem::class, $documentItem);
-            $this->assertEquals($documentItem->total, round($data['price'] * $data['quantity'], $precision));
+            $this->assertEquals(round($documentItem->total, $precision), round($data['price'] * $data['quantity'], $precision));
             $this->assertEquals($documentItem->discount_rate, (double)$data['discount']);
             $this->assertEquals($documentItem->type, $document->type);
-            $totalInclusiveRate = Tax::whereIn('id', $taxesIds)->where('type', TaxTypeEnum::inclusive())->sum('rate');
-            $baseRate = $documentItem->total / (1 + $totalInclusiveRate / 100);
             $taxTotal = 0;
-            foreach ($documentItem->taxes()->get() as $documentItemTax) {
+            foreach ($documentItem->taxes()->with('tax')->get() as $documentItemTax) {
                 $this->assertInstanceOf(DocumentItemTax::class, $documentItemTax);
                 $this->assertTrue(in_array($documentItemTax->tax_id, $taxesIds));
                 $tax = $documentItemTax->tax;
                 $this->assertInstanceOf(Tax::class, $tax);
-                if ($tax->type == TaxTypeEnum::inclusive()) {
-                    $taxAmount = $baseRate * ($tax->rate / 100);
-                } elseif ($tax->type == TaxTypeEnum::compound()) {
-                    $taxAmount = (($documentItem->subtotal + $taxTotal) / 100) * $tax->rate;
-                } elseif ($tax->type == TaxTypeEnum::fixed()) {
-                    $taxAmount = $tax->rate * (double)$documentItem->quantity;
-                } elseif ($tax->type == TaxTypeEnum::withholding()) {
-                    $taxAmount = 0 - $documentItem->subtotal * ($tax->rate / 100);
-                } else {
-                    $taxAmount = $documentItem->subtotal * ($tax->rate / 100);
-                }
                 
-                $this->assertEquals(round($taxAmount, $precision), $documentItemTax->amount);
+                $taxAmount = $tax->rate * (double)$documentItem->quantity;
+                
+                
+                $this->assertEquals(round($taxAmount, $precision), round($documentItemTax->amount,$precision));
                 $taxTotal += round($taxAmount, $precision);
             }
-            $this->assertEquals(round($documentItem->tax, $precision), $taxTotal);
+            $this->assertEquals(round($documentItem->tax, $precision), round($taxTotal, $precision));
         }
     }
 }

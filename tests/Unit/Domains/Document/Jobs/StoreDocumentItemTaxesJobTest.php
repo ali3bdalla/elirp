@@ -3,8 +3,11 @@
 namespace Tests\Unit\Domains\Document\Jobs;
 
 use App\Domains\Document\Jobs\StoreDocumentItemTaxesJob;
+use App\Enums\AccountGroupEnum;
+use App\Enums\AccountSlugsEnum;
 use App\Enums\DocumentTypeEnum;
 use App\Enums\TaxTypeEnum;
+use App\Models\Account;
 use App\Models\User;
 use App\Models\Document;
 use App\Models\DocumentItem;
@@ -25,7 +28,11 @@ class StoreDocumentItemTaxesJobTest extends TestCase
             'company_id' => $user->company_id,
             'type' => $this->faker->randomElement(DocumentTypeEnum::toValues())
         ]);
-
+        Account::factory()->create([
+            'slug' => AccountSlugsEnum::DEFAULT_TAX_ACCOUNT(),
+            'group' => AccountGroupEnum::TAX(),
+            'company_id' => $user->company_id
+        ]);
         $taxes = Tax::factory()->fixed()->count($this->faker->numberBetween(1, 3))->create([
             'company_id' => $user->company_id
         ]);

@@ -27,7 +27,7 @@ class StoreDocumentOperation extends Operation
      *
      * @return void
      */
-    public function __construct($request, DocumentTypeEnum $documentTypeEnum)
+    public function __construct($request,  $documentTypeEnum)
     {
         $this->request = parse_request_instance($request);
         $this->documentTypeEnum = $documentTypeEnum;
@@ -41,7 +41,7 @@ class StoreDocumentOperation extends Operation
     public function handle(): Document
     {
         return DB::transaction(function () {
-            event(new DocumentCreating($this->request));
+//            event(new DocumentCreating($this->request));
             $document = $this->run(StoreDocumentJob::class, [
                 'request' => $this->request,
                 'documentTypeEnum' => $this->documentTypeEnum
@@ -73,8 +73,8 @@ class StoreDocumentOperation extends Operation
             ]);
 
 
-            event(new DocumentCreated($document, $this->request));
-            if ($document->type->equals(DocumentTypeEnum::invoice())) {
+//            event(new DocumentCreated($document, $this->request));
+            if ($document->type == DocumentTypeEnum::INVOICE()) {
                 event(new InvoiceDocumentCreatedEvent($document));
             } else {
                 event(new BillDocumentCreatedEvent($document));

@@ -18,7 +18,7 @@ class GetItemInstanceForDocumentOperation extends Operation
      *
      * @return void
      */
-    public function __construct($documentType, $request)
+    public function __construct( $documentType, $request)
     {
         $this->collection = collect($request);
         $this->documentType = $documentType;
@@ -31,8 +31,8 @@ class GetItemInstanceForDocumentOperation extends Operation
      */
     public function handle(): Item
     {
-        $salePrice = DocumentTypeEnum::invoice()->equals($this->documentType) ? $this->collection->get('price') : null;
-        $purchasePrice = DocumentTypeEnum::bill()->equals($this->documentType) ? $this->collection->get('price') : 0;
+        $salePrice = DocumentTypeEnum::INVOICE() === $this->documentType ? $this->collection->get('price') : null;
+        $purchasePrice = DocumentTypeEnum::BILL() === $this->documentType ? $this->collection->get('price') : 0;
 
 
         if ($this->collection->get('item_id')) {

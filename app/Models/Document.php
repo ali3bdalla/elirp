@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property mixed status
  * @property mixed currency_code
  * @property mixed currency_rate
+ * @property mixed histories()
  * @property integer id
  */
 class Document extends ModelFrame
@@ -68,5 +69,8 @@ class Document extends ModelFrame
         return $this->hasMany(DocumentItem::class, 'document_id');
     }
     
-    
+    public function histories(): HasMany
+    {
+        return $this->hasMany(DocumentHistory::class);
+    }
 }

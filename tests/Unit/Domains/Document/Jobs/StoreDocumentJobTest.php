@@ -36,7 +36,7 @@ class StoreDocumentJobTest extends TestCase
             'due_at' => $this->faker->dateTime(),
             'currency_code' => $currency->code,
             'currency_rate' => $currency->rate
-        ], DocumentTypeEnum::bill());
+        ], DocumentTypeEnum::BILL());
         $document = $job->handle();
         $this->assertInstanceOf(Document::class, $document);
     }
@@ -61,7 +61,7 @@ class StoreDocumentJobTest extends TestCase
             'due_at' => $this->faker->dateTime(),
             'currency_code' => $currency->code,
             'currency_rate' => $currency->rate
-        ], DocumentTypeEnum::invoice());
+        ], DocumentTypeEnum::INVOICE());
         $document = $job->handle();
         $this->assertInstanceOf(Document::class, $document);
     }
@@ -82,7 +82,7 @@ class StoreDocumentJobTest extends TestCase
             'due_at' => $this->faker->dateTime(),
             'currency_code' => $currency->code,
             'currency_rate' => $currency->rate
-        ], DocumentTypeEnum::bill());
+        ], DocumentTypeEnum::BILL());
         $document = $job->handle();
     }
 }

@@ -9,7 +9,9 @@ use App\Enums\AccountSlugsEnum;
 use App\Frame\ModelFrame;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\HigherOrderCollectionProxy;
 
 
 /**
@@ -17,7 +19,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property AccountGroupEnum|mixed group
  * @property bool|mixed auto_generated
  * @property mixed name
- * @property \Illuminate\Support\HigherOrderCollectionProxy|mixed company_id
+ * @property HigherOrderCollectionProxy|mixed company_id
  * @property mixed type
  * @property mixed id
  * @method static find($account_id)
@@ -29,15 +31,17 @@ class Account extends ModelFrame
     use HasCompany;
     use HasUserActions;
     use CanBeEnabled;
+    
     protected $fillable = ['company_id', 'name', 'number', 'enabled', 'attribute_1', 'attribute_2', 'attribute_3', 'group', 'type', 'auto_generated', 'slug', 'parent_id'];
     
     public static function default(AccountSlugsEnum $enum)
     {
-        return (new static)->where('slug', $enum)->firstOrFail();
+        return (new static)->where('slug', $enum)->first();
     }
-    public function tax()
+    
+    public function tax(): HasOne
     {
-        return $this->hasOne(Tax::class,'account_id');
+        return $this->hasOne(Tax::class, 'account_id');
     }
     
     public function transactions(): HasMany

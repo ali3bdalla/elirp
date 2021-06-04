@@ -14,9 +14,9 @@ use Illuminate\Queue\SerializesModels;
 class InvoiceDocumentCreatedEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
+    
     public Document $document;
-
+    
     /**
      * Create a new event instance.
      *
@@ -27,11 +27,11 @@ class InvoiceDocumentCreatedEvent
         //
         $this->document = $document;
     }
-
+    
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return \Illuminate\Broadcasting\Channel|array
+     * @return Channel|array
      */
     public function broadcastOn()
     {

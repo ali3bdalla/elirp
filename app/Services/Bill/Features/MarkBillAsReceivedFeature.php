@@ -34,10 +34,10 @@ class MarkBillAsReceivedFeature extends Feature
         ]);
 
         $type_text = '';
-        if ($alias = config('type.' . DocumentTypeEnum::bill()->__toString() . '.alias', '')) {
+        if ($alias = config('type.' . DocumentTypeEnum::BILL()->__toString() . '.alias', '')) {
             $type_text .= $alias . '::';
         }
-        $type_text .= 'general.' . config('type.' . DocumentTypeEnum::bill()->__toString() . '.translation.prefix');
+        $type_text .= 'general.' . config('type.' . DocumentTypeEnum::BILL()->__toString() . '.translation.prefix');
         $type = trans_choice($type_text, 1);
         $this->run(StoreDocumentHistoryJob::class, [
             'document' => $this->document->fresh(),

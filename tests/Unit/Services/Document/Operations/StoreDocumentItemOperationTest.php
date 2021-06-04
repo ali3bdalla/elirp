@@ -12,6 +12,7 @@ use App\Models\DocumentItemTax;
 use App\Models\Tax;
 use App\Services\Document\Operations\StoreDocumentItemOperation;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 
 class StoreDocumentItemOperationTest extends TestCase
@@ -20,6 +21,7 @@ class StoreDocumentItemOperationTest extends TestCase
 
     public function test_store_document_item_operation()
     {
+        Event::fake();
         $user = User::factory()->create();
         $document = Document::factory()->INVOICE()->create([
             'company_id' => $user->company_id,

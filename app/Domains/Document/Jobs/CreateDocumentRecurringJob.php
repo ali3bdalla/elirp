@@ -40,7 +40,7 @@ class CreateDocumentRecurringJob extends Job
                 'recurring_custom_frequency' => 'required|string|in:monthly,weekly',
                 'recurring_count' => 'required|integer',
             ]);
-            return $this->document->createRecurring($this->request);
+//            return $this->document->createRecurring($this->request);
         }
 
         return null;

@@ -18,8 +18,9 @@ class CreateDocumentTotalsTable extends Migration
             $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('document_id');
             $table->string('code')->nullable();
+            $table->string('type')->nullable();
             $table->string('name')->nullable();
-            $table->double('amount', 15, 4);
+            $table->double('amount', 100, 4);
             $table->integer('sort_order');
             $table->foreign('company_id')->references('id')->on('companies');
             $table->foreign('document_id')->references('id')->on('documents');

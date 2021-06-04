@@ -33,7 +33,7 @@ class DocumentItemFactory extends Factory
         $discountRate = $this->faker->randomFloat(2, 1, 100);
         $quantity = $this->faker->numberBetween(10);
         $total = $price * $quantity;
-        $discount = $total - ($total * ($discountRate / 100));
+        $subtotal = $total - ($total * ($discountRate / 100));
         return [
             'document_id' => null,
             'company_id' => null,
@@ -45,7 +45,7 @@ class DocumentItemFactory extends Factory
             'quantity' => $quantity,
             'price' => $price,
             'discount_rate' => $discountRate,
-            'subtotal' => $discount,
+            'subtotal' => $subtotal,
             'total' => $total,
             'tax' => 0,
         

@@ -25,7 +25,7 @@ class GetItemInstanceForDocumentOperationTest extends TestCase
             'price' => $this->faker->randomFloat(2, 10, 20),
         ];
 
-        $job = new GetItemInstanceForDocumentOperation(DocumentTypeEnum::invoice(), $request);
+        $job = new GetItemInstanceForDocumentOperation(DocumentTypeEnum::INVOICE(), $request);
         $item = $job->handle();
         $this->assertInstanceOf(Item::class, $item);
         $this->assertEquals($request['name'], $item->name);
@@ -44,7 +44,7 @@ class GetItemInstanceForDocumentOperationTest extends TestCase
             'price' => $this->faker->randomFloat(2, 10, 20),
         ];
 
-        $job = new GetItemInstanceForDocumentOperation(DocumentTypeEnum::bill(), $request);
+        $job = new GetItemInstanceForDocumentOperation(DocumentTypeEnum::BILL(), $request);
         $item = $job->handle();
         $this->assertInstanceOf(Item::class, $item);
         $this->assertEquals($request['name'], $item->name);
@@ -66,7 +66,7 @@ class GetItemInstanceForDocumentOperationTest extends TestCase
             'price' => $this->faker->randomFloat(2, 10, 20),
         ];
 
-        $job = new GetItemInstanceForDocumentOperation(DocumentTypeEnum::invoice(), $request);
+        $job = new GetItemInstanceForDocumentOperation(DocumentTypeEnum::INVOICE(), $request);
         $item = $job->handle();
         $this->assertInstanceOf(Item::class, $item);
         $this->assertTrue($existItem->is($item));
@@ -91,7 +91,7 @@ class GetItemInstanceForDocumentOperationTest extends TestCase
             'price' => $this->faker->randomFloat(2, 10, 20),
         ];
 
-        $job = new GetItemInstanceForDocumentOperation(DocumentTypeEnum::bill(), $request);
+        $job = new GetItemInstanceForDocumentOperation(DocumentTypeEnum::BILL(), $request);
         $item = $job->handle();
         $this->assertInstanceOf(Item::class, $item);
         $this->assertTrue($existItem->is($item));

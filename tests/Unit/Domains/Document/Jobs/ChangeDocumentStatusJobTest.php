@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Domains\Document\Jobs;
 
+use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Domains\Document\Jobs\ChangeDocumentStatusJob;
 use App\Enums\DocumentStatusEnum;
@@ -10,6 +11,7 @@ use App\Models\DocumentItem;
 
 class ChangeDocumentStatusJobTest extends TestCase
 {
+    use WithFaker;
     public function test_mark_document_as_paid_job()
     {
        $document = Document::factory()->BILL()->create([

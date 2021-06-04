@@ -4,6 +4,7 @@ namespace App\Listeners\Bill;
 
 use App\Events\Bill\BillHasBeenMarkedAsReceivedEvent;
 use App\Models\Document;
+use App\Models\Entry;
 use App\Services\Accounting\Operations\StoreReceivedBillEntryOperation;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Lucid\Bus\UnitDispatcher;
@@ -17,7 +18,7 @@ class RegisterReceivedBillAccountingEntryListener implements ShouldQueue
      * @param BillHasBeenMarkedAsReceivedEvent $event
      * @return void
      */
-    public function handle(BillHasBeenMarkedAsReceivedEvent $event): Document
+    public function handle(BillHasBeenMarkedAsReceivedEvent $event): Entry
     {
         return $this->run(StoreReceivedBillEntryOperation::class, [
             'document' => $event->document

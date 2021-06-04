@@ -87,7 +87,7 @@ class StoreReceivedBillTaxTransactionsJobTest extends TestCase
             ];
         }
         Event::fakeFor(function () use ($request) {
-            $mainJob = new StoreDocumentOperation($request, DocumentTypeEnum::bill());
+            $mainJob = new StoreDocumentOperation($request, DocumentTypeEnum::BILL());
             $document = $mainJob->handle();
             $document->update([
                 'status' => DocumentStatusEnum::received()

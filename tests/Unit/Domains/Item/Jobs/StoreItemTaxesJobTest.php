@@ -2,6 +2,9 @@
 
 namespace Tests\Unit\Domains\Item\Jobs;
 
+use App\Enums\AccountGroupEnum;
+use App\Enums\AccountSlugsEnum;
+use App\Models\Account;
 use App\Models\User;
 use App\Models\Item;
 use App\Models\ItemTax;
@@ -18,6 +21,11 @@ class StoreItemTaxesJobTest extends TestCase
     {
         $user = User::factory()->create();
         $item = Item::factory()->create([
+            'company_id' => $user->company_id
+        ]);
+        Account::factory()->create([
+            'slug' => AccountSlugsEnum::DEFAULT_TAX_ACCOUNT(),
+            'group' => AccountGroupEnum::TAX(),
             'company_id' => $user->company_id
         ]);
         $taxes = Tax::factory()->count($this->faker->numberBetween(1, 5))->create([

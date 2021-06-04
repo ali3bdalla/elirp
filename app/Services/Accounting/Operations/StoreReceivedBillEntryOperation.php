@@ -37,7 +37,7 @@ class StoreReceivedBillEntryOperation extends Operation
         return DB::transaction(function () {
             $entry = $this->run(CreateBaseEntryJob::class, [
                 'documentId' => $this->document->id,
-                'description' => 'Bill Recevied',
+                'description' => 'private-key::bill_received',
                 'isPending' => false
             ]);
 

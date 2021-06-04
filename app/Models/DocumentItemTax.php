@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property mixed tax_id
+ * @property mixed tax
  */
 class DocumentItemTax extends ModelFrame
 {

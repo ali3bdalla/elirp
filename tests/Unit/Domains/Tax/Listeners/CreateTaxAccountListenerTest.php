@@ -2,6 +2,8 @@
 
 namespace Tests\Unit\Domains\Tax\Listeners;
 
+use App\Enums\AccountGroupEnum;
+use App\Enums\AccountSlugsEnum;
 use App\Events\Tax\TaxCreatedEvent;
 use App\Listeners\Tax\CreateTaxAccountListener;
 use App\Models\Account;
@@ -16,6 +18,11 @@ class CreateTaxAccountListenerTest extends TestCase
     {
         Event::fake();
         $user = User::factory()->create();
+        Account::factory()->create([
+            'slug' => AccountSlugsEnum::DEFAULT_TAX_ACCOUNT(),
+            'group' => AccountGroupEnum::TAX(),
+            'company_id' => $user->company_id
+        ]);
         $tax = Tax::factory()->create([
             'company_id' => $user->company_id,
         ]);

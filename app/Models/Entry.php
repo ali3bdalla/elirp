@@ -12,9 +12,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\HigherOrderCollectionProxy;
 
 /**
- * @property HigherOrderCollectionProxy|mixed company_id
- * @property mixed is_pending
- * @property mixed id
+ * @property HigherOrderCollectionProxy|integer company_id
+ * @property boolean is_pending
+ * @property integer id
+ * @property float amount
  */
 class Entry extends ModelFrame
 {

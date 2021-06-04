@@ -57,7 +57,7 @@ class DocumentFactory extends Factory
             ]);
             $statuses = ['draft', 'sent', 'viewed', 'partial', 'paid', 'cancelled'];
             return [
-                'type' => DocumentTypeEnum::invoice(),
+                'type' => DocumentTypeEnum::INVOICE(),
                 'document_number' => 'next',
                 'contact_id' => $contact->id,
                 'contact_name' => $contact->name,
@@ -82,7 +82,7 @@ class DocumentFactory extends Factory
             $statuses = ['draft', 'received', 'partial', 'paid', 'cancelled'];
             
             return [
-                'type' => DocumentTypeEnum::bill(),
+                'type' => DocumentTypeEnum::BILL(),
                 'document_number' =>  $this->faker->randomNumber(),
                 'contact_id' => $contact->id,
                 'contact_name' => $contact->name,

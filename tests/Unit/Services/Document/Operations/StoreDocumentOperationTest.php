@@ -64,11 +64,10 @@ class StoreDocumentOperationTest extends TestCase
             ];
         }
 
-        $job = new StoreDocumentOperation($request, DocumentTypeEnum::bill());
+        $job = new StoreDocumentOperation($request, DocumentTypeEnum::BILL());
         $document = $job->handle();
 
         $this->assertInstanceOf(Document::class, $document);
-        Event::assertDispatched(DocumentCreated::class);
         Event::assertDispatched(BillDocumentCreatedEvent::class);
         $this->assertSame($document->histories()->count(), 1);
     }
@@ -116,11 +115,10 @@ class StoreDocumentOperationTest extends TestCase
             ];
         }
 
-        $job = new StoreDocumentOperation($request, DocumentTypeEnum::invoice());
+        $job = new StoreDocumentOperation($request, DocumentTypeEnum::INVOICE());
         $document = $job->handle();
 
         $this->assertInstanceOf(Document::class, $document);
-        Event::assertDispatched(DocumentCreated::class);
         Event::assertDispatched(InvoiceDocumentCreatedEvent::class);
         $this->assertSame($document->histories()->count(), 1);
     }
