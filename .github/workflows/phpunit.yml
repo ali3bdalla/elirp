@@ -1,0 +1,41 @@
+on: push
+name: PHPUNIT Test
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+    container:
+      image: kirschbaumdevelopment/laravel-test-runner:7.3.0
+      options: --shm-size=2048M --cpus 2
+    services:
+      postgres:
+        image: postgres:5.7
+        env:
+          POSTGRES_PASSWORD: phpunit
+          POSTGRES_DB: phpunit
+          POSTGRES_USER: phpunit
+        ports:
+          - 5432
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - uses: actions/cache@v1
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      - name: Install composer dependencies
+        run: |
+          composer install --no-scripts --ignore-platform-reqs
+      - name: Copy .env
+        run: |
+          cp .env.phpunit .env
+          php artisan key:generate
+      - name: Run Testsuite
+        run: vendor/bin/phpunit
