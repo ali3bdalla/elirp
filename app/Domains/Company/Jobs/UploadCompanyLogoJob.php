@@ -9,7 +9,7 @@ use Lucid\Units\Job;
 
 class UploadCompanyLogoJob extends Job
 {
-    use Uploads;
+//    use Uploads;
 
     private Company $company;
 
@@ -32,13 +32,13 @@ class UploadCompanyLogoJob extends Job
     public function handle(Request $request)
     {
         $company_logo = null;
-        if ($request->file('logo')) {
-            $company_logo = $this->getMedia($request->file('logo'), 'settings', $this->company->id);
-
-            if ($company_logo) {
-                $this->company->attachMedia($company_logo, 'company_logo');
-            }
-        }
+//        if ($request->file('logo')) {
+//            $company_logo = $this->getMedia($request->file('logo'), 'settings', $this->company->id);
+//
+//            if ($company_logo) {
+//                $this->company->attachMedia($company_logo, 'company_logo');
+//            }
+//        }
 
         return $company_logo;
     }
