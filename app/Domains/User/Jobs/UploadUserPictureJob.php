@@ -8,7 +8,7 @@ use Lucid\Units\Job;
 
 class UploadUserPictureJob extends Job
 {
-    use Uploads;
+//    use Uploads;
 
     private User $user;
     private $pickerFile;
@@ -31,7 +31,7 @@ class UploadUserPictureJob extends Job
      */
     public function handle()
     {
-        $media = $this->getMedia($this->pickerFile, 'users');
-        $this->user->attachMedia($media, 'picture');
+//        $media = $this->getMedia($this->pickerFile, 'users');
+//        $this->user->attachMedia($media, 'picture');
     }
 }
