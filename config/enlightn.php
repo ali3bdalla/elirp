@@ -15,7 +15,13 @@ return [
     'analyzers' => ['*'],
 
     // If you wish to skip running some analyzers, list the classes in the array below.
-    'exclude_analyzers' => [],
+    'exclude_analyzers' => [
+        Enlightn\Enlightn\Analyzers\Security\FillableForeignKeyAnalyzer::class,
+        Enlightn\Enlightn\Analyzers\Security\PHPIniAnalyzer::class,
+        Enlightn\Enlightn\Analyzers\Reliability\CustomErrorPageAnalyzer::class,
+        Enlightn\Enlightn\Analyzers\Security\XSSAnalyzer::class,
+        Enlightn\Enlightn\Analyzers\Reliability\CacheStatusAnalyzer::class,
+    ],
 
     // If you wish to skip running some analyzers in CI mode, list the classes below.
     'ci_mode_exclude_analyzers' => [],

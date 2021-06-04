@@ -59,7 +59,7 @@ jobs:
         run: composer install --no-progress --prefer-dist --optimize-autoloader
       - name: Prepare the application
         run: |
-          cp .env.phpunit .env
+          cp .env.ci .env
           php artisan key:generate
       - name: Clear Config
         run: php artisan config:clear
