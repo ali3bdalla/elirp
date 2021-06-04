@@ -8,7 +8,7 @@ jobs:
       options: --shm-size=2048M --cpus 2
     services:
       postgres:
-        image: postgres:5.7
+        image: postgres:12
         env:
           POSTGRES_PASSWORD: phpunit
           POSTGRES_DB: phpunit
