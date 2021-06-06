@@ -16,8 +16,8 @@ class DocumentTotal extends ModelFrame
     use HasCompany;
     use HasUserActions;
     protected $fillable = ['company_id', 'type', 'document_id', 'code', 'name', 'amount', 'sort_order'];
-    
-    public function document(): BelongsTo
+
+    public function document() : BelongsTo
     {
         return $this->belongsTo(Document::class);
     }

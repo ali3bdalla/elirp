@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\HigherOrderCollectionProxy;
 
-
 /**
  * @property mixed parent_id
  * @property AccountGroupEnum|mixed group
@@ -31,22 +30,21 @@ class Account extends ModelFrame
     use HasCompany;
     use HasUserActions;
     use CanBeEnabled;
-    
+
     protected $fillable = ['company_id', 'name', 'number', 'enabled', 'attribute_1', 'attribute_2', 'attribute_3', 'group', 'type', 'auto_generated', 'slug', 'parent_id'];
-    
+
     public static function default(AccountSlugsEnum $enum)
     {
         return (new static)->where('slug', $enum)->first();
     }
-    
-    public function tax(): HasOne
+
+    public function tax() : HasOne
     {
         return $this->hasOne(Tax::class, 'account_id');
     }
-    
-    public function transactions(): HasMany
+
+    public function transactions() : HasMany
     {
         return $this->hasMany(Transaction::class);
     }
-    
 }

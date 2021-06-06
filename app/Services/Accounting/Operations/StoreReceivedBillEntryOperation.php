@@ -7,8 +7,8 @@ use App\Domains\Accounting\Jobs\StoreReceivedBillItemsTransactionsJob;
 use App\Domains\Accounting\Jobs\StoreReceivedBillVendorTransactionJob;
 use App\Domains\Accounting\Jobs\StoreReceviedBillTaxTransactionsJob;
 use App\Enums\AccountingTypeEnum;
-use App\Models\Entry;
 use App\Models\Document;
+use App\Models\Entry;
 use Illuminate\Support\Facades\DB;
 use Lucid\Units\Operation;
 
@@ -32,26 +32,26 @@ class StoreReceivedBillEntryOperation extends Operation
      *
      * @return Entry
      */
-    public function handle(): ?Entry
+    public function handle() : ?Entry
     {
         return DB::transaction(function () {
             $entry = $this->run(CreateBaseEntryJob::class, [
-                'documentId' => $this->document->id,
+                'documentId'  => $this->document->id,
                 'description' => 'private-key::bill_received',
-                'isPending' => false
+                'isPending'   => false
             ]);
 
             $this->run(StoreReceivedBillItemsTransactionsJob::class, [
-                'entry' => $entry,
+                'entry'    => $entry,
                 'document' => $this->document
             ]);
 
             $this->run(StoreReceivedBillVendorTransactionJob::class, [
-                'entry' => $entry,
+                'entry'    => $entry,
                 'document' => $this->document
             ]);
             $this->run(StoreReceviedBillTaxTransactionsJob::class, [
-                'entry' => $entry,
+                'entry'    => $entry,
                 'document' => $this->document
             ]);
 

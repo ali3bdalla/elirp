@@ -28,12 +28,12 @@ class ValidateDocumentItemsJob extends Job
     public function handle()
     {
         $this->request->validate([
-            'items' => 'required|array',
-            'items.*.item_id' => 'nullable',
-            'items.*.name' => 'required|string',
-            'items.*.quantity' => 'required|numeric',
-            'items.*.price' => 'required|amount',
-            'items.*.tax_ids' => 'nullable|array',
+            'items'             => 'required|array',
+            'items.*.item_id'   => 'nullable',
+            'items.*.name'      => 'required|string',
+            'items.*.quantity'  => 'required|numeric',
+            'items.*.price'     => 'required|amount',
+            'items.*.tax_ids'   => 'nullable|array',
             'items.*.tax_ids.*' => 'required|integer|exists:taxes,id',
         ]);
 

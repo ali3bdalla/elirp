@@ -19,7 +19,7 @@ class StoreDocumentOperation extends Operation
 {
     private FormRequest $request;
     private DocumentTypeEnum $documentTypeEnum;
-    
+
     /**
      * Create a new operation instance.
      *
@@ -27,44 +27,43 @@ class StoreDocumentOperation extends Operation
      */
     public function __construct($request, $documentTypeEnum)
     {
-        $this->request = parse_request_instance($request);
+        $this->request          = parse_request_instance($request);
         $this->documentTypeEnum = $documentTypeEnum;
     }
-    
+
     /**
      * Execute the operation.
      *
      * @return Document
      */
-    public function handle(): Document
+    public function handle() : Document
     {
         return DB::transaction(function () {
             $document = $this->run(StoreDocumentJob::class, [
-                'request' => $this->request,
+                'request'          => $this->request,
                 'documentTypeEnum' => $this->documentTypeEnum
             ]);
             $this->run(UploadDocumentAttachmentJob::class, [
                 'document' => $document,
-                'request' => $this->request
+                'request'  => $this->request
             ]);
             $items = $this->run(StoreDocumentItemsOperation::class, [
-                'request' => $this->request,
+                'request'  => $this->request,
                 'discount' => $this->request->input('discount', 0),
                 'document' => $document
             ]);
             $this->run(StoreDocumentTotalJob::class, [
                 'document' => $document,
             ]);
-            
+
             $this->run(CreateDocumentRecurringJob::class, [
                 'document' => $document,
-                'request' => $this->request
+                'request'  => $this->request
             ]);
-            
-            
+
             $this->run(StoreDocumentHistoryJob::class, [
-                'document' => $document,
-                'notify' => 0,
+                'document'    => $document,
+                'notify'      => 0,
                 'description' => trans('messages.success.added', ['type' => $document->document_number])
             ]);
             if ($document->type == DocumentTypeEnum::INVOICE()) {
@@ -72,8 +71,7 @@ class StoreDocumentOperation extends Operation
             } else {
                 event(new BillDocumentCreatedEvent($document));
             }
-            
-            
+
             return $document;
         });
     }

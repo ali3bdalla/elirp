@@ -18,7 +18,7 @@ class AttachPermissionsToUserJob extends Job
     public function __construct(User $user, $permissions)
     {
         //
-        $this->user = $user;
+        $this->user        = $user;
         $this->permissions = $permissions;
     }
 

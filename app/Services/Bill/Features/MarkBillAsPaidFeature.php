@@ -10,15 +10,18 @@ use Lucid\Units\Feature;
 class MarkBillAsPaidFeature extends Feature
 {
     private Document $bill;
-    public function __construct(Document $bill) {
+
+    public function __construct(Document $bill)
+    {
         $this->bill = $bill;
     }
-    public function handle(Request $request)
-     {
-            $payment = $this->run(GenerateDocumentPaymentUsingDefaultCashJob::class,[
-                'document' => $this->bill
-            ]);
 
-            dd($payment);
+    public function handle(Request $request)
+    {
+        $payment = $this->run(GenerateDocumentPaymentUsingDefaultCashJob::class, [
+            'document' => $this->bill
+        ]);
+
+        dd($payment);
     }
 }

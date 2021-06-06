@@ -26,54 +26,53 @@ class ContactFactory extends Factory
     public function definition()
     {
         return [
-            'company_id' => null,
-            'name' => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail,
-            'tax_number' => $this->faker->randomNumber(9),
-            'phone' => $this->faker->phoneNumber,
-            'address' => $this->faker->address,
-            'website' => $this->faker->freeEmailDomain,
+            'company_id'    => null,
+            'name'          => $this->faker->name,
+            'email'         => $this->faker->unique()->safeEmail,
+            'tax_number'    => $this->faker->randomNumber(9),
+            'phone'         => $this->faker->phoneNumber,
+            'address'       => $this->faker->address,
+            'website'       => $this->faker->freeEmailDomain,
             'currency_code' => $this->faker->currencyCode,
-            'reference' => $this->faker->text(5),
-            'enabled' => $this->faker->boolean ? 1 : 0,
-            'is_vendor' => $this->faker->boolean,
-            'is_customer' => $this->faker->boolean,
+            'reference'     => $this->faker->text(5),
+            'enabled'       => $this->faker->boolean ? 1 : 0,
+            'is_vendor'     => $this->faker->boolean,
+            'is_customer'   => $this->faker->boolean,
         ];
     }
-    
+
     /**
      * Indicate that the model type is customer.
      *
      * @return Factory
      */
-    public function customer(): Factory
+    public function customer() : Factory
     {
         return $this->state([
             'is_customer' => true,
         ]);
     }
-    
+
     /**
      * Indicate that the model type is vendor.
      *
      * @return Factory
      */
-    public function vendor(): Factory
+    public function vendor() : Factory
     {
         return $this->state([
             'is_vendor' => true,
         ]);
     }
-    
-    public function configure(): ContactFactory
+
+    public function configure() : ContactFactory
     {
         return $this->afterMaking(function (Contact $contact) {
-            if (!$contact->company_id) {
+            if (! $contact->company_id) {
                 $contact->company_id = Company::factory()->create()->id;
             }
             return $contact;
         })->afterCreating(function (Contact $contact) {
         });
     }
-    
 }

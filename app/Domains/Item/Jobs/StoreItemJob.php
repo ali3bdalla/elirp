@@ -2,8 +2,8 @@
 
 namespace App\Domains\Item\Jobs;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Item;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Lucid\Units\Job;
 
@@ -26,18 +26,18 @@ class StoreItemJob extends Job
      *
      * @return Item
      */
-    public function handle(): Item
+    public function handle() : Item
     {
         $data = $this->request->only(
             'name',
             'sale_price',
             'purchase_price',
-            "sku",
-            "description"
+            'sku',
+            'description'
         );
         $data['fixed_price'] = $this->request->input('fixed_price', false);
-        $data['is_service'] = $this->request->input('is_service', false);
-        $data['has_detail'] = $this->request->input('has_detail', false);
+        $data['is_service']  = $this->request->input('is_service', false);
+        $data['has_detail']  = $this->request->input('has_detail', false);
 
         return  Auth::user()->company->items()->create($data);
 

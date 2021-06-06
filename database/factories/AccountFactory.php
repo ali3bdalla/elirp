@@ -27,15 +27,15 @@ class AccountFactory extends Factory
     public function definition()
     {
         return [
-            'company_id' => null,
-            'name' => $this->faker->text(15),
-            'number' => (string)$this->faker->iban(),
-            'type' => $this->faker->randomElement(AccountingTypeEnum::toValues()),
-            'group' => $this->faker->randomElement(AccountGroupEnum::toValues()),
+            'company_id'  => null,
+            'name'        => $this->faker->text(15),
+            'number'      => (string)$this->faker->iban(),
+            'type'        => $this->faker->randomElement(AccountingTypeEnum::toValues()),
+            'group'       => $this->faker->randomElement(AccountGroupEnum::toValues()),
             'attribute_1' => $this->faker->text(15),
             'attribute_2' => $this->faker->phoneNumber,
             'attribute_3' => $this->faker->address,
-            'enabled' => $this->faker->boolean ? 1 : 0,
+            'enabled'     => $this->faker->boolean ? 1 : 0,
         ];
     }
 }

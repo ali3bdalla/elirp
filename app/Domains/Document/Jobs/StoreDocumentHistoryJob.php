@@ -23,8 +23,8 @@ class StoreDocumentHistoryJob extends Job
      */
     public function __construct(Document $document, $notify = 0, $description = null)
     {
-        $this->document = $document;
-        $this->notify = $notify;
+        $this->document    = $document;
+        $this->notify      = $notify;
         $this->description = $description;
     }
 
@@ -33,16 +33,16 @@ class StoreDocumentHistoryJob extends Job
      *
      * @return DocumentHistory
      */
-    public function handle(): DocumentHistory
+    public function handle() : DocumentHistory
     {
         $description = $this->description ?: trans_choice('general.payments', 1);
 
         return  DocumentHistory::create([
-            'company_id' => $this->document->company_id,
-            'type' => $this->document->type,
+            'company_id'  => $this->document->company_id,
+            'type'        => $this->document->type,
             'document_id' => $this->document->id,
-            'status' => $this->document->status,
-            'notify' => $this->notify,
+            'status'      => $this->document->status,
+            'notify'      => $this->notify,
             'description' => $description,
         ]);
     }

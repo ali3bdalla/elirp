@@ -28,21 +28,20 @@ class CreatedTaxAccountJob extends Job
      *
      * @return Account
      */
-    public function handle(): Account
+    public function handle() : Account
     {
-        $parentAccount = Account::default(AccountSlugsEnum::DEFAULT_TAX_ACCOUNT());
-        $account = new Account();
-        $account->company_id = $this->tax->company_id;
-        $account->name = $this->tax->name;
+        $parentAccount           = Account::default(AccountSlugsEnum::DEFAULT_TAX_ACCOUNT());
+        $account                 = new Account();
+        $account->company_id     = $this->tax->company_id;
+        $account->name           = $this->tax->name;
         $account->auto_generated = true;
-        $account->group = AccountGroupEnum::TAX();
-        $account->parent_id = $parentAccount->id;
-        $account->type = $parentAccount->type;
+        $account->group          = AccountGroupEnum::TAX();
+        $account->parent_id      = $parentAccount->id;
+        $account->type           = $parentAccount->type;
         $account->save();
         $this->tax->update([
             'account_id' => $account->id
         ]);
-
 
         return $account;
     }

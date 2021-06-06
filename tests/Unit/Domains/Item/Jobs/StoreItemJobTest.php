@@ -2,13 +2,12 @@
 
 namespace Tests\Unit\Domains\Item\Jobs;
 
-use App\Models\User;
+use App\Domains\Item\Jobs\StoreItemJob;
 use App\Models\Item;
-use App\Services\Item\Operations\StoreItemOperation;
+use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
-use App\Domains\Item\Jobs\StoreItemJob;
 
 class StoreItemJobTest extends TestCase
 {
@@ -19,18 +18,18 @@ class StoreItemJobTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
         $data = [
-            "name" => $this->faker->sentence,
-            'sku' => $this->faker->bankAccountNumber,
-            'description' => $this->faker->sentence,
-            'sale_price' => $this->faker->randomFloat(2, 10, 20),
+            'name'           => $this->faker->sentence,
+            'sku'            => $this->faker->bankAccountNumber,
+            'description'    => $this->faker->sentence,
+            'sale_price'     => $this->faker->randomFloat(2, 10, 20),
             'purchase_price' => $this->faker->randomFloat(2, 10, 20),
-            'fixed_price' => $this->faker->boolean,
-            'is_service' => $this->faker->boolean,
-            'has_detail' => $this->faker->boolean,
-            'picture' => UploadedFile::fake()->image('avatar.png')
+            'fixed_price'    => $this->faker->boolean,
+            'is_service'     => $this->faker->boolean,
+            'has_detail'     => $this->faker->boolean,
+            'picture'        => UploadedFile::fake()->image('avatar.png')
         ];
 
-        $job = new StoreItemJob($data);
+        $job  = new StoreItemJob($data);
         $item = $job->handle();
         $this->assertInstanceOf(Item::class, $item);
         $this->assertEquals($data['name'], $item->name);

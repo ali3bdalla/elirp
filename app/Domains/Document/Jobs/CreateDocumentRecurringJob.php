@@ -2,9 +2,9 @@
 
 namespace App\Domains\Document\Jobs;
 
-use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Recurring;
 use App\Models\Document;
+use App\Models\Recurring;
+use Illuminate\Foundation\Http\FormRequest;
 use Lucid\Units\Job;
 
 class CreateDocumentRecurringJob extends Job
@@ -21,7 +21,7 @@ class CreateDocumentRecurringJob extends Job
     {
         //
         $this->document = $document;
-        $this->request = parse_request_instance($request);
+        $this->request  = parse_request_instance($request);
     }
 
     /**
@@ -29,16 +29,16 @@ class CreateDocumentRecurringJob extends Job
      *
      * @return Recurring
      */
-    public function handle(): ?Recurring
+    public function handle() : ?Recurring
     {
         $this->request->validate([
             'recurring_frequency' => 'nullable|string|in:no,yes',
         ]);
         if ($this->request->input('recurring_frequency', 'no') == 'yes') {
             $this->request->validate([
-                'recurring_interval' => 'required|integer',
+                'recurring_interval'         => 'required|integer',
                 'recurring_custom_frequency' => 'required|string|in:monthly,weekly',
-                'recurring_count' => 'required|integer',
+                'recurring_count'            => 'required|integer',
             ]);
 //            return $this->document->createRecurring($this->request);
         }

@@ -3,12 +3,10 @@
 namespace Tests\Feature;
 
 use App\Domains\Company\Jobs\SeedCategoriesJob;
-use App\Models\User;
 use App\Models\Company;
-use App\Services\Company\Operations\SeedCompanySettingOperation;
+use App\Models\User;
 use Carbon\Carbon;
 use Faker\Factory as Faker;
-use Illuminate\Http\Request;
 use Tests\TestCase;
 
 abstract class FeatureTestCase extends TestCase
@@ -28,30 +26,30 @@ abstract class FeatureTestCase extends TestCase
      */
     public function loginAs(User $user = null, Company $company = null)
     {
-        if (!$company) {
+        if (! $company) {
             $company = Company::factory()->create();
         }
-        if (!$user) {
+        if (! $user) {
             $user = User::factory()->enabledFactoryState()->create([
                 'company_id' => $company->id
             ]);
         }
         setting()->setExtraColumns(['company_id' => $company->id]);
         setting()->set([
-            'company.name' => $this->faker->company,
-            'company.email' => $this->faker->companyEmail,
+            'company.name'       => $this->faker->company,
+            'company.email'      => $this->faker->companyEmail,
             'company.tax_number' => $this->faker->bankAccountNumber,
-            'company.phone' => $this->faker->phoneNumber,
-            'company.address' => $this->faker->address,
-            'default.currency' => 'SAR',
-            'default.locale' => 'ar-SA',
-            'wizard.completed' => '1',
+            'company.phone'      => $this->faker->phoneNumber,
+            'company.address'    => $this->faker->address,
+            'default.currency'   => 'SAR',
+            'default.locale'     => 'ar-SA',
+            'wizard.completed'   => '1',
         ]);
 
         $job = new SeedCategoriesJob($company);
         $job->handle();
         $this->company = $company;
-        $this->user = $user;
+        $this->user    = $user;
         setting()->save();
 
         return $this->actingAs($user);
@@ -68,7 +66,7 @@ abstract class FeatureTestCase extends TestCase
         $this->assertEquals($excepted, $flash['level']);
     }
 
-    protected function setUp(): void
+    protected function setUp() : void
     {
         parent::setUp();
 

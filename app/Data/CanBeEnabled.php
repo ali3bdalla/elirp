@@ -1,11 +1,6 @@
 <?php
 
-
 namespace App\Data;
-
-
-use App\Models\Company;
-
 
 trait CanBeEnabled
 {
@@ -17,6 +12,7 @@ trait CanBeEnabled
             ];
         });
     }
+
     public function disabledFactoryState()
     {
         return $this->state(function (array $attributes) {

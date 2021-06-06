@@ -22,7 +22,7 @@ class StoreDocumentItemTaxesJob extends Job
     {
         //
         $this->documentItem = $documentItem;
-        $this->taxIds = $taxIds;
+        $this->taxIds       = $taxIds;
     }
 
     /**
@@ -30,31 +30,30 @@ class StoreDocumentItemTaxesJob extends Job
      *
      * @return array<DocumentItemTax>
      */
-    public function handle(): array
+    public function handle() : array
     {
         $documentItemTaxes = [];
         if ($this->taxIds) {
-            $precision = 2;
+            $precision          = 2;
             $totalInclusiveRate = Tax::whereIn('id', $this->taxIds)->where('type', TaxTypeEnum::inclusive())->sum('rate');
-            $baseRate = $this->documentItem->total / (1 + $totalInclusiveRate / 100);
-            $taxTotal = 0;
+            $baseRate           = $this->documentItem->total / (1 + $totalInclusiveRate / 100);
+            $taxTotal           = 0;
 
             foreach ((array)$this->taxIds as $key => $taxId) {
                 $tax = Tax::findOrFail($taxId);
-  
+
                 $taxAmount = $tax->rate * (double)$this->documentItem->quantity;
-               
+
                 $documentItemTaxes[] = DocumentItemTax::create([
-                    'company_id' => $this->documentItem->company_id,
+                    'company_id'       => $this->documentItem->company_id,
                     'document_item_id' => $this->documentItem->id,
-                    'document_id' => $this->documentItem->document_id,
-                    'tax_id' => $taxId,
-                    'name' => $tax->name,
-                    'amount' => round($taxAmount, $precision),
+                    'document_id'      => $this->documentItem->document_id,
+                    'tax_id'           => $taxId,
+                    'name'             => $tax->name,
+                    'amount'           => round($taxAmount, $precision),
                 ]);
                 $taxTotal += round($taxAmount, $precision);
             }
-
 
             $this->documentItem->update([
                 'tax' => $taxTotal

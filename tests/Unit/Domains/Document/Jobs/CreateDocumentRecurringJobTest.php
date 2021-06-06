@@ -2,20 +2,18 @@
 
 namespace Tests\Unit\Domains\Document\Jobs;
 
-use App\Domains\Document\Jobs\StoreDocumentItemJob;
+use App\Domains\Document\Jobs\CreateDocumentRecurringJob;
 use App\Enums\DocumentTypeEnum;
-use App\Models\User;
-use App\Models\Item;
-use App\Models\Recurring;
 use App\Models\Document;
-use App\Models\DocumentItem;
+use App\Models\Recurring;
+use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use App\Domains\Document\Jobs\CreateDocumentRecurringJob;
 
 class CreateDocumentRecurringJobTest extends TestCase
 {
     use WithFaker;
+
     public function test_create_document_recurring_job()
     {
         $this->markTestIncomplete();

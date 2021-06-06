@@ -1,12 +1,11 @@
 <?php
 
-
 namespace Tests\Unit\Domains\Tax\Events;
 
 use App\Events\Tax\TaxCreatedEvent;
 use App\Listeners\Tax\CreateTaxAccountListener;
-use App\Models\User;
 use App\Models\Tax;
+use App\Models\User;
 use Illuminate\Events\CallQueuedListener;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Event;
@@ -35,7 +34,6 @@ class TaxCreatedEventTest extends TestCase
         Event::fake();
         Event::assertListening(TaxCreatedEvent::class, CreateTaxAccountListener::class);
     }
-
 
 //    public function test_tax_created_event_should_queue_create_tax_account_listener()
 //    {

@@ -18,7 +18,7 @@ class AttachDashboardsToUserJob extends Job
     public function __construct(User $user, $dashboards)
     {
         //
-        $this->user = $user;
+        $this->user       = $user;
         $this->dashboards = $dashboards;
     }
 

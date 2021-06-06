@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Model::preventLazyLoading(!app()->isProduction());
+        Model::preventLazyLoading(! app()->isProduction());
         Validator::extendImplicit(
             'currency',
             function ($attribute, $value, $parameters, $validator) use (&$currency_code) {
@@ -48,34 +48,33 @@ class AppServiceProvider extends ServiceProvider
             },
             trans('validation.custom.invalid_currency', ['attribute' => $currency_code])
         );
-    
+
         $amount = null;
-    
+
         Validator::extendImplicit(
             'amount',
             function ($attribute, $value, $parameters, $validator) use (&$amount) {
                 $status = false;
-            
+
                 if ($value >= 0) {
                     $status = true;
                 }
-            
+
                 $amount = $value;
-            
+
                 return $status;
             },
             trans('validation.custom.invalid_amount', ['attribute' => $amount])
         );
-    
+
         Validator::extend(
             'extension',
             function ($attribute, $value, $parameters, $validator) {
                 $extension = $value->getClientOriginalExtension();
-            
-                return !empty($extension) && in_array($extension, $parameters);
+
+                return ! empty($extension) && in_array($extension, $parameters);
             },
             trans('validation.custom.invalid_extension')
         );
-        
     }
 }

@@ -17,17 +17,16 @@ class ItemTax extends ModelFrame
     use HasCompany;
     use HasUserActions;
     use CanBeEnabled;
-    
+
     protected $fillable = ['company_id', 'item_id', 'tax_id'];
-    
-    public function item(): BelongsTo
+
+    public function item() : BelongsTo
     {
         return $this->belongsTo(Item::class);
     }
-    
-    public function tax(): BelongsTo
+
+    public function tax() : BelongsTo
     {
         return $this->belongsTo(Tax::class);
     }
-    
 }

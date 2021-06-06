@@ -36,7 +36,7 @@ class ValidateReceiableBillJob extends Job
 //        }
         if (($this->document->status != DocumentStatusEnum::draft() && $this->document->status != DocumentStatusEnum::pending()) || $this->document->type != DocumentTypeEnum::BILL()) {
             throw ValidationException::withMessages([
-               'status' => 'invalid document status'
+                'status' => 'invalid document status'
             ]);
         }
 

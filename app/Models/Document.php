@@ -60,16 +60,18 @@ class Document extends ModelFrame
         'parent_id',
         'footer',
     ];
-    public function itemsTaxes(): HasMany
+
+    public function itemsTaxes() : HasMany
     {
         return $this->hasMany(DocumentItemTax::class, 'document_id');
     }
-    public function items(): HasMany
+
+    public function items() : HasMany
     {
         return $this->hasMany(DocumentItem::class, 'document_id');
     }
-    
-    public function histories(): HasMany
+
+    public function histories() : HasMany
     {
         return $this->hasMany(DocumentHistory::class);
     }

@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Data\HasCompany;
 use App\Data\HasUserActions;
 use App\Frame\ModelFrame;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -29,7 +28,7 @@ class DocumentItem extends ModelFrame
     use SoftDeletes;
     use HasCompany;
     use HasUserActions;
-    
+
     protected $fillable = [
         'company_id',
         'type',
@@ -45,8 +44,8 @@ class DocumentItem extends ModelFrame
         'discount_rate',
         'discount_type',
     ];
-    
-    public function taxes(): HasMany
+
+    public function taxes() : HasMany
     {
         return $this->hasMany(DocumentItemTax::class, 'document_item_id');
     }

@@ -16,10 +16,10 @@ class ChangeDocumentStatusJob extends Job
      *
      * @return void
      */
-    public function __construct(Document $document,DocumentStatusEnum $documentStatusEnum)
+    public function __construct(Document $document, DocumentStatusEnum $documentStatusEnum)
     {
         //
-        $this->status = $documentStatusEnum;
+        $this->status   = $documentStatusEnum;
         $this->document = $document;
     }
 
@@ -28,7 +28,7 @@ class ChangeDocumentStatusJob extends Job
      *
      * @return Document
      */
-    public function handle(): Document
+    public function handle() : Document
     {
         $this->document->update([
             'status' => $this->status

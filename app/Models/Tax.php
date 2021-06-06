@@ -25,19 +25,19 @@ class Tax extends ModelFrame
     use HasCompany;
     use HasUserActions;
     use CanBeEnabled;
-    
+
     protected $dispatchesEvents = [
         'created' => TaxCreatedEvent::class,
     ];
-    
+
     protected $fillable = ['company_id', 'name', 'rate', 'type', 'enabled', 'account_id'];
-    
-    public function account(): BelongsTo
+
+    public function account() : BelongsTo
     {
         return $this->belongsTo(Account::class, 'account_id');
     }
-    
-    public function items(): HasMany
+
+    public function items() : HasMany
     {
         return $this->hasMany(ItemTax::class, 'tax_id');
     }

@@ -2,11 +2,11 @@
 
 namespace Tests\Unit\Domains\Bill\Jobs;
 
+use App\Domains\Bill\Jobs\ValidateReceiableBillJob;
 use App\Enums\DocumentStatusEnum;
 use App\Models\Document;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
-use App\Domains\Bill\Jobs\ValidateReceiableBillJob;
 
 class ValidateReceiableBillJobTest extends TestCase
 {
@@ -14,8 +14,8 @@ class ValidateReceiableBillJobTest extends TestCase
     {
         $this->expectException(ValidationException::class);
         $document = Document::factory()->INVOICE()->create([
-           'status' => DocumentStatusEnum::pending()
-       ]);
+            'status' => DocumentStatusEnum::pending()
+        ]);
 
         $job = new ValidateReceiableBillJob($document);
         $job->handle();
@@ -31,7 +31,6 @@ class ValidateReceiableBillJobTest extends TestCase
         $job = new ValidateReceiableBillJob($document);
         $job->handle();
     }
-
 
     public function test_validate_receiable_bill_job()
     {

@@ -19,22 +19,21 @@ class DocumentItemTax extends ModelFrame
     use SoftDeletes;
     use HasCompany;
     use HasUserActions;
-    
+
     protected $fillable = ['company_id',  'document_id', 'document_item_id', 'tax_id', 'name', 'amount'];
-    
-    public function document(): BelongsTo
+
+    public function document() : BelongsTo
     {
         return $this->belongsTo(Document::class);
     }
-    
+
     public function item()
     {
         return $this->hasOneThrough(Item::class, DocumentItem::class, 'document_item_id');
     }
-    
-    public function tax(): BelongsTo
+
+    public function tax() : BelongsTo
     {
         return $this->belongsTo(Tax::class);
     }
-    
 }

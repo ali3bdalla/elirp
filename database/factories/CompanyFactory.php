@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Data\CanBeEnabled;
-use App\Data\HasCompany;
 use App\Models\Company;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,11 +21,11 @@ class CompanyFactory extends Factory
      *
      * @return array
      */
-    public function definition(): array
+    public function definition() : array
     {
         return [
-            'locale' => $this->faker->locale,
-            'domain' => $this->faker->freeEmailDomain,
+            'locale'  => $this->faker->locale,
+            'domain'  => $this->faker->freeEmailDomain,
             'enabled' => $this->faker->boolean
         ];
     }

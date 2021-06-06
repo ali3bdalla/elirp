@@ -23,7 +23,7 @@ class CreateTaxesTable extends Migration
             $table->unsignedBigInteger('account_id')->nullable();
             $table->foreign('company_id')->references('id')->on('companies');
             $table->foreign('account_id')->references('id')->on('accounts');
-            
+
             $table->timestamps();
             $table->softDeletes();
         });

@@ -3,7 +3,6 @@
 namespace App\Domains\Accounting\Jobs;
 
 use App\Models\Entry;
-use Illuminate\Support\Facades\Auth;
 use Lucid\Units\Job;
 
 class CreateBaseEntryJob extends Job
@@ -24,13 +23,13 @@ class CreateBaseEntryJob extends Job
      *
      * @return void
      */
-    public function __construct($documentId = null, $description = "", $isPending = false, $amount = 0)
+    public function __construct($documentId = null, $description = '', $isPending = false, $amount = 0)
     {
         //
-        $this->documentId = $documentId;
+        $this->documentId  = $documentId;
         $this->description = $description;
-        $this->isPending = $isPending;
-        $this->amount = $amount;
+        $this->isPending   = $isPending;
+        $this->amount      = $amount;
     }
 
     /**
@@ -40,13 +39,12 @@ class CreateBaseEntryJob extends Job
      */
     public function handle() : Entry
     {
-       
         return Entry::create([
-            'company_id' => company_id(),
+            'company_id'  => company_id(),
             'document_id' => $this->documentId,
             'description' => $this->description,
-            'is_pending' => $this->isPending,
-            'amount' => $this->amount
+            'is_pending'  => $this->isPending,
+            'amount'      => $this->amount
         ]);
     }
 }
