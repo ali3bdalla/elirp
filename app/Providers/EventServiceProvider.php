@@ -25,10 +25,8 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         InvoiceDocumentCreatedEvent::class => [
-        
         ],
         BillDocumentCreatedEvent::class => [
-            
         ],
         BillHasBeenMarkedAsReceivedEvent::class => [
             RegisterReceivedBillAccountingEntryListener::class

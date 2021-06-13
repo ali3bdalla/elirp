@@ -24,23 +24,23 @@ class EntryFactory extends Factory
     {
         return [
             //
-            'amount' => 0,
-            'company_id' => null,
+            'amount'      => 0,
+            'company_id'  => null,
             'document_id' => null,
-            'reference' => $this->faker->uuid,
+            'reference'   => $this->faker->uuid,
             'description' => $this->faker->sentence,
-            'enabled' => true,
-            'is_pending' => false
+            'enabled'     => true,
+            'is_pending'  => false
         ];
     }
-    public function configure(): EntryFactory
+
+    public function configure() : EntryFactory
     {
         return $this->afterMaking(function (Entry $entry) {
-            if (!$entry->company_id) {
+            if (! $entry->company_id) {
                 $entry->company_id = Company::factory()->create()->id;
             }
             return $entry;
         });
     }
-    
 }

@@ -18,7 +18,7 @@ class AttachRolesToUserJob extends Job
     public function __construct(User $user, $roles)
     {
         //
-        $this->user = $user;
+        $this->user  = $user;
         $this->roles = $roles;
     }
 

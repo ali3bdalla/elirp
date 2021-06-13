@@ -6,35 +6,35 @@ use App\Domains\Accounting\Jobs\StoreReceivedBillItemsTransactionsJob;
 use App\Enums\AccountGroupEnum;
 use App\Enums\AccountSlugsEnum;
 use App\Models\Account;
-use App\Models\Entry;
-use App\Models\Transaction;
 use App\Models\Document;
 use App\Models\DocumentItem;
+use App\Models\Entry;
+use App\Models\Transaction;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 
 class StoreReceivedBillItemsTransactionsJobTest extends TestCase
 {
     use WithFaker;
+
     public function test_store_received_bill_items_transactions_job()
     {
-        $document = Document::factory()->BILL()->create();
+        $document      = Document::factory()->BILL()->create();
         $documentItems = DocumentItem::factory()->count($this->faker->numberBetween(1, 5))->create([
             'document_id' => $document->id,
-            'type' => $document->type
+            'type'        => $document->type
         ]);
         $entry = Entry::factory()->create([
             'document_id' => $document->id,
-            'company_id' => $document->company_id,
+            'company_id'  => $document->company_id,
         ]);
         Account::factory()->create([
             'company_id' => $document->company_id,
-            'slug' => AccountSlugsEnum::DEFAULT_STOCK_ACCOUNT(),
-            'type' => AccountGroupEnum::TAX(),
+            'slug'       => AccountSlugsEnum::DEFAULT_STOCK_ACCOUNT(),
+            'type'       => AccountGroupEnum::TAX(),
         ]);
-        $stock = Account::default(AccountSlugsEnum::DEFAULT_STOCK_ACCOUNT());
-        $job = new StoreReceivedBillItemsTransactionsJob($entry, $document);
+        $stock        = Account::default(AccountSlugsEnum::DEFAULT_STOCK_ACCOUNT());
+        $job          = new StoreReceivedBillItemsTransactionsJob($entry, $document);
         $transactions = $job->handle();
         $this->assertIsArray($transactions);
         foreach ($transactions as $transaction) {

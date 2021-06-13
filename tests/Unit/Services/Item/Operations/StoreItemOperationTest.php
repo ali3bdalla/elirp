@@ -2,16 +2,15 @@
 
 namespace Tests\Unit\Services\Item\Operations;
 
-use App\Domains\Item\Jobs\StoreItemJob;
 use App\Events\Item\ItemCreatedEvent;
-use App\Models\User;
 use App\Models\Item;
 use App\Models\Tax;
+use App\Models\User;
+use App\Services\Item\Operations\StoreItemOperation;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
-use App\Services\Item\Operations\StoreItemOperation;
 
 class StoreItemOperationTest extends TestCase
 {
@@ -20,7 +19,7 @@ class StoreItemOperationTest extends TestCase
     public function test_store_item_operation()
     {
         Event::fake();
-        $user = User::factory()->create();
+        $user  = User::factory()->create();
         $taxes = Tax::factory()->count($this->faker->numberBetween(1, 5))->create([
             'company_id' => $user->company_id
         ]);
@@ -30,19 +29,19 @@ class StoreItemOperationTest extends TestCase
         }
         $this->actingAs($user);
         $data = [
-            "name" => $this->faker->sentence,
-            'sku' => $this->faker->bankAccountNumber,
-            'description' => $this->faker->sentence,
-            'sale_price' => $this->faker->randomFloat(2, 10, 20),
+            'name'           => $this->faker->sentence,
+            'sku'            => $this->faker->bankAccountNumber,
+            'description'    => $this->faker->sentence,
+            'sale_price'     => $this->faker->randomFloat(2, 10, 20),
             'purchase_price' => $this->faker->randomFloat(2, 10, 20),
-            'fixed_price' => $this->faker->boolean,
-            'is_service' => $this->faker->boolean,
-            'has_detail' => $this->faker->boolean,
-            'picture' => UploadedFile::fake()->image('avatar.png'),
-            'tax_ids' => $taxesIds
+            'fixed_price'    => $this->faker->boolean,
+            'is_service'     => $this->faker->boolean,
+            'has_detail'     => $this->faker->boolean,
+            'picture'        => UploadedFile::fake()->image('avatar.png'),
+            'tax_ids'        => $taxesIds
         ];
 
-        $job = new StoreItemOperation($data);
+        $job  = new StoreItemOperation($data);
         $item = $job->handle();
         $this->assertInstanceOf(Item::class, $item);
         $this->assertEquals($data['name'], $item->name);

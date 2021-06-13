@@ -8,10 +8,10 @@ use App\Enums\AccountGroupEnum;
 use App\Enums\AccountSlugsEnum;
 use App\Enums\DocumentTypeEnum;
 use App\Models\Account;
-use App\Models\User;
 use App\Models\Document;
 use App\Models\DocumentItem;
 use App\Models\Tax;
+use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Validation\ValidationException;
@@ -27,20 +27,20 @@ class StoreDocumentTotalJobTest extends TestCase
 
         $document = Document::factory()->INVOICE()->create([
             'company_id' => $user->company_id,
-            'type' => $this->faker->randomElement(DocumentTypeEnum::toValues())
+            'type'       => $this->faker->randomElement(DocumentTypeEnum::toValues())
         ]);
         Account::factory()->create([
-            'slug' => AccountSlugsEnum::DEFAULT_TAX_ACCOUNT(),
-            'group' => AccountGroupEnum::TAX(),
+            'slug'       => AccountSlugsEnum::DEFAULT_TAX_ACCOUNT(),
+            'group'      => AccountGroupEnum::TAX(),
             'company_id' => $document->company_id
         ]);
         $taxes = Tax::factory()->count($this->faker->numberBetween(1, 3))->create([
             'company_id' => $user->company_id
         ]);
 
-        $taxesIds = $taxes->pluck('id')->toArray();
+        $taxesIds      = $taxes->pluck('id')->toArray();
         $documentItems = DocumentItem::factory()->count($this->faker->numberBetween(1, 5))->create([
-            'company_id' => $user->company_id,
+            'company_id'  => $user->company_id,
             'document_id' => $document->id
         ]);
         $precision = 2;
@@ -50,7 +50,7 @@ class StoreDocumentTotalJobTest extends TestCase
             $documentItem->fresh()->taxes()->sum('amount');
         }
 
-        $job = new StoreDocumentTotalJob($document);
+        $job    = new StoreDocumentTotalJob($document);
         $result = $job->handle();
 
         $this->assertIsArray($result);
@@ -66,19 +66,18 @@ class StoreDocumentTotalJobTest extends TestCase
         Event::fake();
         $user = User::factory()->create();
 
-        
         $document = Document::factory()->INVOICE()->create([
             'company_id' => $user->company_id,
-            'type' => $this->faker->randomElement(DocumentTypeEnum::toValues())
+            'type'       => $this->faker->randomElement(DocumentTypeEnum::toValues())
         ]);
 
         $taxes = Tax::factory()->count($this->faker->numberBetween(1, 3))->create([
             'company_id' => $user->company_id
         ]);
-        
-        $taxesIds = $taxes->pluck('id')->toArray();
+
+        $taxesIds      = $taxes->pluck('id')->toArray();
         $documentItems = DocumentItem::factory()->count($this->faker->numberBetween(1, 5))->create([
-            'company_id' => $user->company_id,
+            'company_id'  => $user->company_id,
             'document_id' => $document->id
         ]);
         foreach ($documentItems as $documentItem) {

@@ -2,27 +2,23 @@
 
 namespace Tests\Unit\Domains\Accounting\Jobs;
 
-use App\Domains\Accounting\Jobs\CreatedTaxAccountJob;
-use App\Domains\Accounting\Jobs\StoreReceivedBillVendorTransactionJob;
+use App\Domains\Accounting\Jobs\StoreReceviedBillTaxTransactionsJob;
 use App\Enums\AccountGroupEnum;
 use App\Enums\AccountSlugsEnum;
 use App\Enums\DocumentStatusEnum;
 use App\Enums\DocumentTypeEnum;
 use App\Models\Account;
+use App\Models\Contact;
+use App\Models\Currency;
 use App\Models\Entry;
+use App\Models\Item;
+use App\Models\Tax;
 use App\Models\Transaction;
 use App\Models\User;
-use App\Models\Contact;
-use App\Models\Item;
-use App\Models\Document;
-use App\Models\DocumentItem;
-use App\Models\Currency;
-use App\Models\Tax;
 use App\Services\Document\Operations\StoreDocumentOperation;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
-use App\Domains\Accounting\Jobs\StoreReceviedBillTaxTransactionsJob;
 
 class StoreReceivedBillTaxTransactionsJobTest extends TestCase
 {
@@ -43,34 +39,34 @@ class StoreReceivedBillTaxTransactionsJobTest extends TestCase
         $currency = Currency::factory()->enabledFactoryState()->create([
             'company_id' => $user->company_id
         ]);
-        
+
         $payable = Account::factory()->create([
-            'slug' => AccountSlugsEnum::DEFAULT_PAYABLE_ACCOUNT(),
-            'group' => AccountGroupEnum::PAYABLE(),
+            'slug'       => AccountSlugsEnum::DEFAULT_PAYABLE_ACCOUNT(),
+            'group'      => AccountGroupEnum::PAYABLE(),
             'company_id' => $user->company_id
         ]);
         Account::factory()->create([
             'company_id' => $user->company_id,
-            'slug' => AccountSlugsEnum::DEFAULT_STOCK_ACCOUNT(),
-            'type' => AccountGroupEnum::CURRENT_ASSETS(),
+            'slug'       => AccountSlugsEnum::DEFAULT_STOCK_ACCOUNT(),
+            'type'       => AccountGroupEnum::CURRENT_ASSETS(),
         ]);
-    
+
         Account::factory()->create([
             'company_id' => $user->company_id,
-            'slug' => AccountSlugsEnum::DEFAULT_TAX_ACCOUNT(),
-            'type' => AccountGroupEnum::TAX(),
+            'slug'       => AccountSlugsEnum::DEFAULT_TAX_ACCOUNT(),
+            'type'       => AccountGroupEnum::TAX(),
         ]);
         $request = [
-            'contact_id' => $contact->id,
+            'contact_id'      => $contact->id,
             'document_number' => $this->faker->sentence,
-            'amount' => $this->faker->numberBetween(1, 500),
-            'status' => 'pending',
-            'issued_at' => $this->faker->dateTime(),
-            'due_at' => $this->faker->dateTime(),
-            'currency_code' => $currency->code,
-            'currency_rate' => $currency->rate
+            'amount'          => $this->faker->numberBetween(1, 500),
+            'status'          => 'pending',
+            'issued_at'       => $this->faker->dateTime(),
+            'due_at'          => $this->faker->dateTime(),
+            'currency_code'   => $currency->code,
+            'currency_rate'   => $currency->rate
         ];
-        
+
         $taxes = Tax::factory()->count($this->faker->numberBetween(1, 3))->create([
             'company_id' => $user->company_id
         ]);
@@ -78,12 +74,12 @@ class StoreReceivedBillTaxTransactionsJobTest extends TestCase
         $taxesIds = $taxes->pluck('id')->toArray();
         foreach ($items as $item) {
             $request['items'][] = [
-                'item_id' => $item->id,
-                'price' => $this->faker->randomFloat(2, 10, 20),
+                'item_id'  => $item->id,
+                'price'    => $this->faker->randomFloat(2, 10, 20),
                 'quantity' => $this->faker->numberBetween(2, 3),
-                'name' => $item->name,
+                'name'     => $item->name,
                 'discount' => $this->faker->numberBetween(1, 2),
-                'tax_ids' => $taxesIds
+                'tax_ids'  => $taxesIds
             ];
         }
         Event::fakeFor(function () use ($request) {
@@ -94,7 +90,7 @@ class StoreReceivedBillTaxTransactionsJobTest extends TestCase
             ]);
             $entry = Entry::factory()->create([
                 'document_id' => $document->id,
-                'company_id' => $document->company_id,
+                'company_id'  => $document->company_id,
             ]);
             $job = new StoreReceviedBillTaxTransactionsJob($entry, $document);
             $result = $job->handle();

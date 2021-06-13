@@ -24,7 +24,7 @@ class CreateApiTokenTest extends TestCase
         }
 
         $response = $this->post('/user/api-tokens', [
-            'name' => 'Test Token',
+            'name'        => 'Test Token',
             'permissions' => [
                 'read',
                 'update',

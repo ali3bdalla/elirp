@@ -22,11 +22,11 @@ class CreateNewUserJob extends Job
     public function __construct($name, $email, $password, $companyId, $locale = 'ar', $enabled = true)
     {
         //
-        $this->name = $name;
-        $this->email = $email;
-        $this->password = $password;
-        $this->locale = $locale;
-        $this->enabled = $enabled;
+        $this->name      = $name;
+        $this->email     = $email;
+        $this->password  = $password;
+        $this->locale    = $locale;
+        $this->enabled   = $enabled;
         $this->companyId = $companyId;
     }
 
@@ -38,12 +38,12 @@ class CreateNewUserJob extends Job
     public function handle() : User
     {
         return User::create([
-            'name' => $this->name,
-            'email' => $this->email,
-            'password' => $this->password,
+            'name'       => $this->name,
+            'email'      => $this->email,
+            'password'   => $this->password,
             'company_id' => $this->companyId,
-            'locale' => $this->locale,
-            'enabled' => $this->enabled
+            'locale'     => $this->locale,
+            'enabled'    => $this->enabled
         ]);
     }
 }

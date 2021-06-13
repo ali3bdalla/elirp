@@ -28,13 +28,12 @@ class Item extends ModelFrame
     use HasCompany;
     use HasUserActions;
     use CanBeEnabled;
-    
+
     protected $fillable  =  ['company_id', 'name', 'description', 'sku', 'has_detail', 'fixed_price', 'is_service',
-'sale_price', 'purchase_price', 'enabled'];
-    
-    public function taxes(): HasMany
+        'sale_price', 'purchase_price', 'enabled'];
+
+    public function taxes() : HasMany
     {
         return $this->hasMany(ItemTax::class, 'item_id');
     }
-
 }

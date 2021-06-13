@@ -24,14 +24,14 @@ class TransactionFactory extends Factory
     public function definition()
     {
         return [
-            'company_id' => null,
-            'type' => null,
-            'account_id' => null,
-            'paid_at' => $this->faker->dateTimeBetween(now()->startOfYear(), now()->endOfYear())->format('Y-m-d H:i:s'),
-            'amount' => $this->faker->randomFloat(2, 1, 1000),
+            'company_id'    => null,
+            'type'          => null,
+            'account_id'    => null,
+            'paid_at'       => $this->faker->dateTimeBetween(now()->startOfYear(), now()->endOfYear())->format('Y-m-d H:i:s'),
+            'amount'        => $this->faker->randomFloat(2, 1, 1000),
             'currency_code' => 'usd',
             'currency_rate' => '1.0',
-            'description' => $this->faker->text(5),
+            'description'   => $this->faker->text(5),
         ];
     }
 }

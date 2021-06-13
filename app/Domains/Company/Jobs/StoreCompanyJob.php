@@ -14,7 +14,7 @@ class StoreCompanyJob extends Job
 
     public function __construct($companyName, $companyEmail)
     {
-        $this->companyName = $companyName;
+        $this->companyName  = $companyName;
         $this->companyEmail = $companyEmail;
     }
 
@@ -23,15 +23,15 @@ class StoreCompanyJob extends Job
      *
      * @return Company
      */
-    public function handle(Request $request): Company
+    public function handle(Request $request) : Company
     {
         return Company::create($request->only([
-            'name' => $this->companyName,
-            'email' => $this->companyEmail,
-            'domain' => '',
+            'name'     => $this->companyName,
+            'email'    => $this->companyEmail,
+            'domain'   => '',
             'currency' => 'SAR',
-            'locale' => 'ar-SA',
-            'enabled' => '1',
+            'locale'   => 'ar-SA',
+            'enabled'  => '1',
         ]));
     }
 }

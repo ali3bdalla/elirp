@@ -3,7 +3,6 @@
 namespace Tests\Unit\Services\Company\Operations;
 
 use Tests\TestCase;
-use App\Services\Company\Operations\SeedCompanySettingOperation;
 
 class UpdateCompanySettingOperationTest extends TestCase
 {

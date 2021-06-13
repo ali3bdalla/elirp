@@ -32,29 +32,29 @@ class SeedCompanyAccountingExpenseAccountsJob extends Job
     public function handle()
     {
         $Expense = Account::create([
-            'type' => AccountingTypeEnum::DEBIT(),
-            'group' => AccountGroupEnum::EXPENSE(),
-            'name' => 'Expense',
+            'type'           => AccountingTypeEnum::DEBIT(),
+            'group'          => AccountGroupEnum::EXPENSE(),
+            'name'           => 'Expense',
             'auto_generated' => true,
-            'company_id' => $this->company->id
+            'company_id'     => $this->company->id
         ]);
 
         Account::create([
-            'parent_id' => $Expense->id,
-            'type' => AccountingTypeEnum::DEBIT(),
-            'group' => AccountGroupEnum::EQUITY(),
-            'name' => 'inventory adjustments',
+            'parent_id'      => $Expense->id,
+            'type'           => AccountingTypeEnum::DEBIT(),
+            'group'          => AccountGroupEnum::EQUITY(),
+            'name'           => 'inventory adjustments',
             'auto_generated' => true,
-            'company_id' => $this->company->id
+            'company_id'     => $this->company->id
         ]);
         Account::create([
-            'parent_id' => $Expense->id,
-            'type' => AccountingTypeEnum::DEBIT(),
-            'group' => AccountGroupEnum::EQUITY(),
-            'name' => 'COGS',
-            'slug' => AccountSlugsEnum::DEFAULT_COGS_ACCOUNT(),
+            'parent_id'      => $Expense->id,
+            'type'           => AccountingTypeEnum::DEBIT(),
+            'group'          => AccountGroupEnum::EQUITY(),
+            'name'           => 'COGS',
+            'slug'           => AccountSlugsEnum::DEFAULT_COGS_ACCOUNT(),
             'auto_generated' => true,
-            'company_id' => $this->company->id
+            'company_id'     => $this->company->id
         ]);
     }
 }

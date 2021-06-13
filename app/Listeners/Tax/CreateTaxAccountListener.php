@@ -5,10 +5,6 @@ namespace App\Listeners\Tax;
 use App\Domains\Accounting\Jobs\CreatedTaxAccountJob;
 use App\Events\Tax\TaxCreatedEvent;
 use App\Models\Account;
-use App\Models\Tax;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
-use Lucid\Bus\ServesFeatures;
 use Lucid\Bus\UnitDispatcher;
 
 class CreateTaxAccountListener
@@ -31,9 +27,9 @@ class CreateTaxAccountListener
      * @param TaxCreatedEvent $event
      * @return Account
      */
-    public function handle(TaxCreatedEvent $event): Account
+    public function handle(TaxCreatedEvent $event) : Account
     {
-        if (!$event->tax->account_id) {
+        if (! $event->tax->account_id) {
             return $this->run(CreatedTaxAccountJob::class, [
                 'tax' => $event->tax
             ]);

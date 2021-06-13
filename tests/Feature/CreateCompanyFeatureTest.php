@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use App\Features\CreateCompanyFeature;
 
 class CreateCompanyFeatureTest extends TestCase
 {

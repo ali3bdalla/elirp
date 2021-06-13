@@ -22,7 +22,7 @@ class CreateUserActionsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('action')->default(UserActionEnum::CREATE());
             $table->foreign('user_id')->on('users')->references('id');
-            $table->index(["actionable_id",'action']);
+            $table->index(['actionable_id', 'action']);
             $table->foreign('company_id')->references('id')->on('companies');
             $table->softDeletes();
             $table->timestamps();

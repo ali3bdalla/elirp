@@ -23,40 +23,34 @@ class Transaction extends ModelFrame
     use HasCompany;
     use HasUserActions;
     use CanBeEnabled;
-    
+
     protected $fillable = ['company_id', 'type', 'paid_at', 'amount', 'currency_code', 'currency_rate', 'account_id', 'document_id', 'contact_id', 'category_id', 'description', 'reference', 'parent_id', 'reconciled', 'entry_id', 'item_id', 'is_pending'];
-    
-    
-    public function account(): BelongsTo
+
+    public function account() : BelongsTo
     {
         return $this->belongsTo(Account::class);
     }
-    
-    
-    public function contact(): BelongsTo
+
+    public function contact() : BelongsTo
     {
         return $this->belongsTo(Contact::class);
     }
-    
+
     public function getAccountNameAttribute()
     {
-        
         if ($this->item) {
             return $this->item->name;
         }
         return $this->account->name;
     }
-    
-    public function item(): BelongsTo
+
+    public function item() : BelongsTo
     {
         return $this->belongsTo(Item::class, 'item_id');
     }
-    
-    
-    public function document(): BelongsTo
+
+    public function document() : BelongsTo
     {
         return $this->belongsTo(Document::class, 'document_id');
     }
-    
-    
 }

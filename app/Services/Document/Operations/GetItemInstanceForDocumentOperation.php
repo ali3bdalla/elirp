@@ -11,16 +11,16 @@ use Lucid\Units\Operation;
 class GetItemInstanceForDocumentOperation extends Operation
 {
     private Collection $collection;
-    private  $documentType;
+    private $documentType;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct( $documentType, $request)
+    public function __construct($documentType, $request)
     {
-        $this->collection = collect($request);
+        $this->collection   = collect($request);
         $this->documentType = $documentType;
     }
 
@@ -29,21 +29,20 @@ class GetItemInstanceForDocumentOperation extends Operation
      *
      * @return Item
      */
-    public function handle(): Item
+    public function handle() : Item
     {
-        $salePrice = DocumentTypeEnum::INVOICE() === $this->documentType ? $this->collection->get('price') : null;
+        $salePrice     = DocumentTypeEnum::INVOICE() === $this->documentType ? $this->collection->get('price') : null;
         $purchasePrice = DocumentTypeEnum::BILL() === $this->documentType ? $this->collection->get('price') : 0;
-
 
         if ($this->collection->get('item_id')) {
             $itemEntity = Item::findOrFail($this->collection->get('item_id'));
         } else {
             $itemEntity = $this->run(StoreItemOperation::class, [
                 'data' => [
-                    'name' => $this->collection->get('name'),
-                    'description' => $this->collection->get('description'),
+                    'name'           => $this->collection->get('name'),
+                    'description'    => $this->collection->get('description'),
                     'purchase_price' => $purchasePrice,
-                    'sale_price' => $salePrice,
+                    'sale_price'     => $salePrice,
                 ]
             ]);
         }

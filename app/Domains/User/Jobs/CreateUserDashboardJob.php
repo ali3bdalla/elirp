@@ -3,8 +3,8 @@
 namespace App\Domains\User\Jobs;
 
 use App\Jobs\Common\CreateDashboard;
-use App\Models\User;
 use App\Models\Company;
+use App\Models\User;
 use Lucid\Units\Job;
 
 class CreateUserDashboardJob extends Job
@@ -20,7 +20,7 @@ class CreateUserDashboardJob extends Job
     public function __construct(User $user, Company $company)
     {
         //
-        $this->user = $user;
+        $this->user    = $user;
         $this->company = $company;
     }
 
@@ -32,10 +32,10 @@ class CreateUserDashboardJob extends Job
     public function handle()
     {
         dispatch_sync(new CreateDashboard([
-            'company_id' => $this->company->id,
-            'name' => trans_choice('general.dashboards', 1),
+            'company_id'      => $this->company->id,
+            'name'            => trans_choice('general.dashboards', 1),
             'default_widgets' => 'core',
-            'users' => $this->user->id,
+            'users'           => $this->user->id,
         ]));
     }
 }

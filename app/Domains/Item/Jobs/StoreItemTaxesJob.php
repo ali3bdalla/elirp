@@ -20,7 +20,7 @@ class StoreItemTaxesJob extends Job
     public function __construct(Item $item, $taxesIds = [])
     {
         //
-        $this->item = $item;
+        $this->item  = $item;
         $this->taxes = new Collection($taxesIds);
     }
 
@@ -29,14 +29,14 @@ class StoreItemTaxesJob extends Job
      *
      * @return array<ItemTax>
      */
-    public function handle(): array
+    public function handle() : array
     {
         $taxes = [];
         foreach ($this->taxes as $taxId) {
             $taxes[] = ItemTax::create([
-                'item_id' => $this->item->id,
+                'item_id'    => $this->item->id,
                 'company_id' => $this->item->company_id,
-                'tax_id' => $taxId,
+                'tax_id'     => $taxId,
             ]);
         }
 

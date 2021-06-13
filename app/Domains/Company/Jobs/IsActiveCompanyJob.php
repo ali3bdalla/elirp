@@ -9,7 +9,6 @@ class IsActiveCompanyJob extends Job
 {
     private Company $company;
 
-
     public function __construct(Company $company)
     {
         //
@@ -21,7 +20,7 @@ class IsActiveCompanyJob extends Job
      *
      * @return boolean
      */
-    public function handle(): bool
+    public function handle() : bool
     {
         return $this->company->id > 0;
     }

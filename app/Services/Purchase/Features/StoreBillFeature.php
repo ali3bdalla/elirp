@@ -2,10 +2,9 @@
 
 namespace App\Services\Purchase\Features;
 
-use App\Domains\Document\Jobs\CreateDocumentHistoryJob;
-use Illuminate\Foundation\Http\FormRequest;
 use App\Enums\DocumentTypeEnum;
 use App\Services\Document\Operations\StoreDocumentOperation;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\JsonResponse;
 use Lucid\Units\Feature;
 
@@ -18,14 +17,13 @@ class StoreBillFeature extends Feature
         $this->request = parse_request_instance($request);
     }
 
-    public function handle(): JsonResponse
+    public function handle() : JsonResponse
     {
         $document = $this->run(StoreDocumentOperation::class, [
-            'request' => $this->request,
+            'request'          => $this->request,
             'documentTypeEnum' => DocumentTypeEnum::BILL()
         ]);
-    
-       
+
         return $document;
     }
 }

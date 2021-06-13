@@ -20,7 +20,7 @@ class UploadUserPictureJob extends Job
      */
     public function __construct(User $user, $pickerFile)
     {
-        $this->user = $user;
+        $this->user       = $user;
         $this->pickerFile = $pickerFile;
     }
 

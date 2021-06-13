@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Tests\Unit\Domains\Bill\Listeners;
 
 use App\Enums\AccountGroupEnum;
@@ -9,10 +8,10 @@ use App\Enums\AccountSlugsEnum;
 use App\Events\Bill\BillHasBeenMarkedAsReceivedEvent;
 use App\Listeners\Bill\RegisterReceivedBillAccountingEntryListener;
 use App\Models\Account;
-use App\Models\Entry;
-use App\Models\User;
 use App\Models\Document;
 use App\Models\DocumentItem;
+use App\Models\Entry;
+use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
@@ -22,24 +21,24 @@ class RegisterReceivedBillAccountingEntryListenerTest extends TestCase
 
     public function test_register_received_bill_accounting_entry_listener()
     {
-        $user = User::factory()->create();
+        $user     = User::factory()->create();
         $document = Document::factory()->BILL()->create([
             'company_id' => $user->company_id
         ]);
         Account::factory()->create([
-            'slug' => AccountSlugsEnum::DEFAULT_PAYABLE_ACCOUNT(),
-            'group' => AccountGroupEnum::PAYABLE(),
+            'slug'       => AccountSlugsEnum::DEFAULT_PAYABLE_ACCOUNT(),
+            'group'      => AccountGroupEnum::PAYABLE(),
             'company_id' => $user->company_id
         ]);
-        
+
         Account::factory()->create([
-            'slug' => AccountSlugsEnum::DEFAULT_STOCK_ACCOUNT(),
-            'group' => AccountGroupEnum::CURRENT_ASSETS(),
+            'slug'       => AccountSlugsEnum::DEFAULT_STOCK_ACCOUNT(),
+            'group'      => AccountGroupEnum::CURRENT_ASSETS(),
             'company_id' => $user->company_id
         ]);
         $documentItems = DocumentItem::factory()->count($this->faker->numberBetween(1, 5))->create([
             'document_id' => $document->id,
-            'type' => $document->type
+            'type'        => $document->type
         ]);
         $document->update([
             'amount' => $documentItems->sum('subtotal')
@@ -47,10 +46,9 @@ class RegisterReceivedBillAccountingEntryListenerTest extends TestCase
         $precision = 2;
         $this->actingAs($user);
 
-
-        $event = new BillHasBeenMarkedAsReceivedEvent($document);
+        $event    = new BillHasBeenMarkedAsReceivedEvent($document);
         $listener = new RegisterReceivedBillAccountingEntryListener();
-        $entry = $listener->handle($event);
+        $entry    = $listener->handle($event);
 
         $this->assertInstanceOf(Entry::class, $entry);
         $this->assertEquals(round($entry->amount), round($documentItems->sum('subtotal')));

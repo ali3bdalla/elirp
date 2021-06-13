@@ -18,54 +18,49 @@ class Company extends ModelFrame
     use HasUserActions;
     use SoftDeletes;
     use CanBeEnabled;
-    
+
     protected $fillable = [
         'domain',
-        "enabled",
+        'enabled',
         'locale'
     ];
-    
-    public function items(): HasMany
+
+    public function items() : HasMany
     {
         return $this->hasMany(Item::class, 'company_id');
     }
-    
-    public function contacts(): HasMany
+
+    public function contacts() : HasMany
     {
         return $this->hasMany(Contact::class, 'company_id');
     }
-    
-    public function users(): HasMany
+
+    public function users() : HasMany
     {
         return $this->hasMany(User::class, 'company_id');
     }
-    
-    
-    public function accounts(): HasMany
+
+    public function accounts() : HasMany
     {
         return $this->hasMany(Account::class, 'company_id');
     }
-    
-    
-    public function transactions(): HasMany
+
+    public function transactions() : HasMany
     {
         return $this->hasMany(Transaction::class, 'company_id');
     }
-    
-    
-    public function entries(): HasMany
+
+    public function entries() : HasMany
     {
         return $this->hasMany(Entry::class, 'company_id');
     }
-    
-    
-    public function taxes(): HasMany
+
+    public function taxes() : HasMany
     {
         return $this->hasMany(Tax::class, 'company_id');
     }
-    
-    
-    public function currencies(): HasMany
+
+    public function currencies() : HasMany
     {
         return $this->hasMany(Currency::class, 'company_id');
     }

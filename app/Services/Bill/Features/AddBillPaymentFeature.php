@@ -9,6 +9,5 @@ class AddBillPaymentFeature extends Feature
 {
     public function handle(Request $request)
     {
-
     }
 }

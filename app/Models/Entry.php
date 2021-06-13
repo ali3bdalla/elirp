@@ -24,11 +24,11 @@ class Entry extends ModelFrame
     use HasCompany;
     use HasUserActions;
     use CanBeEnabled;
-    
-    protected $fillable = ['company_id','amount','document_id','description','is_pending'];
-    public function transactions(): HasMany
+
+    protected $fillable = ['company_id', 'amount', 'document_id', 'description', 'is_pending'];
+
+    public function transactions() : HasMany
     {
         return $this->hasMany(Transaction::class, 'entry_id');
     }
-    
 }

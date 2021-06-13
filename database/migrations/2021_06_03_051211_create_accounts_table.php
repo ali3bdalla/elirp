@@ -31,7 +31,6 @@ class CreateAccountsTable extends Migration
             $table->foreign('company_id')->references('id')->on('companies');
             $table->timestamps();
             $table->softDeletes();
-
         });
     }
 

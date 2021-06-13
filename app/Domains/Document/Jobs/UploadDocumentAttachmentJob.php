@@ -2,8 +2,8 @@
 
 namespace App\Domains\Document\Jobs;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Models\Document;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 use Lucid\Units\Job;
 
@@ -21,7 +21,7 @@ class UploadDocumentAttachmentJob extends Job
     {
         //
         $this->document = $document;
-        $this->request = parse_request_instance($request);
+        $this->request  = parse_request_instance($request);
     }
 
     /**
@@ -32,8 +32,8 @@ class UploadDocumentAttachmentJob extends Job
     public function handle()
     {
         $this->request->validate([
-           'attachment' => 'nullable|array',
-           'attachment.*' => 'required|file'
+            'attachment'   => 'nullable|array',
+            'attachment.*' => 'required|file'
         ]);
 
 //        if ($this->request->file('attachment')) {

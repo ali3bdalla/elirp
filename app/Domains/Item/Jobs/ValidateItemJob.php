@@ -28,18 +28,18 @@ class ValidateItemJob extends Job
     public function handle()
     {
         $this->request->validate([
-            'id' => 'nullable|integer|exists:items,id',
-            'name' => 'required|string',
-            'sku' => 'nullable|string',
-            'description' => 'nullable|string',
-            'sale_price' => 'nullable|amount',
+            'id'             => 'nullable|integer|exists:items,id',
+            'name'           => 'required|string',
+            'sku'            => 'nullable|string',
+            'description'    => 'nullable|string',
+            'sale_price'     => 'nullable|amount',
             'purchase_price' => 'nullable|amount',
-            'fixed_price' => 'nullable|boolean',
-            'is_service' => 'nullable|boolean',
-            'has_detail' => 'nullable|boolean',
-            'picture' => 'nullable|image', //mimes:\' . config(\'filesystems.mimes\') . \'|between:0,\' . config
+            'fixed_price'    => 'nullable|boolean',
+            'is_service'     => 'nullable|boolean',
+            'has_detail'     => 'nullable|boolean',
+            'picture'        => 'nullable|image', //mimes:\' . config(\'filesystems.mimes\') . \'|between:0,\' . config
             //(\'filesystems.max_size\') * 1024
-            'tax_ids' => 'nullable|array',
+            'tax_ids'   => 'nullable|array',
             'tax_ids.*' => 'required|integer|exists:taxes,id'
         ]);
     }

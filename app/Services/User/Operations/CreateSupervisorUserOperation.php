@@ -23,8 +23,8 @@ class CreateSupervisorUserOperation extends Operation
     public function __construct(Company $company, $email, $password)
     {
         //
-        $this->company = $company;
-        $this->email = $email;
+        $this->company  = $company;
+        $this->email    = $email;
         $this->password = $password;
     }
 
@@ -39,22 +39,22 @@ class CreateSupervisorUserOperation extends Operation
             $user = Auth::user();
         } else {
             $user = $this->run(CreateNewUserJob::class, [
-                'name' => 'Admin',
-                'email' => $this->email,
-                'password' => $this->password,
+                'name'      => 'Admin',
+                'email'     => $this->email,
+                'password'  => $this->password,
                 'companyId' => $this->company->id,
-                'locale' => 'en-GB',
-                'enabled' => '1',
+                'locale'    => 'en-GB',
+                'enabled'   => '1',
             ]);
         }
 
         $this->run(AttachRolesToUserJob::class, [
-            'user' => $user,
+            'user'  => $user,
             'roles' => [1]
         ]);
 
         $this->run(CreateUserDashboardJob::class, [
-            'user' => $user,
+            'user'    => $user,
             'company' => $this->company
         ]);
     }

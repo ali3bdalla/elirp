@@ -2,11 +2,10 @@
 
 namespace App\Services\Document\Operations;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Domains\Document\Jobs\ValidateDocumentItemsJob;
-use App\Enums\DocumentTypeEnum;
 use App\Models\Document;
 use App\Models\DocumentItem;
+use Illuminate\Foundation\Http\FormRequest;
 use Lucid\Units\Operation;
 
 class StoreDocumentItemsOperation extends Operation
@@ -26,7 +25,7 @@ class StoreDocumentItemsOperation extends Operation
     public function __construct(Document $document, $request, $discount = 0)
     {
         //
-        $this->request = parse_request_instance($request);
+        $this->request  = parse_request_instance($request);
         $this->document = $document;
         $this->discount = $discount;
     }
@@ -36,25 +35,25 @@ class StoreDocumentItemsOperation extends Operation
      *
      * @return array<DocumentItem>
      */
-    public function handle(): array
+    public function handle() : array
     {
         $this->run(ValidateDocumentItemsJob::class, [
             'request' => $this->request
         ]);
 
         $items = [];
-        $data = (array)$this->request->input('items',[]);
+        $data  = (array)$this->request->input('items', []);
         foreach ($data as $item) {
             $itemCollection = collect($item);
-            $itemEntity = $this->run(GetItemInstanceForDocumentOperation::class, [
+            $itemEntity     = $this->run(GetItemInstanceForDocumentOperation::class, [
                 'documentType' => $this->document->type,
-                'request' => $itemCollection
+                'request'      => $itemCollection
             ]);
             $items[] = $this->run(StoreDocumentItemOperation::class, [
                 'document' => $this->document,
-                'item' => $itemEntity,
+                'item'     => $itemEntity,
                 'discount' => $this->discount,
-                'request' => $itemCollection->toArray()
+                'request'  => $itemCollection->toArray()
             ]);
         }
         return $items;
