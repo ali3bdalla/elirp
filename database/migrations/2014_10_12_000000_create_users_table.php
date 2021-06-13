@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->boolean('enabled')->default(true);
             $table->unsignedBigInteger('company_id')->nullable();
             $table->foreign('company_id')->references('id')->on('companies');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

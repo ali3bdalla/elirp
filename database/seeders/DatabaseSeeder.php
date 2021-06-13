@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        dd(Company::factory()->disabledFactoryState()->create());
+        // dd(Company::factory()->disabledFactoryState()->create());
         // \App\Models\User::factory(10)->create();
     }
 }

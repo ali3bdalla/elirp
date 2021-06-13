@@ -2,17 +2,17 @@
 
 namespace App\Services\User\Operations;
 
-use App\Domains\User\Jobs\AttachRolesToUserJob;
 use App\Domains\User\Jobs\CreateNewUserJob;
-use App\Domains\User\Jobs\CreateUserDashboardJob;
 use App\Models\Company;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Lucid\Units\Operation;
 
 class CreateSupervisorUserOperation extends Operation
 {
     private Company $company;
     private $email;
+    private $name;
     private $password;
 
     /**
@@ -20,12 +20,13 @@ class CreateSupervisorUserOperation extends Operation
      *
      * @return void
      */
-    public function __construct(Company $company, $email, $password)
+    public function __construct(Company $company, $email, $password, $name = '')
     {
         //
         $this->company  = $company;
         $this->email    = $email;
         $this->password = $password;
+        $this->name     = $name;
     }
 
     /**
@@ -39,23 +40,15 @@ class CreateSupervisorUserOperation extends Operation
             $user = Auth::user();
         } else {
             $user = $this->run(CreateNewUserJob::class, [
-                'name'      => 'Admin',
+                'name'      => $this->name,
                 'email'     => $this->email,
-                'password'  => $this->password,
+                'password'  => Hash::make($this->password),
                 'companyId' => $this->company->id,
                 'locale'    => 'en-GB',
                 'enabled'   => '1',
             ]);
         }
 
-        $this->run(AttachRolesToUserJob::class, [
-            'user'  => $user,
-            'roles' => [1]
-        ]);
-
-        $this->run(CreateUserDashboardJob::class, [
-            'user'    => $user,
-            'company' => $this->company
-        ]);
+        return   $user ;
     }
 }
