@@ -55,7 +55,7 @@ jobs:
 
       - name: Install Composer dependencies
         if: ${{ !env.ENLIGHTN_API_TOKEN }}
-        run: composer install --prefer-dist --no-interaction
+        run: composer install --prefer-stable --prefer-dist --no-interaction
 
       - name: Run Enlightn Checks and Trigger the Enlightn Bot
         if: github.event_name == 'pull_request' && env.ENLIGHTN_API_TOKEN
