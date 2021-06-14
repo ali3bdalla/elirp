@@ -9,9 +9,7 @@ import locale from 'element-plus/lib/locale/lang/ar'
 import 'dayjs/locale/ar'
 import 'element-plus/lib/theme-chalk/index.css';
 import './../scss/_element-variables.scss'
-
 const el = document.getElementById('app');
-
 createApp({
     render: () =>
         h(InertiaApp, {

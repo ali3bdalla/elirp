@@ -32,6 +32,8 @@
     },
     "dependencies": {
         "@headlessui/vue": "^1.2.0",
-        "element-plus": "*"
+        "element-plus": "*",
+        "vue-unsaved-changes-dialog": "^1.3.0",
+        "vue3-table-lite": "^1.0.5"
     }
 }
