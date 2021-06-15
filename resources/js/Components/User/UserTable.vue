@@ -1,98 +1,79 @@
 <template>
-    <div class="bg-white shadow-md rounded">
-      <user-form :show="true"></user-form>
-      <el-table
-          class="min-w-max w-full table-auto"
-          :data="tableData.data"
-          v-loading="fetching"
-          border
-          highlight-current-row
-          current-row-key
-          :row-class-name="(row,rowIndex) => 'border-b border-gray-200 bg-gray-50 hover:bg-gray-100 text-center'"
-          :header-row-class-name="(row,rowIndex) =>
-           'bg-gray-200 text-center text-gray-600 uppercase text-sm leading-normal'"
-          :header-cell-class-name="(row,rowIndex) =>  'py-3 px-6 text-center'"
-          :cell-class-name="(row, column, rowIndex, columnIndex) => 'py-3 px-6 text-center'"
-          size="medium"
-          tooltip-effect="dark"
-          show-summary
-          lazy
-          sortable
-          stripe
-      >
-        <el-table-column
-            label="Date">
-          <template #default="scope">
-            <i class="el-icon-time"></i>
-            <span style="margin-left: 10px">{{ scope.row.created_at }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-            label="Name">
-          <template #default="scope">
-            {{ scope.row.name }}
-          </template>
-        </el-table-column>
-        <el-table-column
-            label="Operations">
-          <template #default="scope">
-            <el-button
-                size="mini"
-                @click="editUser(scope.$index, scope.row)">Edit</el-button>
-            <el-popconfirm
-                confirmButtonText='OK'
-                cancelButtonText='No'
-                icon="el-icon-info"
-                iconColor="red"
-                title="Are you sure to delete this?"
-            >
-              <template #reference>
-                <el-button
-                    size="mini"
-                    type="danger"
-                 >Disable</el-button>
-              </template>
-            </el-popconfirm>
+    <div>
+        <data-grid-frame :url="route('api.users.index')">
+            <template v-slot:title>hello</template>
+            <template v-slot:rows>
+                <data-grid-column label="id" width="60">
+                    <template v-slot:default="{ item }">
+                        {{ item.id }}
+                    </template>
+                </data-grid-column>
+                <data-grid-column label="Name">
+                    <template v-slot:default="{ item }">
+                        <div class="flex items-center justify-left gap-2">
+                            <el-avatar
+                                shape="circle"
+                                size="small"
+                                :src="item.profile_photo_url"
+                                :alt="item.name"
+                            ></el-avatar>
+                            {{ item.name }}
+                        </div>
+                    </template>
+                </data-grid-column>
+                <data-grid-column label="E-mail Address">
+                    <template v-slot:default="{ item }">
+                        {{ item.email }}
+                    </template>
+                </data-grid-column>
 
-            <el-button
-                size="mini"
-                type="success"
-                @click="disableUser(scope.$index, scope.row)">Enable</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
+                <data-grid-column label="Created At">
+                    <template v-slot:default="{ item }">
+                        {{ item.created_at }}
+                    </template>
+                </data-grid-column>
+                <data-grid-column label="Created At">
+                    <template v-slot:default="{ item }">
+                        <el-dropdown>
+                            <primary-button>
+                                Dropdown List<i
+                                    class="el-icon-arrow-down el-icon--right"
+                                ></i>
+                            </primary-button>
+                            <template #dropdown>
+                                <el-dropdown-menu>
+                                    <el-dropdown-item
+                                        >Action 1</el-dropdown-item
+                                    >
+                                    <el-dropdown-item
+                                        >Action 2</el-dropdown-item
+                                    >
+                                    <el-dropdown-item
+                                        >Action 3</el-dropdown-item
+                                    >
+                                    <el-dropdown-item
+                                        >Action 4</el-dropdown-item
+                                    >
+                                    <el-dropdown-item
+                                        >Action 5</el-dropdown-item
+                                    >
+                                </el-dropdown-menu>
+                            </template>
+                        </el-dropdown>
+                    </template>
+                </data-grid-column>
+            </template>
+        </data-grid-frame>
     </div>
-
 </template>
 
 <script>
-
-
 import UserForm from "./UserForm";
+import DataGridFrame from "../Frame/DataGridFrame";
+import DataGridColumn from "../Frame/DataGridColumn";
+import PrimaryButton from "../Button/PrimaryButton.vue";
 export default {
-  name: "UserTable",
-  components: {UserForm},
-  data () {
-    return {
-      fetching: true,
-      tableData: {}
-    }
-  },
-  created () {
-    this.fetch()
-  },
-  methods: {
-    fetch () {
-      this.fetching = true
-      axios
-          .get(route('api.users.index'))
-          .then((res) => {
-            this.tableData = res.data
-          })
-          .finally(() => {
-            this.fetching = false
-          })
-    }
-  }
-}
+    name: "UserTable",
+    components: { DataGridColumn, PrimaryButton, DataGridFrame, UserForm },
+};
 </script>
