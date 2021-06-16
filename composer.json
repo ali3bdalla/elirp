@@ -22,6 +22,8 @@
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.5",
         "lucidarch/lucid": "^1.0",
+        "mll-lab/laravel-graphql-playground": "^2.5",
+        "nuwave/lighthouse": "^5.12",
         "predis/predis": "^1.1",
         "spatie/laravel-enum": "^2.5",
         "tightenco/ziggy": "^1.0"

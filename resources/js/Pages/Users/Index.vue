@@ -1,7 +1,7 @@
 <template>
   <app-layout>
     <user-table></user-table>
-  </app-layout>
+  </app-layout> 
 </template>
 
 <script>
