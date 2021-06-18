@@ -17,10 +17,8 @@ mix.js('resources/js/app.js', 'public/js').vue()
             outputStyle: 'nested',
         },
         implementation: require('node-sass')
-    }, [
-        // require('postcss-import'),
-        require('tailwindcss'),
-    ])
+    })
+    .copyDirectory('resources/assets','public/assets')
     .webpackConfig(require('./webpack.config'));
 
 if (mix.inProduction()) {

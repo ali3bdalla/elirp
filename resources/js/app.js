@@ -4,11 +4,6 @@ require('./bootstrap');
 import { createApp, h } from 'vue';
 import { App as InertiaApp, plugin as InertiaPlugin } from '@inertiajs/inertia-vue3';
 import { InertiaProgress } from '@inertiajs/progress';
-import ElementPlus from 'element-plus';
-import locale from 'element-plus/lib/locale/lang/ar'
-import 'dayjs/locale/ar'
-import 'element-plus/lib/theme-chalk/index.css';
-// import './../scss/_element-variables.scss'
 const el = document.getElementById('app');
 createApp({
     render: () =>
@@ -18,7 +13,6 @@ createApp({
         }),
 })
     .mixin({ methods: { route } })
-    .use(ElementPlus,{locale})
     .use(InertiaPlugin)
     .mount(el);
 
