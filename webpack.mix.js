@@ -12,12 +12,7 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js').vue()
-    .sass('resources/scss/app.scss', 'public/css/app.css', {
-        sassOptions: {
-            outputStyle: 'nested',
-        },
-        implementation: require('node-sass')
-    })
+    .sass('resources/scss/app.scss', 'public/css/app.css')
     .copyDirectory('resources/assets','public/assets')
     .webpackConfig(require('./webpack.config'));
 
