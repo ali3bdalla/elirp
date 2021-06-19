@@ -4,6 +4,11 @@
 /public/**/*.css
 /public/**/*.jpg
 /public/**/*.svg
+/public/**/*.eot
+/public/**/*.ttf
+/public/**/*.woff
+/public/**/*.woff2
+/public/**/*.png
 /public/storage
 /storage/*.key
 /vendor
