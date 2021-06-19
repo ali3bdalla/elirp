@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
@@ -76,5 +77,10 @@ class AppServiceProvider extends ServiceProvider
             },
             trans('validation.custom.invalid_extension')
         );
+
+        Model::preventLazyLoading(! app()->isProduction());
+        Model::handleLazyLoadingViolationUsing(function () {
+            Log::error('Error');
+        });
     }
 }

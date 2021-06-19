@@ -12,12 +12,14 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js').vue()
-    .postCss('resources/css/app.css', 'public/css', [
-        require('postcss-import'),
-        require('tailwindcss'),
-    ])
+    .sass('resources/scss/app.scss', 'public/css/app.css')
+    .copyDirectory('resources/assets','public/assets')
     .webpackConfig(require('./webpack.config'));
 
 if (mix.inProduction()) {
     mix.version();
+}
+
+if (!mix.inProduction()) {
+    mix.browserSync('elirp-next.test');
 }
