@@ -33,10 +33,15 @@ return [
 
             // Logs in a user if they are authenticated. In contrast to Laravel's 'auth'
             // middleware, this delegates auth and permission checks to the field level.
-            \Nuwave\Lighthouse\Support\Http\Middleware\AttemptAuthentication::class,
-
+//            \Illuminate\Session\Middleware\StartSession::class,
+//            \Nuwave\Lighthouse\Support\Http\Middleware\AttemptAuthentication::class,
+//            \Illuminate\Cookie\Middleware\EncryptCookies::class,
+//            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+////
+//
             // Logs every incoming GraphQL query.
-            // \Nuwave\Lighthouse\Support\Http\Middleware\LogGraphQLQueries::class,
+             \Nuwave\Lighthouse\Support\Http\Middleware\LogGraphQLQueries::class,
+            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
         ],
 
         /*
@@ -57,7 +62,7 @@ return [
     |
     */
 
-    'guard' => 'api',
+        'guard' => 'sanctum',
 
     /*
     |--------------------------------------------------------------------------
@@ -160,7 +165,7 @@ return [
          * Allow clients to query paginated lists without specifying the amount of items.
          * Setting this to `null` means clients have to explicitly ask for the count.
          */
-        'default_count' => null,
+        'default_count' => 30,
 
         /*
          * Limit the maximum amount of items that clients can request from paginated lists.

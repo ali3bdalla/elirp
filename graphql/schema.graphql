@@ -1,31 +1,10 @@
-"A date string with format `Y-m-d`, e.g. `2011-05-23`."
-scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
-"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
-scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
-
-type Query {
-    copmanies: [Company!]! @all
-    users: [User!]! @paginate(defaultCount: 10)
-    user(id: ID @eq): User @find
+type Query @guard {
+#    me: User @auth
+#    user(id: ID @eq): User @find
+#    users(orderBy: _@orderBy(columns: ["created_at", "id"])): [User!]! @paginate
+    accounts: [Company]! @all
 }
 
-type User {
-    id: ID!
-    name: String!
-    email: String!
-    company_id: Int!
-    profile_photo_url: String!
-    enabled: Boolean!,
-    created_at: DateTime!
-    updated_at: DateTime!
-}
+#import models.graphql
+#import actions.graphql
 
-
-type Company {
-    id: ID!
-    enabled: Boolean!
-    domain: String!,
-    users: [User]! @paginate(defaultCount: 10)
-    created_at: DateTime!
-    updated_at: DateTime!
-}

@@ -34,8 +34,9 @@ class JetstreamServiceProvider extends ServiceProvider
         Fortify::loginView(function () {
             Inertia::setRootView('login');
             return Inertia::render('Auth/Login', [
-                'canResetPassword' => Route::has('password.request'),
-                'status' => session('status'),
+                'oauthClients' => collect(config('oauth-clients'))->filter(function($key,$driver) {
+                    return $key;
+                })->keys()->toArray()
             ]);
         });
     }

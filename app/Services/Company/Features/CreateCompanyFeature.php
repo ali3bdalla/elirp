@@ -32,14 +32,12 @@ class CreateCompanyFeature extends Feature
             $this->run(SeedCompanyBaseAccountsOperation::class, [
                 'company' => $company
             ]);
-
-            $user = $this->run(CreateSupervisorUserOperation::class, [
+            return $this->run(CreateSupervisorUserOperation::class, [
                 'company'  => $company,
                 'name'     => $request->input('name'),
                 'email'    => $request->input('email'),
                 'password' => $request->input('password'),
             ]);
-            return $user;
         });
     }
 }

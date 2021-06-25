@@ -52,8 +52,8 @@ class SeedCompanyAccountingAssetsAccountsJob extends Job
             'parent_id'      => $currentAssets->id,
             'type'           => AccountingTypeEnum::DEBIT(),
             'group'          => AccountGroupEnum::RECEIVABLE(),
-            'name'           => 'Receivalbe Customers',
-            'slug'           => AccountSlugsEnum::DEFAULT_RECEIABLE_ACCOUNT(),
+            'name'           => 'Receivable Customers',
+            'slug'           => AccountSlugsEnum::DEFAULT_RECEIVABLE_ACCOUNT(),
             'auto_generated' => true,
             'company_id'     => $this->company->id
         ]);

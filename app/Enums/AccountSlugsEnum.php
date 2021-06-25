@@ -9,7 +9,7 @@ use Spatie\Enum\Laravel\Enum;
  * @method static self DEFAULT_SALES_INCOMES_ACCOUNT()
  * @method static self DEFAULT_COGS_ACCOUNT()
  * @method static self DEFAULT_PAYABLE_ACCOUNT()
- * @method static self DEFAULT_RECEIABLE_ACCOUNT()
+ * @method static self DEFAULT_RECEIVABLE_ACCOUNT()
  * @method static self DEFAULT_BANK_ACCOUNT()
  * @method static self DEFAULT_STOCK_ACCOUNT()
  * @method static self DEFAULT_TAX_ACCOUNT()

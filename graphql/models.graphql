@@ -1,0 +1,73 @@
+"A date string with format `Y-m-d`, e.g. `2011-05-23`."
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+type Company {
+    id: ID!
+    enabled: Boolean!
+    domain: String!,
+    created_at: DateTime!
+    updated_at: DateTime!
+    users: [User!] @hasMany
+    accounts: [Account!] @hasMany
+    entries: [Entry!] @hasMany
+    transactions: [Transaction!] @hasMany
+    inventories: [Inventory!] @hasMany
+    inventoryTransactions: [inventoryTransaction!] @hasMany
+    taxes: [Tax!] @hasMany
+    documents: [Document!] @hasMany
+    items: [Item!] @hasMany
+    currencies: [Currency!] @hasMany
+    contacts: [Contact!] @hasMany
+    userActions: [UserAction!] @hasMany
+}
+
+type UserAction {
+    id: ID!
+    actionable_type: String!
+    actionable_id: Int!
+    company_id: Int!
+    user_id: Int!
+    action: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+    company: Company @belongsTo
+    user: User @belongsTo
+}
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    company_id: Int!
+    profile_photo_url: String!
+    enabled: Boolean!,
+    created_at: DateTime!
+    updated_at: DateTime!
+    company: Company @belongsTo
+    actions: [UserAction!] @hasMany
+}
+
+type Account {
+    id: ID!
+    name: String!
+    number: String!
+    company_id: Int!
+    parent_id: Int!
+    attribute_1: String!
+    attribute_2: String!
+    attribute_3: String!
+    group: String!
+    type: String!
+    slug: String!
+    auto_generated: Boolean!
+    enabled: Boolean!
+    created_at: DateTime!
+    updated_at: DateTime!
+    company: Company @belongsTo
+    parent: Account! @belongsTo
+    children: [Account!] @hasMany
+    transactions: [Transaction!] @hasMany
+    snapshots: [AccountSnapshot!] @hasMany
+    tax: Tax! @hasOne
+}
+

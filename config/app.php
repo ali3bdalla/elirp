@@ -163,7 +163,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        \App\GraphQL\GraphQLServiceProvider::class,
         /*
          * Application Service Providers...
          */

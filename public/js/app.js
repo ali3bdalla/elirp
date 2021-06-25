@@ -31234,10 +31234,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+<<<<<<< refs/remotes/origin/next
 // istanbul ignore next (See: 'https://github.com/graphql/graphql-js/issues/2317')
 var nodejsCustomInspectSymbol = typeof Symbol === 'function' && typeof Symbol.for === 'function' ? Symbol.for('nodejs.util.inspect.custom') : undefined;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (nodejsCustomInspectSymbol);
 
+=======
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    oauthClients: {
+      type: Array,
+      required: true
+    }
+  }
+});
+>>>>>>> add base grapgql schema
 
 /***/ }),
 
@@ -35021,6 +35032,7 @@ Stack.prototype.get = stackGet;
 Stack.prototype.has = stackHas;
 Stack.prototype.set = stackSet;
 
+<<<<<<< refs/remotes/origin/next
 /**
  * Creates an array of the enumerable property names of the array-like `value`.
  *
@@ -35095,6 +35107,29 @@ function assocIndexOf(array, key) {
  */
 function baseAssign(object, source) {
   return object && copyObject(source, keys(source), object);
+=======
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("begin::Login Header"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("img", {
+    src: _ctx.$asset('assets/media/logos/logo-letter-13.png'),
+    "class": "max-h-75px",
+    alt: ""
+  }, null, 8
+  /* PROPS */
+  , ["src"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("end::Login Header"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("begin::Login Sign in form"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_7, [_hoisted_8, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.oauthClients, function (oauth) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("a", {
+      key: oauth,
+      href: "/auth/".concat(oauth, "/redirect"),
+      onClick: _cache[1] || (_cache[1] = function () {
+        return _ctx.submit && _ctx.submit.apply(_ctx, arguments);
+      }),
+      "class": "btn  font-weight-bold px-9 py-4 my-3   btn-block"
+    }, "Sign In " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(oauth), 9
+    /* TEXT, PROPS */
+    , ["href"]);
+  }), 128
+  /* KEYED_FRAGMENT */
+  ))])])])])]);
+>>>>>>> add base grapgql schema
 }
 
 /**

@@ -64,4 +64,24 @@ class Company extends ModelFrame
     {
         return $this->hasMany(Currency::class, 'company_id');
     }
+    
+    public function userActions() : HasMany
+    {
+        return $this->hasMany(UserAction::class, 'company_id');
+    }
+    
+    public function documents() : HasMany
+    {
+        return $this->hasMany(Document::class, 'company_id');
+    }
+    
+    public function inventories() : HasMany
+    {
+        return $this->hasMany(Inventory::class, 'company_id');
+    }
+    
+    public function inventoryTransactions() : HasMany
+    {
+        return $this->hasMany(InventoryTransaction::class, 'company_id');
+    }
 }

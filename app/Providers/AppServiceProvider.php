@@ -77,7 +77,8 @@ class AppServiceProvider extends ServiceProvider
             },
             trans('validation.custom.invalid_extension')
         );
-
+        
+        
         Model::preventLazyLoading(! app()->isProduction());
         Model::handleLazyLoadingViolationUsing(function () {
             Log::error('Error');
