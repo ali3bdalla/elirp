@@ -1,4 +1,11 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/sb-admin-2.css": "/css/sb-admin-2.css",
+    "/css/app.css": "/css/app.css",
+    "/img/undraw_posting_photo.svg": "/img/undraw_posting_photo.svg",
+    "/img/undraw_profile.svg": "/img/undraw_profile.svg",
+    "/img/undraw_profile_1.svg": "/img/undraw_profile_1.svg",
+    "/img/undraw_profile_2.svg": "/img/undraw_profile_2.svg",
+    "/img/undraw_profile_3.svg": "/img/undraw_profile_3.svg",
+    "/img/undraw_rocket.svg": "/img/undraw_rocket.svg"
 }

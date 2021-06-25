@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property mixed account_id
  * @property mixed amount
  * @property mixed item_id
+ * @property Item item
  */
 class Transaction extends ModelFrame
 {
