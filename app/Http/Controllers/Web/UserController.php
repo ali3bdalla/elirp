@@ -19,7 +19,10 @@
         {
             return Inertia::render('Users/Index');
         }
-
+        public function create()
+        {
+             return Inertia::render('Users/Create');
+        }
         /**
          * Store a newly created resource in storage.
          *

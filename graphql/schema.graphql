@@ -12,6 +12,8 @@ type Query @guard {
     getUsers(trashed: Trashed @trashed): [User!]! @paginate
     getUser(id: ID!): User! @find
     getTransactions(trashed: Trashed @trashed): [Transaction!]! @paginate
-    totalDownloads: Int!  @aggregate(model: "Song", column: "downloads", function: SUM)
+    totalUsers: Int!  @aggregate(model: "User", column: "id", function: count)
+    # totalDownloads: Int!  @aggregate(model: "Song", column: "downloads", function: SUM)
+    # totalDownloads: Int!  @aggregate(model: "Song", column: "downloads", function: SUM)
 
 }
