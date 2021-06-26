@@ -30,6 +30,15 @@
         "vue-loader": "^16.1.2"
     },
     "dependencies": {
+        "apollo-boost": "^0.4.9",
+        "apollo-cache-inmemory": "^1.6.6",
+        "apollo-client": "^2.6.10",
+        "apollo-link": "^1.2.14",
+        "apollo-link-http": "^1.5.17",
+        "bootstrap": "^5.0.2",
+        "element-plus": "*",
+        "graphql": "^15.5.1",
+        "graphql-tag": "^2.12.5",
         "sweetalert2": "^11.0.17",
         "vue-sweetalert2": "^4.3.1"
     }

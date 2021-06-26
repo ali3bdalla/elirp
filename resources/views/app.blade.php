@@ -1,6 +1,6 @@
 
 @extends('_base')
 
-@push('content')
+@section('content')
      @inertia
-@endpush
+@endsection

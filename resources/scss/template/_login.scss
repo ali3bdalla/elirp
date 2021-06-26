@@ -48,3 +48,6 @@ form.user {
 .btn-facebook {
   @include button-variant($brand-facebook, $white);
 }
+.btn-github {
+  @include button-variant($brand-facebook, $white);
+}

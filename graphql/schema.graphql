@@ -1,10 +1,16 @@
-type Query @guard {
-#    me: User @auth
+
+"A date string with format `Y-m-d`, e.g. `2011-05-23`."
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+
+extend type Query @guard {
+    me: User @auth
 #    user(id: ID @eq): User @find
 #    users(orderBy: _@orderBy(columns: ["created_at", "id"])): [User!]! @paginate
-    accounts: [Company]! @all
+#    transations: [Transaction!]! @all
 }
 
 #import models.graphql
 #import actions.graphql
-

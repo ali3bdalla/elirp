@@ -32,8 +32,6 @@
         }
     });
     Route::middleware(['auth:sanctum', 'verified'])->group(function() {
-        Route::get('/', function() {
-            return Auth::user();
-        });
+        Route::get('/dashboard', \App\Http\Controllers\Web\DashboardController::class)->name('dashboard');
         Route::resource('users', UserController::class);
     });
