@@ -3,14 +3,15 @@
 scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 "A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
 scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
-
-
-extend type Query @guard {
-    me: User @auth
-#    user(id: ID @eq): User @find
-#    users(orderBy: _@orderBy(columns: ["created_at", "id"])): [User!]! @paginate
-#    transations: [Transaction!]! @all
-}
+# scalar DataGridAttribute @scalar(class: "App\\GraphQL\\Scalars\\DataGridAttribute")
 
 #import models.graphql
-#import actions.graphql
+
+type Query @guard {
+    me: User @auth
+    getUsers(trashed: Trashed @trashed): [User!]! @paginate
+    getUser(id: ID!): User! @find
+    getTransactions(trashed: Trashed @trashed): [Transaction!]! @paginate
+    totalDownloads: Int!  @aggregate(model: "Song", column: "downloads", function: SUM)
+
+}

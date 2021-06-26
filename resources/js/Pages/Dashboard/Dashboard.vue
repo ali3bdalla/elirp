@@ -327,10 +327,20 @@
 
 <script>
 import AppLayout from "../../Layouts/AppLayout";
-
+import { useQuery } from '@vue/apollo-composable'
+import gql from 'graphql-tag'
 export default {
-  created() {
-    console.log(this.$apollo.provider.defaultClient)
+  setup () {
+    const { result } = useQuery(gql`
+      query  {
+        me {
+          id
+          email
+        }
+          
+      }
+    `)
+    console.log(result)
   },
   components: {
     AppLayout,

@@ -9,110 +9,172 @@ type User {
     enabled: Boolean!,
     created_at: DateTime!
     updated_at: DateTime!
-#    company: Company @belongsTo
-#    actions: [UserAction!]! @hasMany
+    company: Company @belongsTo
+    actions: [UserAction]! @paginate
 }
-#
-#type Company {
-#    id: ID!
-#    enabled: Boolean!
-#    domain: String!,
-#    created_at: DateTime!
-#    updated_at: DateTime!
-#    users: [User!] @hasMany
-#    accounts: [Account!] @hasMany
-#    entries: [Entry!] @hasMany
-#    transactions: [Transaction!] @hasMany
-#    inventories: [Inventory!] @hasMany
-#    inventoryTransactions: [inventoryTransaction!] @hasMany
-#    taxes: [Tax!] @hasMany
-#    documents: [Document!] @hasMany
-#    items: [Item!] @hasMany
-#    currencies: [Currency!] @hasMany
-#    contacts: [Contact!] @hasMany
-#    userActions: [UserAction!] @hasMany
-#}
-#
-#type UserAction {
-#    id: ID!
-#    actionable_type: String!
-#    actionable_id: Int!
-#    company_id: Int!
-#    user_id: Int!
-#    action: String!
-#    created_at: DateTime!
-#    updated_at: DateTime!
-#    company: Company @belongsTo
-#    user: User @belongsTo
-#}
-#
-#
-#type Account {
-#    id: ID!
-#    name: String!
-#    number: String!
-#    company_id: Int!
-#    parent_id: Int!
-#    attribute_1: String!
-#    attribute_2: String!
-#    attribute_3: String!
-#    group: String!
-#    type: String!
-#    slug: String!
-#    auto_generated: Boolean!
-#    enabled: Boolean!
-#    created_at: DateTime!
-#    updated_at: DateTime!
-#    company: Company @belongsTo
-#    parent: Account! @belongsTo
-#    children: [Account!] @hasMany
-#    transactions: [Transaction!] @hasMany
-#    snapshots: [AccountSnapshot!] @hasMany
-#    tax: Tax! @hasOne
-#}
-#
-#type Entry {
-#    id: ID!
-#    amount: Float!
-#    description: String!
-#    reference: String!
-#    company_id: Int!
-#    document_id: Int!
-#    is_pending: Boolean!
-#    parent_id: Int!
-#    enabled: Boolean!
-#    created_at: DateTime!
-#    updated_at: DateTime!
-#    company: Company @belongsTo
-#    document: Document! @belongsTo
-#    parent: Entry! @belongsTo
-#    children: [Entry!] @hasMany
-#    transactions: [Transaction!] @hasMany
-#}
-#
-#type Transaction {
-#    id: ID!
-#    amount: Float!
-#    currency_rate: Float!
-#    currency_code: String!
-#    reference: String!
-#    type: String!
-#    company_id: Int
-#    account_id: Int
-#    entry_id: Int
-#    document_id: Int!
-#    contact_id: Int!
-#    item_id: Int!
-#    is_pending: Boolean!
-#    parent_id: Int!
-#    enabled: Boolean!
-#    created_at: DateTime!
-#    updated_at: DateTime!
-#    company: Company @belongsTo
-#    document: Document! @belongsTo
-#    item: Item! @belongsTo
-#    entry: Entry @belongsTo
-#    account: Account @belongsTo
-#    parent: Transaction! @belongsTo
-#    children: [Transaction!] @hasMany
-#}
+
+type Company {
+    id: ID!
+    enabled: Boolean!
+    domain: String!,
+    created_at: DateTime!
+    updated_at: DateTime!
+    users: [User!]! @paginate
+    accounts: [Account!] @paginate
+    entries: [Entry!] @paginate
+    transactions: [Transaction!] @paginate
+    inventories: [Inventory!] @paginate
+    inventoryTransactions: [InventoryTransaction!] @paginate
+    taxes: [Tax!] @paginate
+    documents: [Document!] @paginate
+    items: [Item!] @paginate
+    currencies: [Currency!] @paginate
+    contacts: [Contact!] @paginate
+    userActions: [UserAction!] @paginate
+}
+
+type UserAction {
+   id: ID!
+   actionable_type: String!
+   actionable_id: Int!
+   company_id: Int!
+   user_id: Int!
+   action: String!
+   created_at: DateTime!
+   updated_at: DateTime!
+   company: Company @belongsTo
+   user: User @belongsTo
+}
+
+
+type Account {
+   id: ID!
+   name: String!
+   number: String!
+   company_id: Int!
+   parent_id: Int!
+   attribute_1: String!
+   attribute_2: String!
+   attribute_3: String!
+   group: String!
+   type: String!
+   slug: String!
+   auto_generated: Boolean!
+   enabled: Boolean!
+   created_at: DateTime!
+   updated_at: DateTime!
+   company: Company @belongsTo
+   parent: Account! @belongsTo
+   children: [Account!] @paginate
+   transactions: [Transaction!] @paginate
+   snapshots: [AccountSnapshot!] @paginate
+   tax: Tax! @hasOne
+}
+
+type Entry {
+   id: ID!
+   amount: Float!
+   description: String!
+   reference: String!
+   company_id: Int!
+   document_id: Int!
+   is_pending: Boolean!
+   parent_id: Int!
+   enabled: Boolean!
+   created_at: DateTime!
+   updated_at: DateTime!
+   company: Company @belongsTo
+   document: Document! @belongsTo
+   parent: Entry! @belongsTo
+   children: [Entry!] @paginate
+   transactions: [Transaction!] @paginate
+}
+
+type Transaction {
+   id: ID!
+   amount: Float!
+   currency_rate: Float!
+   currency_code: String!
+   reference: String!
+   type: String!
+   company_id: Int
+   account_id: Int
+   entry_id: Int
+   document_id: Int!
+   contact_id: Int!
+   item_id: Int!
+   is_pending: Boolean!
+   parent_id: Int!
+   enabled: Boolean!
+   created_at: DateTime!
+   updated_at: DateTime!
+   company: Company @belongsTo
+   document: Document! @belongsTo
+   item: Item! @belongsTo
+   entry: Entry @belongsTo
+   account: Account @belongsTo
+   parent: Transaction! @belongsTo
+   children: [Transaction!] @paginate
+}
+
+
+
+type Inventory {
+   id: ID!
+   company_id: Int!
+   created_at: DateTime!
+   updated_at: DateTime!
+}
+
+
+type InventoryTransaction {
+   id: ID!
+   company_id: Int!
+   created_at: DateTime!
+   updated_at: DateTime!
+}
+
+
+type Tax {
+   id: ID!
+   company_id: Int!
+   created_at: DateTime!
+   updated_at: DateTime!
+}
+
+
+type Item {
+   id: ID!
+   company_id: Int!
+   created_at: DateTime!
+   updated_at: DateTime!
+}
+
+
+
+type Document {
+   id: ID!
+   company_id: Int!
+   created_at: DateTime!
+   updated_at: DateTime!
+}
+type AccountSnapshot {
+   id: ID!
+   company_id: Int!
+   created_at: DateTime!
+   updated_at: DateTime!
+}
+
+
+type Currency {
+   id: ID!
+   company_id: Int!
+   created_at: DateTime!
+   updated_at: DateTime!
+}
+type Contact {
+   id: ID!
+   company_id: Int!
+   created_at: DateTime!
+   updated_at: DateTime!
+}

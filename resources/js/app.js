@@ -15,11 +15,12 @@ import Helper from './helper'
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import apolloClient from './graphql-client';
+import { DefaultApolloClient } from '@vue/apollo-composable'
 
 
 createApp({
     setup () {
-        provide( apolloClient)
+        provide(DefaultApolloClient, apolloClient)
     },
     render: () =>
             h(InertiaApp, {

@@ -1,11 +1,14 @@
 import { ApolloClient } from 'apollo-client'
 import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
-
+const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 // HTTP connection to the API
 const httpLink = createHttpLink({
     // You should use an absolute URL here
-    uri: 'http://localhost:3000/graphql',
+    uri: 'http://127.0.0.1:8000/graphql',
+    headers: {
+        'X-CSRF-TOKEN': csrfToken
+    }
 })
 
 // Cache implementation
