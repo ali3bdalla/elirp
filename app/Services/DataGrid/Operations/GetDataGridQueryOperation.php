@@ -45,8 +45,5 @@ use Illuminate\Database\Eloquent\Builder;
                 new CreatedByFilterJob($this->request),
                 new SortedByFilterJob($this->request),
             ], $this->additionalFilters))->send($this->builder)->thenReturn();
-
-            //                    CreatedByFilter::class,
-            //                    new SortByFilter($this->builder->getModel()->getTable())
         }
     }
