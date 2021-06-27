@@ -4,6 +4,7 @@ namespace App\Services\User\Operations;
 
 use App\Domains\User\Jobs\CreateNewUserJob;
 use App\Models\Company;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Lucid\Units\Operation;
@@ -32,9 +33,9 @@ class CreateSupervisorUserOperation extends Operation
     /**
      * Execute the operation.
      *
-     * @return void
+     * @return User
      */
-    public function handle()
+    public function handle() : User
     {
         if (Auth::check()) {
             $user = Auth::user();
