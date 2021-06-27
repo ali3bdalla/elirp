@@ -1,9 +1,10 @@
-export async function alertUser(context,title = null, message = null, type = 'error') {
+import Swal from "sweetalert2";
+export async function alertUser(title = null, message = null, type = 'error') {
 	if (title === null) { title = `confirm` }
 	if (message === null) { message = `are you sure?` }
-	return context.$swal(message, title, type)
+	return Swal.fire(message, title, type)
 };
-export async function askUser(context,title = null, message = null, type = 'error') {
+export async function askUser(title = null, message = null, type = 'error') {
 	if (title === null) { title = `confirm` }
 	if (message === null) { message = `are you sure?` }
 	return context.$confirm(message, title, type, {
@@ -11,7 +12,7 @@ export async function askUser(context,title = null, message = null, type = 'erro
 		cancelButtonText: 'الغاء',
 	})
 };
-export async function notifyUser(context,title = null, message = null, type = 'error') {
+export async function notifyUser(title = null, message = null, type = 'error') {
 	if (title === null) { title = `confirm` }
 	if (message === null) { message = `are you sure?` }
 	return context.$notify({

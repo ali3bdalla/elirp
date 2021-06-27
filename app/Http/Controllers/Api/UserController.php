@@ -5,6 +5,7 @@
     use App\Http\Controllers\Controller;
     use App\Models\User;
 use App\Services\User\Features\StoreUserFeature;
+use App\Services\User\Features\UpdateUserFeature;
 use App\Services\User\Features\UserTableFeature;
     use Illuminate\Http\Request;
     use Illuminate\Http\Response;
@@ -42,27 +43,7 @@ use App\Services\User\Features\UserTableFeature;
             return $this->serve(StoreUserFeature::class);
         }
 
-        /**
-         * Display the specified resource.
-         *
-         * @param User $user
-         * @return Response
-         */
-        public function show(User $user)
-        {
-            //
-        }
 
-        /**
-         * Show the form for editing the specified resource.
-         *
-         * @param User $user
-         * @return Response
-         */
-        public function edit(User $user)
-        {
-            //
-        }
 
         /**
          * Update the specified resource in storage.
@@ -71,9 +52,11 @@ use App\Services\User\Features\UserTableFeature;
          * @param User $user
          * @return Response
          */
-        public function update(Request $request, User $user)
+        public function update(User $user)
         {
-            //
+            return $this->serve(UpdateUserFeature::class,[
+                'user' => $user
+            ]);
         }
 
         /**

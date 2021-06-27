@@ -27,7 +27,8 @@ class ValidateCreateNewUserJob extends Job
     {
         $this->request->validate([
             'email' => 'required|email:rfc,dns,spoof,filter,strict|unique:users,email',
-            'password' => 'required|min:8|string|max:200',
+            'password' => 'required|min:8|string|max:200|confirmed',
+            'password_confirmation' => 'required|min:8|string|max:200',
             'name' => 'required|string|max:30'
         ]);
     }

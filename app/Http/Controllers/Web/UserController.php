@@ -48,13 +48,14 @@
         /**
          * Update the specified resource in storage.
          *
-         * @param Request $request
          * @param User $user
          * @return Response
          */
-        public function update(Request $request, User $user)
+        public function edit(User $user)
         {
-            //
+            return Inertia::render('Users/Edit',[
+                'user' => $user
+            ]);
         }
 
         /**
