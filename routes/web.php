@@ -2,7 +2,8 @@
 
     use App\Http\Controllers\AuthController;
     use App\Http\Controllers\Web\UserController;
-    use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Route;
     use Laravel\Socialite\Facades\Socialite;
 
@@ -16,7 +17,8 @@
     | contains the "web" middleware group. Now create something great!
     |
     */
-    Auth::loginUsingId(1);
+    auth()->loginUsingId(1);
+
     Route::group(['prefix'=>'auth', 'as'=>'.auth', 'middleware'=>'guest'], function() {
         foreach(config('oauth-clients') as $client=>$enabled) {
             if($enabled) {

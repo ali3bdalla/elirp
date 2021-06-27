@@ -4,7 +4,8 @@
 
     use App\Http\Controllers\Controller;
     use App\Models\User;
-    use App\Services\User\Features\UserTableFeature;
+use App\Services\User\Features\StoreUserFeature;
+use App\Services\User\Features\UserTableFeature;
     use Illuminate\Http\Request;
     use Illuminate\Http\Response;
 
@@ -36,9 +37,9 @@
          * @param Request $request
          * @return Response
          */
-        public function store(Request $request)
+        public function store()
         {
-            //
+            return $this->serve(StoreUserFeature::class);
         }
 
         /**

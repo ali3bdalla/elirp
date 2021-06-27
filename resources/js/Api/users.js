@@ -1,5 +1,7 @@
+import {Inertia} from '@inertiajs/inertia';
+import {handleInvalidResponse} from './inertiajs'
 
-// exports.saveUser = function(form) {
-// 	console.log('saving user....');
-// 	console.log(form)
-// }
+export function saveUser(context,form) {
+	Inertia.post(route('api.users.store'),form);
+	handleInvalidResponse(context);
+}
