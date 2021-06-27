@@ -6,7 +6,10 @@
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
+    <div
+      id="content-wrapper"
+      class="d-flex flex-column"
+    >
 
       <!-- Main Content -->
       <div id="content">
@@ -28,8 +31,9 @@
             </div>
 
           </div>
-
-          <slot></slot>
+          <div class='card border-left-primary shadow h-100'>
+            <slot></slot>
+          </div>
         </div>
         <!-- /.container-fluid -->
 
@@ -53,54 +57,54 @@
 </template>
 
 <script>
-    // import JetApplicationMark from '@/Jetstream/ApplicationMark'
-    // import JetBanner from '@/Jetstream/Banner'
-    // import JetDropdown from '@/Jetstream/Dropdown'
-    // import JetDropdownLink from '@/Jetstream/DropdownLink'
-    // import JetNavLink from '@/Jetstream/NavLink'
-    // import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink'
+// import JetApplicationMark from '@/Jetstream/ApplicationMark'
+// import JetBanner from '@/Jetstream/Banner'
+// import JetDropdown from '@/Jetstream/Dropdown'
+// import JetDropdownLink from '@/Jetstream/DropdownLink'
+// import JetNavLink from '@/Jetstream/NavLink'
+// import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink'
 
-    import LayoutNavbarComponent from "../Components/Layout/LayoutNavbarComponent";
-    import LayoutHeaderComponent from "../Components/Layout/LayoutHeaderComponent";
-    export default {
-      components: {LayoutHeaderComponent, LayoutNavbarComponent},
-      data() {
-        const item = {
-          date: '2016-05-02',
-          name: 'Tom',
-          address: 'No. 189, Grove St, Los Angeles'
-        };
-        return {
-          tableData: Array(20).fill(item)
-        }
-      }
-        // components: {
-        //     JetApplicationMark,
-        //     JetBanner,
-        //     JetDropdown,
-        //     JetDropdownLink,
-        //     JetNavLink,
-        //     JetResponsiveNavLink,
-        // },
-        //
-        // data() {
-        //     return {
-        //         showingNavigationDropdown: false,
-        //     }
-        // },
-        //
-        // methods: {
-        //     switchToTeam(team) {
-        //         this.$inertia.put(route('current-team.update'), {
-        //             'team_id': team.id
-        //         }, {
-        //             preserveState: false
-        //         })
-        //     },
-        //
-        //     logout() {
-        //         this.$inertia.post(route('logout'));
-        //     },
-        // }
-    }
+import LayoutNavbarComponent from "../Components/Layout/LayoutNavbarComponent";
+import LayoutHeaderComponent from "../Components/Layout/LayoutHeaderComponent";
+export default {
+  components: { LayoutHeaderComponent, LayoutNavbarComponent },
+  data() {
+    const item = {
+      date: "2016-05-02",
+      name: "Tom",
+      address: "No. 189, Grove St, Los Angeles",
+    };
+    return {
+      tableData: Array(20).fill(item),
+    };
+  },
+  // components: {
+  //     JetApplicationMark,
+  //     JetBanner,
+  //     JetDropdown,
+  //     JetDropdownLink,
+  //     JetNavLink,
+  //     JetResponsiveNavLink,
+  // },
+  //
+  // data() {
+  //     return {
+  //         showingNavigationDropdown: false,
+  //     }
+  // },
+  //
+  // methods: {
+  //     switchToTeam(team) {
+  //         this.$inertia.put(route('current-team.update'), {
+  //             'team_id': team.id
+  //         }, {
+  //             preserveState: false
+  //         })
+  //     },
+  //
+  //     logout() {
+  //         this.$inertia.post(route('logout'));
+  //     },
+  // }
+};
 </script>

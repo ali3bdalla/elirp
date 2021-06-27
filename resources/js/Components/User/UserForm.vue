@@ -1,5 +1,5 @@
 <template>
-  <div class='card border-left-primary shadow h-100'>
+  <div>
     <div class="card-header">
       <i class="fa fa-plus-circle"></i> User Information
     </div>

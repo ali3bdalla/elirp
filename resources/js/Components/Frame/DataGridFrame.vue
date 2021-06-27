@@ -1,14 +1,17 @@
 <template>
   <div>
-    <div v-if="isLoading">is Loading</div>
-    <!-- <el-table
-      :data="tableData.data"
-      v-loading="fetching"
+    <el-table
+      :data="items"
+      v-loading="loading"
       border
-      size="medium"
+      size="large"
       lazy
       :sortable="true"
       v-bind="$props"
+      row-class-name=" text-center"
+      header-row-class-name="bg-dark text-center"
+      header-cell-class-name="bg-primary  text-white text-normal font-bold text-center p-2"
+      cell-class-name="text-center text-md"
     >
       <template v-slot:title>
         <slot name="title"></slot>
@@ -18,90 +21,43 @@
     </el-table>
     <div class="py-3 flex items-center justify-center">
       <el-pagination
-        :page-size="tableData.per_page"
+        :page-size="paginatorInfo.perPage"
         :background="true"
         small
+        @current-change="pageChanged"
         layout="prev, pager, next"
-        :total="tableData.total"
+        :total="paginatorInfo.total"
       >
       </el-pagination>
-    </div> -->
+    </div>
   </div>
 </template>
 
 <script>
-import { useQuery } from "@vue/apollo-composable";
-import gql from "graphql-tag";
-import { computed, watch, ref } from "vue";
-function fetch(page) {
-  return useQuery(gql`
-      query {
-        getUsers(page: ${page.value}) {
-          data {
-            id
-            name
-            email
-            enabled
-            created_at
-            updated_at
-          }
-          paginatorInfo {
-            count
-            perPage
-            currentPage
-            total
-            firstItem
-            lastItem
-          }
-        }
-      }
-    `);
-}
 export default {
   name: "DataGridFrame",
-  setup(props, context) {
-    const page = ref(1);
-    const isLoading = ref(true);
-    // const tableData = ref({});
-    const tableData = computed(function () {
-      const f = fetch(page);
-      return f.result.data;
-    });
-
+  props: {
+    items: {
+      type: Array,
+      required: true,
+    },
+    loading: {
+      required: true,
+      type: Boolean,
+    },
+    paginatorInfo: {
+      type: Object,
+      required: true,
+    },
+  },
+  setup(_, context) {
+    function pageChanged(page) {
+      context.emit("pageChanged", page);
+    }
     return {
-      tableData,
-      isLoading,
+      pageChanged,
     };
   },
-  // props: {
-  //   // dataGrid: {
-  //   //   type: Object,
-  //   //   required: true,
-  //   // },
-  // },
-  // data() {
-  //   return {
-  //     fetching: true,
-  //     tableData: {},
-  //   };
-  // },
-  // created() {
-  //   console.log(this.dataGrid);
-  //   // this.fetch();
-  // },
-  // methods: {
-  //   fetch() {
-  //     // this.fetching = true
-  //     // axios
-  //     //     .get(this.url)
-  //     //     .then((res) => {
-  //     //       this.tableData = res.data
-  //     //     })
-  //     //     .finally(() => {
-  //     //       this.fetching = false
-  //     //     })
-  //   },
-  // },
 };
 </script>
 

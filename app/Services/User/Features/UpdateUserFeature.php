@@ -11,7 +11,7 @@ use Lucid\Units\Feature;
 class UpdateUserFeature extends Feature
 {
     public function __construct(public User $user){}
-    public function handle($request)
+    public function handle(Request $request)
     {
         $request = parse_request_instance($request);
         $this->run(ValidateUpdateJob::class,[

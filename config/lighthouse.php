@@ -33,11 +33,11 @@ return [
 
             // Logs in a user if they are authenticated. In contrast to Laravel's 'auth'
             // middleware, this delegates auth and permission checks to the field level.
-//            \Illuminate\Session\Middleware\StartSession::class,
-//            \Nuwave\Lighthouse\Support\Http\Middleware\AttemptAuthentication::class,
-//            \Illuminate\Cookie\Middleware\EncryptCookies::class,
-//            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-////
+           \Illuminate\Session\Middleware\StartSession::class,
+           \Nuwave\Lighthouse\Support\Http\Middleware\AttemptAuthentication::class,
+           \Illuminate\Cookie\Middleware\EncryptCookies::class,
+           \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+//
 //
             // Logs every incoming GraphQL query.
              \Nuwave\Lighthouse\Support\Http\Middleware\LogGraphQLQueries::class,
@@ -366,7 +366,7 @@ return [
          * Controls the format of the extensions response.
          * Allowed values: 1, 2
          */
-        'version' => env('LIGHTHOUSE_SUBSCRIPTION_VERSION', 1),
+        'version' => env('LIGHTHOUSE_SUBSCRIPTION_VERSION',2),
 
         /*
          * Should the subscriptions extension be excluded when the response has no subscription channel?

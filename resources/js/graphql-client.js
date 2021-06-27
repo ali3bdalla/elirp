@@ -5,7 +5,8 @@ const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 // HTTP connection to the API
 const httpLink = createHttpLink({
     // You should use an absolute URL here
-    uri: 'http://elirp-next.test/graphql',
+    // http://127.0.0.1:3000
+    uri: `/graphql`,
     headers: {
         'X-CSRF-TOKEN': csrfToken
     }

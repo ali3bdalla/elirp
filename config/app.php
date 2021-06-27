@@ -164,6 +164,8 @@ return [
          * Package Service Providers...
          */
         \App\GraphQL\GraphQLServiceProvider::class,
+        \Nuwave\Lighthouse\Subscriptions\SubscriptionServiceProvider::class,
+
         /*
          * Application Service Providers...
          */

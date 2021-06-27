@@ -1,6 +1,5 @@
 import {Inertia} from '@inertiajs/inertia';
 import { handleInvalidResponse } from './../Plugins/inertiajs'
-
 export function saveUser(form,successCallback = null) {
 	Inertia.post(route('api.users.store'),form);
 	handleInvalidResponse(successCallback, 'Created', 'User has been Created');
