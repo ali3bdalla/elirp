@@ -8,7 +8,7 @@
         :href="route('users.index')"
         class="btn btn-default"
       >
-        Users
+        Back to Users
       </inertia-link>
     </template>
     <user-form

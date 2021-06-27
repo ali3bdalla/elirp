@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Company;
+use App\Models\Item;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -16,7 +17,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $company = Company::first();
-        User::factory(['company_id' =>   $company ->id])->count(100)->create();
+        User::factory(['company_id' =>   $company->id])->count(100)->create();
+        Item::factory(['company_id' => $company->id])->count(200)->create();
         // dd(Company::factory()->disabledFactoryState()->create());
         // \App\Models\User::factory(10)->create();
     }

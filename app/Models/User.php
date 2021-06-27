@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Data\CanBeEnabled;
 use App\Data\HasCompany;
+use App\Data\HasFullSearch;
 use App\Data\HasUserActions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -17,6 +18,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
 
+    use HasFullSearch;
     use HasApiTokens;
     use HasFactory;
     use SoftDeletes;

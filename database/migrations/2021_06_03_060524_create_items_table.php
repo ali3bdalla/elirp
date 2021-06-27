@@ -19,6 +19,11 @@ class CreateItemsTable extends Migration
             $table->string('name')->nullable();
             $table->string('sku')->nullable();
             $table->text('description')->nullable();
+            $table->longText('tags')->nullable();
+            $table->string('model_number')->nullable();
+            $table->string('model_name')->nullable();
+            $table->string('brand')->nullable();
+            $table->string('item_photo_path')->nullable();
             $table->double('sale_price', 15, 4)->nullable();
             $table->double('purchase_price', 15, 4)->nullable();
             $table->boolean('enabled')->default(true);

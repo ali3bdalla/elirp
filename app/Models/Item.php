@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Data\CanBeEnabled;
 use App\Data\HasCompany;
+use App\Data\HasFullSearch;
 use App\Data\HasUserActions;
 use App\Frame\ModelFrame;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,16 +24,21 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Item extends ModelFrame
 {
+    use HasFullSearch;
     use HasFactory;
     use SoftDeletes;
     use HasCompany;
     use HasUserActions;
     use CanBeEnabled;
 
-    protected $fillable  =  ['company_id', 'name', 'description', 'sku', 'has_detail', 'fixed_price', 'is_service',
-        'sale_price', 'purchase_price', 'enabled'];
+    protected $fillable  =  [
+        'company_id', 'name', 'description', 'sku', 'has_detail', 'fixed_price', 'is_service',
+        'sale_price', 'purchase_price', 'enabled',
+        'model_number', 'tags', 'model_name', 'brand',
+        'item_photo_path'
+    ];
 
-    public function taxes() : HasMany
+    public function taxes(): HasMany
     {
         return $this->hasMany(ItemTax::class, 'item_id');
     }

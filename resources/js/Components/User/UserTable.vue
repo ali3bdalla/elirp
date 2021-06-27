@@ -120,7 +120,6 @@
 </template>
 
 <script>
-import UserForm from "./UserForm";
 import DataGridFrame from "../Frame/DataGridFrame";
 import DataGridColumn from "../Frame/DataGridColumn";
 import PrimaryButton from "../Button/PrimaryButton.vue";
@@ -130,7 +129,7 @@ import { computed, watch, ref } from "vue";
 import { trim } from "lodash";
 export default {
   name: "UserTable",
-  components: { DataGridColumn, PrimaryButton, DataGridFrame, UserForm },
+  components: { DataGridColumn, PrimaryButton, DataGridFrame },
   setup() {
     const paramters = ref({ page: 1, enabled: 1, search: "" });
     const enabledStatus = ref(1);

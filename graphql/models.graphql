@@ -146,6 +146,21 @@ type Tax  @model(class: "App\\Models\\Tax"){
 type Item @model(class: "App\\Models\\Item"){
    id: ID!
    company_id: Int!
+   name: String
+   description: String
+   tags: String
+   sku: String
+   tags: String
+   model_number: String
+   model_name: String
+   sale_price: Float
+   purchase_price: Float
+   brand: String
+   is_service: Boolean
+   enabled: Boolean
+   has_detail: Boolean
+   fixed_price: Boolean
+   item_photo_path: String
    created_at: DateTime!
    updated_at: DateTime!
 }

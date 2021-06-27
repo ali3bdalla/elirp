@@ -18,7 +18,12 @@ type Query @guard {
     totalActiveUsers: Int!  @aggregate(model: "User", column: "id", function: count)
     totalInActiveUsers: Int!  @aggregate(model: "User", column: "id", function: count)
     totalUsers: Int!  @aggregate(model: "User", column: "id", function: count)
-    # totalDownloads: Int!  @aggregate(model: "Song", column: "downloads", function: SUM)
-    # totalDownloads: Int!  @aggregate(model: "Song", column: "downloads", function: SUM)
+
+
+    getItems(trashed: Trashed @trashed,
+    search: String! = "" @search(within: "items_index") ,
+  ): [Item!]! @paginate
+    totalItems: Int!  @aggregate(model: "Item", column: "id", function: count)
+
 
 }
