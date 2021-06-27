@@ -1,6 +1,6 @@
 
 
-type User {
+type User  @model(class: "App\\Models\\User")  {
     id: ID!
     name: String!
     email: String!
@@ -13,7 +13,7 @@ type User {
     actions: [UserAction]! @paginate
 }
 
-type Company {
+type Company @model(class: "App\\Models\\Company") {
     id: ID!
     enabled: Boolean!
     domain: String!,
@@ -33,7 +33,7 @@ type Company {
     userActions: [UserAction!] @paginate
 }
 
-type UserAction {
+type UserAction  @model(class: "App\\Models\\UserAction") {
    id: ID!
    actionable_type: String!
    actionable_id: Int!
@@ -47,7 +47,7 @@ type UserAction {
 }
 
 
-type Account {
+type Account  @model(class: "App\\Models\\UserAction"){
    id: ID!
    name: String!
    number: String!
@@ -71,7 +71,7 @@ type Account {
    tax: Tax! @hasOne
 }
 
-type Entry {
+type Entry @model(class: "App\\Models\\UserAction"){
    id: ID!
    amount: Float!
    description: String!
@@ -90,7 +90,7 @@ type Entry {
    transactions: [Transaction!] @paginate
 }
 
-type Transaction {
+type Transaction @model(class: "App\\Models\\UserAction"){
    id: ID!
    amount: Float!
    currency_rate: Float!
@@ -119,7 +119,7 @@ type Transaction {
 
 
 
-type Inventory {
+type Inventory  @model(class: "App\\Models\\Inventory"){
    id: ID!
    company_id: Int!
    created_at: DateTime!
@@ -135,7 +135,7 @@ type InventoryTransaction {
 }
 
 
-type Tax {
+type Tax  @model(class: "App\\Models\\Tax"){
    id: ID!
    company_id: Int!
    created_at: DateTime!
@@ -143,7 +143,7 @@ type Tax {
 }
 
 
-type Item {
+type Item @model(class: "App\\Models\\Item"){
    id: ID!
    company_id: Int!
    created_at: DateTime!
@@ -152,13 +152,13 @@ type Item {
 
 
 
-type Document {
+type Document @model(class: "App\\Models\\Document"){
    id: ID!
    company_id: Int!
    created_at: DateTime!
    updated_at: DateTime!
 }
-type AccountSnapshot {
+type AccountSnapshot @model(class: "App\\Models\\AccountSnapshot"){
    id: ID!
    company_id: Int!
    created_at: DateTime!
@@ -166,13 +166,13 @@ type AccountSnapshot {
 }
 
 
-type Currency {
+type Currency @model(class: "App\\Models\\Currency"){
    id: ID!
    company_id: Int!
    created_at: DateTime!
    updated_at: DateTime!
 }
-type Contact {
+type Contact @model(class: "App\\Models\\Contact"){
    id: ID!
    company_id: Int!
    created_at: DateTime!

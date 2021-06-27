@@ -1,9 +1,13 @@
 <template>
   <el-table-column
-  v-bind="$props"
+    sortable="custom"
+    v-bind="$props"
   >
     <template #default="props">
-      <slot name="default"  :item="props.row"></slot>
+      <slot
+        name="default"
+        :item="props.row"
+      ></slot>
     </template>
   </el-table-column>
 </template>
@@ -14,12 +18,11 @@ export default {
   props: {
     label: {
       type: String,
-      default: ""
-    }
-  }
-}
+      default: "",
+    },
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

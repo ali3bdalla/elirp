@@ -6,12 +6,17 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 # scalar DataGridAttribute @scalar(class: "App\\GraphQL\\Scalars\\DataGridAttribute")
 
 #import models.graphql
-
+#   orderBy: _ @orderBy(columns: ["id", "name","email","enabled","created_at"])
 type Query @guard {
     me: User @auth
-    getUsers(trashed: Trashed @trashed): [User!]! @paginate
+    getUsers(trashed: Trashed @trashed,enabled: Int! = 1,
+    search: String! = "" @search(within: "users_index") ,
+  ): [User!]! @paginate
+
     getUser(id: ID!): User! @find
     getTransactions(trashed: Trashed @trashed): [Transaction!]! @paginate
+    totalActiveUsers: Int!  @aggregate(model: "User", column: "id", function: count)
+    totalInActiveUsers: Int!  @aggregate(model: "User", column: "id", function: count)
     totalUsers: Int!  @aggregate(model: "User", column: "id", function: count)
     # totalDownloads: Int!  @aggregate(model: "Song", column: "downloads", function: SUM)
     # totalDownloads: Int!  @aggregate(model: "Song", column: "downloads", function: SUM)

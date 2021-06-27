@@ -11,9 +11,7 @@
         Create User
       </inertia-link>
     </template>
-    <div class="card-header">
-      <i class='fa fa-users'> </i> Users
-    </div>
+
     <user-table></user-table>
   </app-layout>
 </template>

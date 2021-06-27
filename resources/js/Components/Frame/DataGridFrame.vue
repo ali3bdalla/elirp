@@ -6,7 +6,7 @@
       border
       size="large"
       lazy
-      :sortable="true"
+      :sortable="`custom`"
       v-bind="$props"
       row-class-name=" text-center"
       header-row-class-name="bg-dark text-center"

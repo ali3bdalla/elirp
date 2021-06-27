@@ -4,10 +4,19 @@ namespace App\Data;
 
 use App\Models\Company;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Laravel\Scout\Searchable;
+use Illuminate\Support\Str;
 
 trait HasCompany
 {
-    public function company() : BelongsTo
+    use Searchable;
+
+    public function searchableAs()
+    {
+        return Str::plural(Str::lower(class_basename($this))) . '_index';
+    }
+
+    public function company(): BelongsTo
     {
         return $this->BelongsTo(Company::class, 'company_id');
     }

@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Auth;
     */
     auth()->loginUsingId(1);
 
+
     Route::group(['prefix'=>'auth', 'as'=>'.auth', 'middleware'=>'guest'], function() {
         foreach(config('oauth-clients') as $client=>$enabled) {
             if($enabled) {
