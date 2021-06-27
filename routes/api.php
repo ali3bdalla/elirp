@@ -1,9 +1,10 @@
 <?php
 
-    use App\Http\Controllers\Api\UserController;
-    use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ItemController;
+use App\Http\Controllers\Api\UserController;
+use Illuminate\Support\Facades\Route;
 
-    /*
+/*
     |--------------------------------------------------------------------------
     | API Routes
     |--------------------------------------------------------------------------
@@ -14,6 +15,7 @@
     |
     */
 
-    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-        Route::resource('users', UserController::class);
-    });
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::resource('users', UserController::class);
+    Route::resource('items', ItemController::class);
+});

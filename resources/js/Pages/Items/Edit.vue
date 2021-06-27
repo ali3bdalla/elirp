@@ -1,72 +1,65 @@
 <template>
   <app-layout>
     <template #title>
-      Update User
+      Update Item
     </template>
     <template #actions>
       <inertia-link
-        :href="route('users.index')"
+        :href="route('items.index')"
         class="btn btn-default"
       >
-        Users
+        back to items
       </inertia-link>
     </template>
-    <user-form
+    <item-form
       v-model="form"
       :value='form'
     >
       <template #form-footer>
         <button
           class="btn btn-primary"
-          @click="updateUser(form,userId,onSuccess)"
+          @click="updateItem(form,itemId,onSuccess)"
         >Update</button>
       </template>
-    </user-form>
+    </item-form>
 
   </app-layout>
 </template>
 
 <script>
 import AppLayout from "../../Layouts/AppLayout.vue";
-import { useMutation } from "@vue/apollo-composable";
-import gql from "graphql-tag";
-import { updateUser } from "../../Api/users";
+import { updateItem } from "../../Api/items";
 import { computed, watch, ref } from "vue";
 
 import { Inertia } from "@inertiajs/inertia";
-import UserForm from "../../Components/User/UserForm.vue";
+import ItemForm from "../../Components/Item/ItemForm.vue";
 export default {
   props: {
-    user: {
+    item: {
       required: true,
       type: Object,
     },
   },
   components: {
     AppLayout,
-    UserForm,
+    ItemForm,
   },
   name: "Edit",
   setup(props, context) {
     const err = ref({});
-    const form = ref({
-      email: props.user.email,
-      password: null,
-      password_confirmation: null,
-      name: props.user.name,
-    });
+    const form = ref(props.item);
     const errors = computed(function () {
       return err.value;
     });
     function onSuccess() {
-      Inertia.visit(route("users.index"));
+      Inertia.visit(route("items.index"));
     }
     return {
-      userId: props.user.id,
+      itemId: props.item.id,
       context,
       form,
       onSuccess,
-      updateUser: updateUser,
+      updateItem: updateItem,
       errors,
     };
   },

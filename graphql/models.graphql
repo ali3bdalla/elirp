@@ -47,7 +47,7 @@ type UserAction  @model(class: "App\\Models\\UserAction") {
 }
 
 
-type Account  @model(class: "App\\Models\\UserAction"){
+type Account  @model(class: "App\\Models\\Account"){
    id: ID!
    name: String!
    number: String!
@@ -71,7 +71,7 @@ type Account  @model(class: "App\\Models\\UserAction"){
    tax: Tax! @hasOne
 }
 
-type Entry @model(class: "App\\Models\\UserAction"){
+type Entry @model(class: "App\\Models\\Entry"){
    id: ID!
    amount: Float!
    description: String!
@@ -90,7 +90,7 @@ type Entry @model(class: "App\\Models\\UserAction"){
    transactions: [Transaction!] @paginate
 }
 
-type Transaction @model(class: "App\\Models\\UserAction"){
+type Transaction @model(class: "App\\Models\\Transaction"){
    id: ID!
    amount: Float!
    currency_rate: Float!
@@ -187,8 +187,20 @@ type Currency @model(class: "App\\Models\\Currency"){
    created_at: DateTime!
    updated_at: DateTime!
 }
+
+
 type Contact @model(class: "App\\Models\\Contact"){
    id: ID!
+   name: String
+   reference: String
+   website: String
+   currency_code: String
+   tax_number: String
+   email: String
+   phone: String
+   address: String
+   is_vendor: Boolean
+   is_customer: Boolean
    company_id: Int!
    created_at: DateTime!
    updated_at: DateTime!

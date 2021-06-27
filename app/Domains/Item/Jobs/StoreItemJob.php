@@ -26,26 +26,11 @@ class StoreItemJob extends Job
      *
      * @return Item
      */
-    public function handle() : Item
+    public function handle(): Item
     {
-        $data = $this->request->only(
-            'name',
-            'sale_price',
-            'purchase_price',
-            'sku',
-            'description'
-        );
-        $data['fixed_price'] = $this->request->input('fixed_price', false);
-        $data['is_service']  = $this->request->input('is_service', false);
-        $data['has_detail']  = $this->request->input('has_detail', false);
 
-        return  Auth::user()->company->items()->create($data);
-
-//        if ($this->request->file('picture')) {
-//            $media = $this->getMedia($this->request->file('picture'), 'items');
-//            $item->attachMedia($media, 'picture');
-//        }
-
-//        return $item;
+        $data = $this->request->all();
+        $data['company_id'] = company_id();
+        return Item::create($data);
     }
 }

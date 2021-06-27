@@ -5,6 +5,10 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 # scalar DataGridAttribute @scalar(class: "App\\GraphQL\\Scalars\\DataGridAttribute")
 
+input  OrderByInput {
+  column: String!
+  order: String!
+}
 #import models.graphql
 #   orderBy: _ @orderBy(columns: ["id", "name","email","enabled","created_at"])
 type Query @guard {
@@ -23,7 +27,22 @@ type Query @guard {
     getItems(trashed: Trashed @trashed,
     search: String! = "" @search(within: "items_index") ,
   ): [Item!]! @paginate
+    getItem(id: ID!): Item! @find
     totalItems: Int!  @aggregate(model: "Item", column: "id", function: count)
 
+    getContacts(trashed: Trashed @trashed,
+     is_vendor: String = "" @WhereInSearch,
+    is_customer: String = "" @WhereInSearch,
+    search: String! = "" @search(within: "contacts_index") ,
+    orderBy: OrderByInput  @orderByInSearch(columns: ["id", "name","email","enabled","created_at"])
+  ): [Contact!]! @paginate
+    getContact(id: ID!): Contact! @find
+    totalContacts: Int!  @aggregate(model: "Contact", column: "id", function: count)
 
+
+    getAccounts(trashed: Trashed @trashed,
+    search: String! = "" @search(within: "accounts_index") ,
+  ): [Account!]! @paginate
+    getAccount(id: ID!): Account! @find
+    totalAccounts: Int!  @aggregate(model: "Account", column: "id", function: count)
 }
