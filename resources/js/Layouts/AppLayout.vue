@@ -31,7 +31,7 @@
             </div>
 
           </div>
-          <div class='card border-left-primary shadow h-100'>
+          <div class='card  shadow h-100'>
             <slot></slot>
           </div>
         </div>

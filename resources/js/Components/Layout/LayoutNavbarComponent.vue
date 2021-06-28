@@ -95,7 +95,7 @@
           <!-- <h6 class="collapse-header">Items:</h6> -->
           <a
             class="collapse-item"
-            :href="route('items.index')"
+            :href="route('bills.index')"
           >Bills ({{ total.totalItems }})</a>
           <a
             class="collapse-item"

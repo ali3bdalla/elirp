@@ -36,6 +36,7 @@ class CreateDocumentsTable extends Migration
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->foreign('company_id')->references('id')->on('companies');
             $table->foreign('parent_id')->references('id')->on('documents');
+            $table->foreign('contact_id')->references('id')->on('contacts');
             $table->timestamps();
             $table->softDeletes();
         });

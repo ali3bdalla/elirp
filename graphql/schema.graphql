@@ -9,9 +9,17 @@ input  OrderByInput {
   column: String!
   order: String!
 }
+
+type EnumOption {
+  label: String
+  value: String
+}
 #import models.graphql
 #   orderBy: _ @orderBy(columns: ["id", "name","email","enabled","created_at"])
 type Query @guard {
+
+
+
     me: User @auth
     getUsers(trashed: Trashed @trashed,enabled: Int! = 1,
     search: String! = "" @search(within: "users_index") ,
@@ -46,4 +54,6 @@ type Query @guard {
   ): [Account!]! @paginate
     getAccount(id: ID!): Account! @find
     totalAccounts: Int!  @aggregate(model: "Account", column: "id", function: count)
+
+    documentStatuses(type: String = ""): [EnumOption]
 }

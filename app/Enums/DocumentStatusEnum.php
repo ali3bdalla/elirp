@@ -3,42 +3,46 @@
 namespace App\Enums;
 
 use Spatie\Enum\Laravel\Enum;
-
 /**
  * @method static self draft()
- * @method static self sent()
- * @method static self expired()
- * @method static self viewed()
- * @method static self approved()
  * @method static self received()
- * @method static self refused()
- * @method static self restored()
- * @method static self reversed()
- * @method static self partial()
  * @method static self paid()
- * @method static self pending()
  * @method static self invoiced()
- * @method static self overdue()
- * @method static self unpaid()
  * @method static self cancelled()
- * @method static self voided()
  * @method static self completed()
  * @method static self shipped()
  * @method static self refunded()
- * @method static self failed()
- * @method static self denied()
- * @method static self processed()
- * @method static self open()
- * @method static self closed()
  * @method static self billed()
  * @method static self delivered()
  * @method static self returned()
- * @method static self drawn()
- * @method static self not_billed()
- * @method static self issued()
- * @method static self not_invoiced()
- * @method static self not_confirmed()
  **/
 class DocumentStatusEnum extends Enum
 {
+	use ResolvesAsOptions;
+
+	public static function invoice_statuses()
+	{
+		return [
+			static::draft()->value => static::draft()->label,
+			static::delivered()->value => static::delivered()->label,
+			static::completed()->value => static::completed()->label,
+			static::returned()->value => static::returned()->label,
+			static::cancelled()->value => static::cancelled()->label,
+			static::paid()->value => static::paid()->label,
+			static::invoiced()->value => static::invoiced()->label,
+			static::shipped()->value => static::shipped()->label,
+		];
+	}
+	public static function bill_statuses()
+	{
+		return [
+			static::draft()->value => static::draft()->label,
+			static::received()->value => static::received()->label,
+			static::completed()->value => static::completed()->label,
+			static::refunded()->value => static::refunded()->label,
+			static::cancelled()->value => static::cancelled()->label,
+			static::paid()->value => static::paid()->label,
+			static::billed()->value => static::billed()->label,
+		];
+	}
 }
