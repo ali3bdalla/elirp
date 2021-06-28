@@ -17,10 +17,10 @@ jobs:
       DB_USERNAME: postgres
       DB_DATABASE: postgres
     services:
-      meilisearch:
-        image: "getmeili/meilisearch"
+      meilisearch_app:
+        image: getmeili/meilisearch
         ports:
-          - 7700/tcp
+          - 7700:7700
       postgres:
         image: postgres:13
         env:
@@ -89,5 +89,5 @@ jobs:
           DB_USERNAME: postgres
           DB_DATABASE: postgres
           SCOUT_DRIVER: meilisearch
-          MEILISEARCH_HOST: meilisearch:7700
+          MEILISEARCH_HOST: http://meilisearch_app:7700
           MEILISEARCH_KEY: masterKey
