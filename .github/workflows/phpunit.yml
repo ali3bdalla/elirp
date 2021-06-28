@@ -88,6 +88,6 @@ jobs:
           DB_PASSWORD: postgres
           DB_USERNAME: postgres
           DB_DATABASE: postgres
-          SCOUT_DRIVER: meilisearch
+          SCOUT_DRIVER: "null"
           MEILISEARCH_HOST: http://meilisearch_app:7700
           MEILISEARCH_KEY: masterKey
