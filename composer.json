@@ -24,6 +24,7 @@
         "laravel/scout": "^9.1",
         "laravel/socialite": "^5.2",
         "laravel/tinker": "^2.5",
+        "laraveldaily/laravel-invoices": "^2.0",
         "lucidarch/lucid": "^1.0",
         "meilisearch/meilisearch-php": "^0.18.2",
         "mll-lab/laravel-graphql-playground": "^2.5",

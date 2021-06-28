@@ -32,7 +32,7 @@ class InvoiceController extends Controller
      public function edit(Document $invoice)
     {
         return Inertia::render('Documents/Edit',[
-            'document' => $invoice->load('items.item'),
+            'document' => $invoice->load('items.item','contact'),
             'title' => 'Invoice',
             'url' => route('invoices.index')
         ]);

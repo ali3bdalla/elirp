@@ -7,6 +7,7 @@ use App\Events\Document\BillDocumentCreatedEvent;
 use App\Events\Document\InvoiceDocumentCreatedEvent;
 use App\Events\Tax\TaxCreatedEvent;
 use App\Listeners\Bill\RegisterReceivedBillAccountingEntryListener;
+use App\Listeners\Bill\RegisterReceivedBillInventoryTransactionsListener;
 use App\Listeners\Tax\CreateTaxAccountListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -29,7 +30,8 @@ class EventServiceProvider extends ServiceProvider
         BillDocumentCreatedEvent::class => [
         ],
         BillHasBeenMarkedAsReceivedEvent::class => [
-            RegisterReceivedBillAccountingEntryListener::class
+            RegisterReceivedBillAccountingEntryListener::class,
+            RegisterReceivedBillInventoryTransactionsListener::class
         ],
         TaxCreatedEvent::class => [
             CreateTaxAccountListener::class

@@ -33,7 +33,7 @@ class MarkBillAsReceivedFeature extends Feature
         $this->run(StoreDocumentHistoryJob::class, [
             'document'    => $this->document->fresh(),
             'notify'      => 0,
-            'description' => 'Mark As Billed'
+            'description' => 'Marked as received'
         ]);
 
         event(new BillHasBeenMarkedAsReceivedEvent($this->document));

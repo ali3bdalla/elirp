@@ -8,7 +8,7 @@ use App\Services\Accounting\Operations\StoreReceivedBillEntryOperation;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Lucid\Bus\UnitDispatcher;
 
-class RegisterReceivedBillAccountingEntryListener implements ShouldQueue
+class RegisterReceivedBillAccountingEntryListener
 {
     use UnitDispatcher;
 

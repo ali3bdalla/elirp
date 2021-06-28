@@ -14,6 +14,9 @@ class DocumentHistory extends ModelFrame
     use SoftDeletes;
     use HasCompany;
     use HasUserActions;
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d'
+    ];
 
     protected $fillable = [
         'document_id',

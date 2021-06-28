@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div class="card-footer d-flex justify-content-end justify-items-center">
+      <slot name="form-footer">
+      </slot>
+    </div>
     <div class="card-header">
       <div class="row">
         <div class="col-lg-6 col-sm-12">
@@ -24,7 +28,11 @@
         <div class="col-lg-4 col-md-6 col-sm-12">
           <div class="form-group">
             <label for="name"><i class="fab fa-product-hunt"></i> {{ contactTitle }}</label>
+            <div v-if="show">
+              {{  value.contact_name }} - {{  value.contact_email }} - {{  value.contact_address }}
+            </div>
             <el-select
+              v-else
               v-model="value.contact_id"
               filterable
               :loading="contactsLoading"
@@ -56,6 +64,7 @@
             <label for="issued_at"><i class="el-icon-date"></i> Issued At</label>
             <div>
               <el-date-picker
+                :disabled="show"
                 prefix-icon="e"
                 v-model="value.issued_at"
                 type="date"
@@ -74,6 +83,7 @@
             <label for="due_at"><i class="el-icon-date"></i> Due At</label>
             <div>
               <el-date-picker
+                :disabled="show"
                 prefix-icon="e"
                 v-model="value.due_at"
                 type="date"
@@ -118,6 +128,7 @@
       <div class="row">
         <div class="col-sm-12">
           <DocumentFormItems
+            :show="show"
             :type="type"
             :items="value.items"
             v-model="value.items"
@@ -125,13 +136,18 @@
           </DocumentFormItems>
         </div>
       </div>
-      <document-form-totals :items="value.items">
-      </document-form-totals>
+      <DocumentFormDetails
+        :items="value.items"
+        :histories="value.histories"
+        :transactions="value.transactions"
+      >
+      </DocumentFormDetails>
       <div class="row">
         <div class="col-lg-12 col-sm-12">
           <div class="form-group">
             <label for="address"><i class="fas fa-audio-description"></i> Notes</label>
             <textarea
+              :disabled="show"
               :class="{'is-invalid': $page.props.errors.notes}"
               class="form-control"
               v-model="value.notes"
@@ -143,10 +159,7 @@
 
       </div>
     </div>
-    <div class="card-footer">
-      <slot name="form-footer">
-      </slot>
-    </div>
+
   </div>
 </template>
 
@@ -156,15 +169,19 @@ import gql from "graphql-tag";
 import { ref } from "vue";
 import ErrorMessageUtility from "./../../Components/Utility/ErrorMessageUtility";
 import DocumentFormItems from "./DocumentFormItems";
-import DocumentFormTotals from "./DocumentFormTotals.vue";
+import DocumentFormDetails from "./DocumentFormDetails.vue";
 export default {
   components: {
     ErrorMessageUtility,
     DocumentFormItems,
-    DocumentFormTotals,
+    DocumentFormDetails,
   },
   name: "DocumentForm",
   props: {
+    show: {
+      type: Boolean,
+      default: false,
+    },
     title: {
       type: String,
       default: "",

@@ -8,3 +8,9 @@ export function update(form, id, successCallback = null) {
 	Inertia.put(route('api.documents.update', id), form);
 	handleInvalidResponse(successCallback, 'Updated', 'Document has been Updated');
 }
+
+
+export function received(id, successCallback = null) {
+	Inertia.put(route('api.documents.received', id));
+	handleInvalidResponse(successCallback, 'Updated', 'Document Has Been Received');
+}

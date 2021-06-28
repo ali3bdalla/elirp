@@ -11,6 +11,7 @@ use App\Http\Controllers\Web\ItemController;
 use App\Http\Controllers\Web\UserController;
 use App\Http\Controllers\Web\VendorController;
 use App\Http\Controllers\Web\DashboardController;
+use App\Http\Controllers\Web\DocumentController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -51,4 +52,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::resource('accounts', AccountController::class);
     Route::resource('entries', EntryController::class);
     Route::resource('inventories', InventoryController::class);
+
+
+    Route::get('documents/{document}/print', [DocumentController::class,'printDocument'])->name('documents.print');
 });

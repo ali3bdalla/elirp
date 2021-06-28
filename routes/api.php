@@ -25,6 +25,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::resource('items', ItemController::class);
     Route::resource('contacts', ContactController::class);
     Route::resource('documents', DocumentController::class);
+    Route::group(['prefix' => 'documents/{document}','as' => 'documents.'],function() {
+         Route::put('received', [DocumentController::class,'recieved'])->name('received');
+    });
     Route::resource('accounts', AccountController::class);
     Route::resource('entries', EntryController::class);
     Route::resource('inventories', InventoryController::class);

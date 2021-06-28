@@ -40,6 +40,7 @@ class DocumentItem extends ModelFrame
         'quantity',
         'price',
         'total',
+        'sku',
         'subtotal',
         'tax',
         'discount',

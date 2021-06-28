@@ -4,6 +4,7 @@ namespace App\Domains\Bill\Jobs;
 
 use App\Enums\DocumentStatusEnum;
 use App\Enums\DocumentTypeEnum;
+use App\GraphQL\Queries\DocumentStatuses;
 use App\Models\Document;
 use Illuminate\Validation\ValidationException;
 use Lucid\Units\Job;
@@ -30,16 +31,12 @@ class ValidateReceiableBillJob extends Job
      */
     public function handle()
     {
-//        if ($this->document->status != DocumentStatusEnum::partial()) {
-//            $this->document->status = 'received';
-//            $this->document->save();
-//        }
-        if (($this->document->status != DocumentStatusEnum::draft() && $this->document->status != DocumentStatusEnum::pending()) || $this->document->type != DocumentTypeEnum::BILL()) {
+
+        if ($this->document->histories()->where('status',DocumentStatusEnum::received())->first() || $this->document->type != DocumentTypeEnum::BILL()) {
             throw ValidationException::withMessages([
                 'status' => 'invalid document status'
             ]);
         }
-
         return true;
     }
 }

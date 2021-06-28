@@ -9,6 +9,7 @@ use App\Data\HasUserActions;
 use App\Enums\DocumentTypeEnum;
 use App\Frame\ModelFrame;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
@@ -75,7 +76,10 @@ class Document extends ModelFrame
         return Str::upper(Str::singular($documentTypeEnum->value)) . Str::studly(Carbon::now()->toDateString()) . company_id() . Auth::id() . random_int(3, 10) . random_int(10000, 999999);
     }
 
-
+    public function contact() : BelongsTo
+    {
+        return $this->belongsTo(Contact::class);
+    }
     public function items() : HasMany
     {
         return $this->hasMany(DocumentItem::class, 'document_id');
@@ -84,5 +88,10 @@ class Document extends ModelFrame
     public function histories() : HasMany
     {
         return $this->hasMany(DocumentHistory::class);
+    }
+
+    public function transactions() : HasMany
+    {
+        return $this->hasMany(Transaction::class);
     }
 }

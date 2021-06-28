@@ -17,11 +17,26 @@
           v-for="(item,index) in documentItems"
           :key="index"
         >
-          <td>{{ item.item.sku }}</td>
-          <td>{{ item.item.name }}</td>
+          <td>
+            <span v-if="show">
+              {{ item.sku }}
+            </span>
+            <span v-else>
+              {{ item.item.sku }}
+            </span>
+          </td>
+          <td>
+            <span v-if="show">
+              {{ item.name }}
+            </span>
+            <span v-else>
+              {{ item.item.name }}
+            </span>
+          </td>
           <td>
             <div class="form-group">
               <input
+                :disabled="show"
                 @change="updateTotal(item,index)"
                 type="text"
                 :class="{'is-invalid': $page.props.errors[`items.${index}.price`]}"
@@ -34,6 +49,7 @@
           </td>
           <td>
             <input
+              :disabled="show"
               type="text"
               @change="updateTotal(item,index)"
               :class="{'is-invalid': $page.props.errors[`items.${index}.quantity`]}"
@@ -56,6 +72,7 @@
           </td>
           <td>
             <input
+              :disabled="show"
               type="text"
               @change="updateSubtotal(item,index)"
               :class="{'is-invalid': $page.props.errors[`items.${index}.discount`]}"
@@ -78,7 +95,7 @@
           </td>
 
         </tr>
-        <tr>
+        <tr v-if="!show">
           <td colspan="6">
             <el-select
               ref="addDocumentItemSelect"
@@ -121,6 +138,10 @@ export default {
   },
   name: "DocumentFormItems",
   props: {
+    show: {
+      type: Boolean,
+      default: false,
+    },
     type: {
       type: String,
       required: true,

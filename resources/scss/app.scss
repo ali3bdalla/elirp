@@ -25,3 +25,7 @@ border: none !important;
 	margin-left: -20px !important;
 }
 
+
+.el-input.is-disabled .el-input__inner {
+	background-color: white !important;
+}

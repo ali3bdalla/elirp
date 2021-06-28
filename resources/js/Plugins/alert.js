@@ -1,16 +1,22 @@
 import Swal from "sweetalert2";
+import VueSweetalert2 from "vue-sweetalert2";
 export async function alertUser(title = null, message = null, type = 'error') {
 	if (title === null) { title = `confirm` }
 	if (message === null) { message = `are you sure?` }
 	return Swal.fire(message, title, type)
 };
-export async function askUser(title = null, message = null, type = 'error') {
+export async function askUser(title = null, message = null, iconType = 'question') {
 	if (title === null) { title = `confirm` }
 	if (message === null) { message = `are you sure?` }
-	return context.$confirm(message, title, type, {
-		confirmButtonText: 'تاكيد',
-		cancelButtonText: 'الغاء',
-	})
+	return Swal.fire({
+		icon: iconType,
+		title: title,
+		text: message,
+		showCancelButton: true,
+		confirmButtonColor: "#DD6B55",
+		confirmButtonText: "Yes!",
+		cancelButtonText: "No !",
+	});
 };
 export async function notifyUser(title = null, message = null, type = 'error') {
 	if (title === null) { title = `confirm` }

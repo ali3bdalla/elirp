@@ -9,3 +9,10 @@ if (! function_exists('company_id')) {
         return $user->company_id;
     }
 }
+if (! function_exists('company')) {
+    function company()
+    {
+        $user = Auth::user();
+        return $user->company;
+    }
+}
