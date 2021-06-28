@@ -37,7 +37,8 @@ type Query @guard {
     orderBy: OrderByInput  @orderByInSearch(columns: ["id", "name","email","enabled","created_at"])
   ): [Contact!]! @paginate
     getContact(id: ID!): Contact! @find
-    totalContacts: Int!  @aggregate(model: "Contact", column: "id", function: count)
+    totalCustomers: Int!  @eq(key: "is_customer",value: true)  @aggregate(model: "Contact", column: "id", function: count)
+    totalVendors: Int! @eq(key: "is_vendor",value: true)  @aggregate(model: "Contact", column: "id", function: count)
 
 
     getAccounts(trashed: Trashed @trashed,

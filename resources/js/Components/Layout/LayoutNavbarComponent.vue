@@ -60,7 +60,7 @@
           <a
             class="collapse-item"
             :href="route('items.index')"
-          >Items ({{ totalItems }})</a>
+          >Items ({{ total.totalItems }})</a>
           <a
             class="collapse-item"
             href="cards.html"
@@ -96,11 +96,11 @@
           <a
             class="collapse-item"
             :href="route('items.index')"
-          >Bills ({{ totalItems }})</a>
+          >Bills ({{ total.totalItems }})</a>
           <a
             class="collapse-item"
-            href="cards.html"
-          >Vendors</a>
+            :href="route('vendors.index')"
+          >Vendors ({{ total.totalVendors }})</a>
           <a
             class="collapse-item"
             href="cards.html"
@@ -132,11 +132,11 @@
           <a
             class="collapse-item"
             :href="route('items.index')"
-          >Invoices ({{ totalItems }})</a>
+          >Invoices ({{ total.totalItems }})</a>
           <a
             class="collapse-item"
-            href="cards.html"
-          >Customers</a>
+            :href="route('customers.index')"
+          >Customers ({{ total.totalCustomers}})</a>
           <a
             class="collapse-item"
             href="cards.html"
@@ -170,7 +170,7 @@
           <a
             class="collapse-item"
             :href="route('items.index')"
-          >Ladger ({{ totalItems }})</a>
+          >Ladger ({{ total.totalItems }})</a>
           <a
             class="collapse-item"
             href="cards.html"
@@ -206,11 +206,14 @@ export default {
     const { result } = useQuery(gql`
       query {
         totalItems
+        totalCustomers
+        totalVendors
       }
     `);
-    const totalItems = useResult(result, 0, (data) => data.totalItems);
+    const total = useResult(result, {}, (data) => data);
+
     return {
-      totalItems,
+      total,
     };
   },
 };
