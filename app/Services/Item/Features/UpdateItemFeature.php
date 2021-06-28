@@ -12,8 +12,9 @@ class UpdateItemFeature extends Feature
 {
     public function __construct(public Item $item)
     {
-        # code...
+        // code...
     }
+
     public function handle(Request $request)
     {
         $this->run(ValidateItemJob::class, [

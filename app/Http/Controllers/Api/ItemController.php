@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
-
     /**
      * Store a newly created resource in storage.
      *

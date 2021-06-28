@@ -2,21 +2,18 @@
 
 namespace App\GraphQL\Directives;
 
-use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
-use Nuwave\Lighthouse\Support\Contracts\ArgDirective;
-use Laravel\Scout\Builder as ScoutBuilder;
 use \Nuwave\Lighthouse\Scout\ScoutBuilderDirective;
-use Nuwave\Lighthouse\Support\Contracts\ArgTransformerDirective;
+use Laravel\Scout\Builder as ScoutBuilder;
+use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 
 class OrderByInSearchDirective extends BaseDirective implements ScoutBuilderDirective
 {
-
     /**
      * Formal directive specification in schema definition language (SDL).
      *
      * @return string
      */
-    public static function definition(): string
+    public static function definition() : string
     {
         return
             /** @lang GraphQL */
@@ -33,13 +30,12 @@ class OrderByInSearchDirective extends BaseDirective implements ScoutBuilderDire
 GRAPHQL;
     }
 
-    public function handleScoutBuilder(ScoutBuilder $builder, $value): ScoutBuilder
+    public function handleScoutBuilder(ScoutBuilder $builder, $value) : ScoutBuilder
     {
-
         if ($value) {
-            $data = collect($value);
+            $data   = collect($value);
             $column = $data->get('column', null);
-            $order = $data->get('order', null);
+            $order  = $data->get('order', null);
             if (
                 $column && $order && in_array(
                     $order,

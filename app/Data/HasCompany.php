@@ -5,12 +5,9 @@ namespace App\Data;
 use App\Models\Company;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-
 trait HasCompany
 {
-
-
-    public function company(): BelongsTo
+    public function company() : BelongsTo
     {
         return $this->BelongsTo(Company::class, 'company_id');
     }

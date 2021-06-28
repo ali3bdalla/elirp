@@ -3,7 +3,6 @@
 namespace Tests\Unit\Domains\User\Jobs;
 
 use Tests\TestCase;
-use App\Domains\User\Jobs\ValideUpdateUserJob;
 
 class ValideUpdateUserJobTest extends TestCase
 {

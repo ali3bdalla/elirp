@@ -4,8 +4,9 @@ namespace App\GraphQL\Scalars;
 
 use GraphQL\Type\Definition\ScalarType;
 use GraphQL\Type\Definition\Type;
+
 /**
- * Read more about scalars here https://webonyx.github.io/graphql-php/type-definitions/scalars
+ * Read more about scalars here https://webonyx.github.io/graphql-php/type-definitions/scalars.
  */
 class DataGridAttribute extends ScalarType
 {
@@ -24,7 +25,7 @@ class DataGridAttribute extends ScalarType
     }
 
     /**
-     * Parses an externally provided value (query variable) to use as an input
+     * Parses an externally provided value (query variable) to use as an input.
      *
      * @param  mixed  $value
      * @return mixed

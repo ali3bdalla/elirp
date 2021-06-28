@@ -13,7 +13,7 @@ class UpdateUserPasswordJob extends Job
      *
      * @return void
      */
-    public function __construct(public User $user, public $password = "")
+    public function __construct(public User $user, public $password = '')
     {
     }
 
@@ -24,10 +24,10 @@ class UpdateUserPasswordJob extends Job
      */
     public function handle()
     {
-       if($this->password) {
-           $this->user->update([
-            'password' => Hash::make($this->password)
-           ]);
-       }
+        if ($this->password) {
+            $this->user->update([
+                'password' => Hash::make($this->password)
+            ]);
+        }
     }
 }

@@ -43,8 +43,6 @@ use App\Services\User\Features\UserTableFeature;
             return $this->serve(StoreUserFeature::class);
         }
 
-
-
         /**
          * Update the specified resource in storage.
          *
@@ -54,7 +52,7 @@ use App\Services\User\Features\UserTableFeature;
          */
         public function update(User $user)
         {
-            return $this->serve(UpdateUserFeature::class,[
+            return $this->serve(UpdateUserFeature::class, [
                 'user' => $user
             ]);
         }

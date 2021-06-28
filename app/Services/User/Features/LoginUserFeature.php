@@ -1,7 +1,7 @@
 <?php
-    
+
     namespace App\Services\User\Features;
-    
+
     use App\Domains\User\Jobs\CreateUserClientTokenJob;
     use App\Domains\User\Jobs\GetUserByEmailJob;
     use App\Services\Company\Features\CreateCompanyFeature;
@@ -10,30 +10,30 @@
     use Illuminate\Support\Str;
     use Laravel\Socialite\Two\User as SocialiteUser;
     use Lucid\Units\Feature;
-    
+
     class LoginUserFeature extends Feature
     {
         private SocialiteUser $user;
         private string $driver;
-        
+
         public function __construct(SocialiteUser $user, string $driver)
         {
-            $this->user=$user;
+            $this->user  =$user;
             $this->driver=$driver;
         }
-        
+
         public function handle(Request $request)
         {
-            $email=$this->user->getEmail();
+            $email   =$this->user->getEmail();
             $authUser=$this->run(GetUserByEmailJob::class, ['email'=>$email]);
-            if(!$authUser) {
+            if (! $authUser) {
                 $authUser=$this->run(CreateCompanyFeature::class, ['request'=>['name'=>$this->user->getName(), 'email'=>$this->user->getEmail(), 'password'=>Str::random(20)]]);
             }
             $authUser->update([
                 'email_verified_at' => now()
             ]);
             Auth::login($authUser);
-            $this->run(CreateUserClientTokenJob::class, ['user'=>$authUser, 'expiresIn'=>$this->user->expiresIn, 'token'=>$this->user->token, 'name'=>$this->user->getName(), 'email'=>$this->user->getEmail(), 'id'=>$this->user->getId(), 'avatar'=>$this->user->getAvatar(), 'nickname'=>$this->user->getNickname(),]);
+            $this->run(CreateUserClientTokenJob::class, ['user'=>$authUser, 'expiresIn'=>$this->user->expiresIn, 'token'=>$this->user->token, 'name'=>$this->user->getName(), 'email'=>$this->user->getEmail(), 'id'=>$this->user->getId(), 'avatar'=>$this->user->getAvatar(), 'nickname'=>$this->user->getNickname(), ]);
             return redirect(route('dashboard'));
         }
     }

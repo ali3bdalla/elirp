@@ -5,7 +5,7 @@ namespace App\GraphQL\Scalars;
 use GraphQL\Type\Definition\ScalarType;
 
 /**
- * Read more about scalars here https://webonyx.github.io/graphql-php/type-definitions/scalars
+ * Read more about scalars here https://webonyx.github.io/graphql-php/type-definitions/scalars.
  */
 class Amount extends ScalarType
 {
@@ -24,7 +24,7 @@ class Amount extends ScalarType
     }
 
     /**
-     * Parses an externally provided value (query variable) to use as an input
+     * Parses an externally provided value (query variable) to use as an input.
      *
      * @param  mixed  $value
      * @return mixed

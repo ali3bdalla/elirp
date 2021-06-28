@@ -2,8 +2,6 @@
 
 namespace App\GraphQL\Queries;
 
-use App\Models\User;
-
 class GetUsers
 {
     /**
@@ -13,7 +11,6 @@ class GetUsers
      */
     public function __invoke($_, array $args)
     {
-
         // TODO implement the resolver
     }
 }

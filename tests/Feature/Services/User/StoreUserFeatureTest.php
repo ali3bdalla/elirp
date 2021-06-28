@@ -3,7 +3,6 @@
 namespace Tests\Feature\Services\User;
 
 use Tests\TestCase;
-use App\Services\User\Features\StoreUserFeature;
 
 class StoreUserFeatureTest extends TestCase
 {

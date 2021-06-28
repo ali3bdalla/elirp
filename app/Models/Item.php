@@ -38,7 +38,7 @@ class Item extends ModelFrame
         'item_photo_path'
     ];
 
-    public function taxes(): HasMany
+    public function taxes() : HasMany
     {
         return $this->hasMany(ItemTax::class, 'item_id');
     }

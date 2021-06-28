@@ -2,7 +2,6 @@
 
 namespace App\Services\User\Operations;
 
-use App\Actions\Fortify\UpdateUserPassword;
 use App\Domains\User\Jobs\UpdateUserPasswordJob;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
@@ -11,6 +10,7 @@ use Lucid\Units\Operation;
 class UpdateUserOperation extends Operation
 {
     private FormRequest  $request;
+
     /**
      * Create a new job instance.
      *
@@ -18,7 +18,7 @@ class UpdateUserOperation extends Operation
      */
     public function __construct(public User $user, $request)
     {
-       $this->request = parse_request_instance($request);
+        $this->request = parse_request_instance($request);
     }
 
     /**
@@ -30,10 +30,10 @@ class UpdateUserOperation extends Operation
     {
         $this->user->update([
             'email' => $this->request->input('email'),
-            'name' => $this->request->input('name'),
+            'name'  => $this->request->input('name'),
         ]);
-        $this->run(UpdateUserPasswordJob::class,[
-            'user' => $this->user,
+        $this->run(UpdateUserPasswordJob::class, [
+            'user'     => $this->user,
             'password' => $this->request->input('password')
         ]);
         return $this->user->fresh();

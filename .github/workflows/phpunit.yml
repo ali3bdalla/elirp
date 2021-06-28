@@ -19,6 +19,8 @@ jobs:
     services:
       meilisearch_app:
         image: getmeili/meilisearch
+        env:
+          MEILI_MASTER_KEY: "keytobemasterKey"
         ports:
           - 7700:7700
       postgres:
@@ -90,4 +92,4 @@ jobs:
           DB_DATABASE: postgres
           SCOUT_DRIVER: "null"
           MEILISEARCH_HOST: http://meilisearch_app:7700
-          MEILISEARCH_KEY: masterKey
+          MEILISEARCH_KEY: keytobemasterKey

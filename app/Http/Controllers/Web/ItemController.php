@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Item;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ItemController extends Controller
@@ -13,16 +12,15 @@ class ItemController extends Controller
      * Display a listing of the resource.
      *
      */
-    public function index(): \Inertia\Response
+    public function index() : \Inertia\Response
     {
         return Inertia::render('Items/Index');
     }
+
     public function create()
     {
         return Inertia::render('Items/Create');
     }
-
-
 
     /**
      * Update the specified resource in storage.

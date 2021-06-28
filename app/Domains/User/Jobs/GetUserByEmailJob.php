@@ -8,7 +8,7 @@ use Lucid\Units\Job;
 class GetUserByEmailJob extends Job
 {
     private string $email;
-    
+
     /**
      * Create a new job instance.
      *
@@ -25,8 +25,8 @@ class GetUserByEmailJob extends Job
      *
      * @return User|null
      */
-    public function handle(): ?User
+    public function handle() : ?User
     {
-        return User::where('email',$this->email)->first();
+        return User::where('email', $this->email)->first();
     }
 }

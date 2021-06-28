@@ -4,7 +4,6 @@ namespace App\Services\Item\Features;
 
 use App\Domains\Item\Jobs\StoreItemJob;
 use App\Domains\Item\Jobs\ValidateItemJob;
-use App\Domains\Item\Jobs\ValidateNewItemJob;
 use Illuminate\Http\Request;
 use Lucid\Units\Feature;
 

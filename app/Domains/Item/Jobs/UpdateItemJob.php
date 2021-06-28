@@ -15,7 +15,7 @@ class UpdateItemJob extends Job
      *
      * @return void
      */
-    public function __construct(public Item  $item, $data)
+    public function __construct(public Item $item, $data)
     {
         $this->request = parse_request_instance($data);
     }
@@ -25,9 +25,8 @@ class UpdateItemJob extends Job
      *
      * @return Item
      */
-    public function handle(): Item
+    public function handle() : Item
     {
-
         $data = $this->request->all();
         $this->item->update($data);
         return $this->item->fresh();

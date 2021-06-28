@@ -10,6 +10,7 @@ use Lucid\Units\Job;
 class ValidateUpdateJob extends Job
 {
     private FormRequest  $request;
+
     /**
      * Create a new job instance.
      *
@@ -17,7 +18,7 @@ class ValidateUpdateJob extends Job
      */
     public function __construct(public User $user, $request)
     {
-       $this->request = parse_request_instance($request);
+        $this->request = parse_request_instance($request);
     }
 
     /**
@@ -28,12 +29,12 @@ class ValidateUpdateJob extends Job
     public function handle()
     {
         $this->request->validate([
-            'email' => ['required','email:rfc,dns,spoof,filter,strict',
-            (new Unique('users','email'))->whereNot('id',$this->user->id)
-        ],
-            'password' => 'nullable|min:8|string|max:200|confirmed',
+            'email' => ['required', 'email:rfc,dns,spoof,filter,strict',
+                (new Unique('users', 'email'))->whereNot('id', $this->user->id)
+            ],
+            'password'              => 'nullable|min:8|string|max:200|confirmed',
             'password_confirmation' => 'nullable|min:8|string|max:200',
-            'name' => 'required|string|max:30'
+            'name'                  => 'required|string|max:30'
         ]);
     }
 }

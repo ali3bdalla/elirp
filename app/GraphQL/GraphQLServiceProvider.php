@@ -1,8 +1,6 @@
 <?php
-    
-    
-    namespace App\GraphQL;
 
+    namespace App\GraphQL;
 
     use App\Enums\AccountGroupEnum;
     use App\Enums\AccountingTypeEnum;
@@ -20,7 +18,7 @@
          * @param  \Nuwave\Lighthouse\Schema\TypeRegistry  $typeRegistry
          * @return void
          */
-        public function boot(TypeRegistry $typeRegistry): void
+        public function boot(TypeRegistry $typeRegistry) : void
         {
             $this->registryEnums($typeRegistry);
 //            $typeRegistry->register(
@@ -32,12 +30,13 @@
 //                new LaravelEnumType(AccountSlugsEnum::class)
 //            );
         }
-        private function registryEnums(TypeRegistry $typeRegistry) {
+
+        private function registryEnums(TypeRegistry $typeRegistry)
+        {
             $enums = AccountingTypeEnum::toArray();
             $typeRegistry->register(new EnumType([
-                'name' => 'AccountingTypeEnum',
+                'name'   => 'AccountingTypeEnum',
                 'values' => $enums
             ]));
-           
         }
     }

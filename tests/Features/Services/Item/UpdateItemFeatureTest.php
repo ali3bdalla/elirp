@@ -3,7 +3,6 @@
 namespace Tests\Feature\Services\Item;
 
 use Tests\TestCase;
-use App\Services\Item\Features\UpdateItemFeature;
 
 class UpdateItemFeatureTest extends TestCase
 {

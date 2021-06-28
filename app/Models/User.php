@@ -17,7 +17,6 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-
     use HasFullSearch;
     use HasApiTokens;
     use HasFactory;
@@ -28,7 +27,6 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
     use CanBeEnabled;
-
 
     /**
      * The attributes that are mass assignable.
@@ -42,38 +40,38 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token', 'two_factor_recovery_codes', 'two_factor_secret',];
+    protected $hidden = ['password', 'remember_token', 'two_factor_recovery_codes', 'two_factor_secret', ];
 
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
-    protected $casts = ['email_verified_at' => 'datetime',];
+    protected $casts = ['email_verified_at' => 'datetime', ];
 
     /**
      * The accessors to append to the model's array form.
      *
      * @var array
      */
-    protected $appends = ['profile_photo_url',];
+    protected $appends = ['profile_photo_url', ];
 
     /**
      * Get the user's preferred locale.
      *
      * @return string
      */
-    public function preferredLocale(): string
+    public function preferredLocale() : string
     {
         return $this->locale;
     }
 
-    public function userClientToken(): HasMany
+    public function userClientToken() : HasMany
     {
         return $this->hasMany(UserClientToken::class, 'user_id');
     }
 
-    public function actions(): HasMany
+    public function actions() : HasMany
     {
         return $this->hasMany(UserAction::class, 'user_id');
     }

@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Actions\Jetstream\DeleteUser;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Inertia\Inertia;
 use Laravel\Fortify\Fortify;
@@ -33,11 +32,11 @@ class JetstreamServiceProvider extends ServiceProvider
         Jetstream::deleteUsersUsing(DeleteUser::class);
         Fortify::loginView(function () {
             Inertia::setRootView('login');
-            $oauthClients = collect(config('oauth-clients'))->filter(function($key,$driver) {
+            $oauthClients = collect(config('oauth-clients'))->filter(function ($key, $driver) {
                 return $key;
             })->keys()->toArray();
-            return view('login',compact('oauthClients'));
-          
+            return view('login', compact('oauthClients'));
+
 //            return Inertia::render('Auth/Login', [
 //                'oauthClients' =>
 //            ]);

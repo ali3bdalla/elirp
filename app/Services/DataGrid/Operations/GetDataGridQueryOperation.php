@@ -18,7 +18,6 @@ use Illuminate\Database\Eloquent\Builder;
         private $request;
         private Builder $builder;
 
-
         /**
          * Create a new operation instance.
          *
@@ -28,7 +27,6 @@ use Illuminate\Database\Eloquent\Builder;
         {
             $this->request           = parse_request_instance($request);
             $this->builder           = $builder;
-
         }
 
         /**
@@ -36,9 +34,9 @@ use Illuminate\Database\Eloquent\Builder;
          *
          * @return Builder
          */
-        public function handle(Builder $builder,$search = '') : Builder
+        public function handle(Builder $builder, $search = '') : Builder
         {
-            return $builder->where('name',$search);
+            return $builder->where('name', $search);
             $this->run(ValidateDataGridJob::class, ['request' => $this->request]);
             return app(Pipeline::class)->through(array_merge([
                 new CreatedAtFilterJob($this->request),

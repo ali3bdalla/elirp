@@ -4,7 +4,6 @@ namespace App\Domains\Item\Jobs;
 
 use App\Models\Item;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 use Lucid\Units\Job;
 
 class StoreItemJob extends Job
@@ -26,10 +25,9 @@ class StoreItemJob extends Job
      *
      * @return Item
      */
-    public function handle(): Item
+    public function handle() : Item
     {
-
-        $data = $this->request->all();
+        $data               = $this->request->all();
         $data['company_id'] = company_id();
         return Item::create($data);
     }

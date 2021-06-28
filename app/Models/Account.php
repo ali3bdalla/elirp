@@ -41,25 +41,27 @@ class Account extends ModelFrame
         return (new static)->where('slug', $enum)->first();
     }
 
-    public function tax(): HasOne
+    public function tax() : HasOne
     {
         return $this->hasOne(Tax::class, 'account_id');
     }
-    public function snapshots(): HasMany
+
+    public function snapshots() : HasMany
     {
         return $this->hasMany(AccountSnapshot::class);
     }
-    public function transactions(): HasMany
+
+    public function transactions() : HasMany
     {
         return $this->hasMany(Transaction::class);
     }
 
-    public function parent(): BelongsTo
+    public function parent() : BelongsTo
     {
         return $this->belongsTo(Account::class, 'parent_id');
     }
 
-    public function children(): HasMany
+    public function children() : HasMany
     {
         return $this->hasMany(Account::class, 'parent_id');
     }
