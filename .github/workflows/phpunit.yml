@@ -17,6 +17,10 @@ jobs:
       DB_USERNAME: postgres
       DB_DATABASE: postgres
     services:
+      meilisearch:
+        image: "getmeili/meilisearch"
+        ports:
+          - 7700/tcp
       postgres:
         image: postgres:13
         env:
@@ -55,8 +59,6 @@ jobs:
           # key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
-      - name: "install Meilisearch"
-        run: curl -L https://install.meilisearch.com | sh ./meilisearch &
       - name: Install Composer dependencies
         run: composer install --no-progress --prefer-dist --optimize-autoloader
       - name: Prepare the application
@@ -86,3 +88,6 @@ jobs:
           DB_PASSWORD: postgres
           DB_USERNAME: postgres
           DB_DATABASE: postgres
+          SCOUT_DRIVER: meilisearch
+          MEILISEARCH_HOST: meilisearch:7700
+          MEILISEARCH_KEY: masterKey
