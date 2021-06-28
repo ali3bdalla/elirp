@@ -26,7 +26,7 @@ class CreateDocumentItemsTable extends Migration
             $table->float('tax', 25, 4)->default('0.0000');
             $table->string('discount_type')->nullable();
             $table->string('type')->nullable();
-            $table->double('discount_rate', 15, 4)->default('0.0000');
+            $table->double('discount', 15, 4)->default('0.0000');
             $table->double('total', 50, 4)->default(0);
             $table->double('subtotal', 50, 4)->default(0);
             $table->foreign('company_id')->references('id')->on('companies');

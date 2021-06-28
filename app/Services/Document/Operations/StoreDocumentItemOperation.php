@@ -41,10 +41,10 @@ class StoreDocumentItemOperation extends Operation
     public function handle() : DocumentItem
     {
         $this->request->validate([
-            'price'     => 'required|amount',
+            'price'     => 'required|amount|min:0',
             'quantity'  => 'required|min:1',
             'name'      => 'required|string',
-            'discount'  => 'nullable|amount',
+            'discount'  => 'nullable|amount|min:0',
             'tax_ids'   => 'nullable|array',
             'tax_ids.*' => 'required|integer|exists:taxes,id',
         ]);

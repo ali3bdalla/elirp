@@ -170,8 +170,28 @@ type Item @model(class: "App\\Models\\Item"){
 type Document @model(class: "App\\Models\\Document"){
    id: ID!
    company_id: Int!
+   contact_id: Int!
+   parent_id: Int
+   document_number: String!
+   order_number: String
+   status: String!
+   currency_code: String!
+   issued_at: DateTime!
+   due_at: DateTime!
+   issued_at: DateTime!
+   currency_rate: Float!
+   amount: Float!
+   contact_name: String
+   contact_email: String
+   contact_tax_number: String
+   contact_phone: String
+   contact_address: String
+   notes: String
+   footer: String
    created_at: DateTime!
    updated_at: DateTime!
+   contact: Contact! @belongsTo
+   company: Company! @belongsTo
 }
 type AccountSnapshot @model(class: "App\\Models\\AccountSnapshot"){
    id: ID!

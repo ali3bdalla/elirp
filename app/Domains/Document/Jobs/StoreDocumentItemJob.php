@@ -52,7 +52,7 @@ class StoreDocumentItemJob extends Job
         $request['quantity']      = $quantity;
         $request['price']         = round($price, $precision);
         $request['tax']           = round(0, $precision);
-        $request['discount_rate'] = $discountRate;
+        $request['discount'] = $discountRate;
         $request['subtotal']      = $subtotal;
         $request['total']         = round($total, $precision);
         return DocumentItem::create($request);

@@ -20,7 +20,7 @@
       <template #form-footer>
         <button
           class="btn btn-primary"
-          @click="saveContact(form,onSuccess)"
+          @click="save(form,onSuccess)"
         >Save</button>
       </template>
     </document-form>
@@ -30,8 +30,8 @@
 
 <script>
 import AppLayout from "../../Layouts/AppLayout.vue";
-import { saveContact } from "../../Api/contacts";
-import { computed, watch, ref } from "vue";
+import { save } from "../../Api/documents";
+import { computed, ref } from "vue";
 
 import { Inertia } from "@inertiajs/inertia";
 import DocumentForm from "../../Components/Document/DocumentForm.vue";
@@ -53,19 +53,25 @@ export default {
       default: "",
       type: String,
     },
+    document_number: {
+      required: true,
+      type: String,
+    },
   },
   name: "Create",
   setup(props, context) {
     const err = ref({});
     const form = ref({
       contact_id: null,
-      document_number: null,
+      document_number: props.document_number,
       order_number: null,
-      issued_at: null,
-      due_at: null,
+      issued_at: new Date(),
+      due_at: new Date(new Date().setMonth(new Date().getMonth() + 1)),
       parent_id: null,
       footer: null,
-      status: null,
+      currency_code: "USD",
+      currency_rate: 1,
+      status: "draft",
       notes: null,
       items: [],
       type: props.type,
@@ -80,7 +86,7 @@ export default {
       context,
       form,
       onSuccess,
-      saveContact: saveContact,
+      save,
       errors,
     };
   },

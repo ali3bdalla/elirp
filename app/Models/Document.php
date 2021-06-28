@@ -4,12 +4,16 @@ namespace App\Models;
 
 use App\Data\CanBeEnabled;
 use App\Data\HasCompany;
+use App\Data\HasFullSearch;
 use App\Data\HasUserActions;
+use App\Enums\DocumentTypeEnum;
 use App\Frame\ModelFrame;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 /**
  * @property \Illuminate\Support\HigherOrderCollectionProxy|mixed company_id
  * @property mixed contact_address
@@ -33,6 +37,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Document extends ModelFrame
 {
+    use HasFullSearch;
     use HasFactory;
     use SoftDeletes;
     use HasCompany;
@@ -65,6 +70,11 @@ class Document extends ModelFrame
     {
         return $this->hasMany(DocumentItemTax::class, 'document_id');
     }
+    public static function generatedNextDocumentNumber(DocumentTypeEnum $documentTypeEnum)
+    {
+        return Str::upper(Str::singular($documentTypeEnum->value)) . Str::studly(Carbon::now()->toDateString()) . company_id() . Auth::id() . random_int(3, 10) . random_int(10000, 999999);
+    }
+
 
     public function items() : HasMany
     {

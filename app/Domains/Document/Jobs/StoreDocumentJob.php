@@ -2,11 +2,13 @@
 
 namespace App\Domains\Document\Jobs;
 
+use App\Enums\DocumentStatusEnum;
 use App\Enums\DocumentTypeEnum;
 use App\Models\Contact;
 use App\Models\Document;
 use Illuminate\Foundation\Http\FormRequest;
 use Lucid\Units\Job;
+use Spatie\Enum\Laravel\Rules\EnumRule;
 
 class StoreDocumentJob extends Job
 {
@@ -31,13 +33,15 @@ class StoreDocumentJob extends Job
      */
     public function handle() : ?Document
     {
+        //  'amount'          => 'required|numeric',
         $this->request->validate([
             'contact_id'      => 'required|integer|exists:contacts,id',
             'document_number' => 'required|string',
-            'amount'          => 'required|numeric',
-            'status'          => 'required|string',
+
+            'status'          => ['required','string',new EnumRule(DocumentStatusEnum::class)],
             'issued_at'       => 'required|date',
             'due_at'          => 'required|date',
+            'notes'          => 'nullable|string|max:500',
             'currency_code'   => 'required|string|currency',
             'currency_rate'   => 'required|numeric',
         ]);
@@ -53,7 +57,7 @@ class StoreDocumentJob extends Job
         $document->contact_address = $contact->address;
         $document->footer          = $this->request->input('footer');
         $document->notes           = $this->request->input('notes');
-        $document->amount          = $this->request->input('amount');
+        $document->amount          = $this->request->input('amount',0);
         $document->issued_at       = $this->request->input('issued_at');
         $document->due_at          = $this->request->input('due_at');
         $document->status          = $this->request->input('status');

@@ -49,13 +49,13 @@ class StoreDocumentTotalJob extends Job
             $discount += $item->discount;
         }
         $sort_order = 1;
-        // Add sub total
+
         $totals[] = DocumentTotal::create([
             'company_id'  => $this->document->company_id,
             'type'        => $this->document->type,
             'document_id' => $this->document->id,
             'code'        => 'total',
-            'name'        => 'invoices.total',
+            'name'        => 'total',
             'amount'      => round($total, $precision),
             'sort_order'  => $sort_order,
         ]);
@@ -67,7 +67,7 @@ class StoreDocumentTotalJob extends Job
                 'type'        => $this->document->type,
                 'document_id' => $this->document->id,
                 'code'        => 'item_discount',
-                'name'        => 'invoices.item_discount',
+                'name'        => 'item_discount',
                 'amount'      => round($discount, $precision),
                 'sort_order'  => $sort_order,
             ]);
@@ -78,7 +78,7 @@ class StoreDocumentTotalJob extends Job
                 'type'        => $this->document->type,
                 'document_id' => $this->document->id,
                 'code'        => 'sub_total',
-                'name'        => 'invoices.sub_total',
+                'name'        => 'sub_total',
                 'amount'      => round($subtotal, $precision),
                 'sort_order'  => $sort_order,
             ]);
@@ -107,7 +107,7 @@ class StoreDocumentTotalJob extends Job
             'type'        => $this->document->type,
             'document_id' => $this->document->id,
             'code'        => 'net',
-            'name'        => 'invoices.net',
+            'name'        => 'net',
             'amount'      => $subtotal,
             'sort_order'  => $sort_order,
         ]);

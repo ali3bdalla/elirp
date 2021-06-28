@@ -40,7 +40,7 @@ class StoreDocumentItemJobTest extends TestCase
 
         $this->assertInstanceOf(DocumentItem::class, $result);
         $this->assertEquals($result->total, round($data['price'] * $data['quantity'], $precision));
-        $this->assertEquals($result->discount_rate, (double)$data['discount']);
+        $this->assertEquals($result->discount, (double)$data['discount']);
         $this->assertEquals($result->type, $document->type);
     }
 }

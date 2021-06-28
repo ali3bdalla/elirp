@@ -31,8 +31,8 @@ class ValidateDocumentItemsJob extends Job
             'items'             => 'required|array',
             'items.*.item_id'   => 'nullable',
             'items.*.name'      => 'required|string',
-            'items.*.quantity'  => 'required|numeric',
-            'items.*.price'     => 'required|amount',
+            'items.*.quantity'  => 'required|numeric|min:1',
+            'items.*.price'     => 'required|amount|numeric|min:0',
             'items.*.tax_ids'   => 'nullable|array',
             'items.*.tax_ids.*' => 'required|integer|exists:taxes,id',
         ]);

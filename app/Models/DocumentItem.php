@@ -6,6 +6,7 @@ use App\Data\HasCompany;
 use App\Data\HasUserActions;
 use App\Frame\ModelFrame;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\HigherOrderCollectionProxy;
@@ -14,7 +15,7 @@ use Illuminate\Support\HigherOrderCollectionProxy;
  * @property HigherOrderCollectionProxy|mixed company_id
  * @property HigherOrderCollectionProxy|mixed document_id
  * @property string type
- * @property float discount_rate
+ * @property float discount
  * @property float total
  * @property mixed taxes()
  * @property mixed id
@@ -41,12 +42,17 @@ class DocumentItem extends ModelFrame
         'total',
         'subtotal',
         'tax',
-        'discount_rate',
+        'discount',
         'discount_type',
     ];
 
     public function taxes() : HasMany
     {
         return $this->hasMany(DocumentItemTax::class, 'document_item_id');
+    }
+
+    public function item(): BelongsTo
+    {
+        return $this->BelongsTo(Item::class);
     }
 }

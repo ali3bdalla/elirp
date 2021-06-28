@@ -56,7 +56,7 @@ class StoreDocumentItemsOperationTest extends TestCase
             $data = collect($request['items'])->where('item_id', $documentItem->item_id)->first();
             $this->assertInstanceOf(DocumentItem::class, $documentItem);
             $this->assertEquals(round($documentItem->total), round($data['price'] * $data['quantity']));
-            $this->assertEquals($documentItem->discount_rate, (double)$data['discount']);
+            $this->assertEquals($documentItem->discount, (double)$data['discount']);
             $this->assertEquals($documentItem->type, $document->type);
             $taxTotal = 0;
             foreach ($documentItem->taxes()->with('tax')->get() as $documentItemTax) {

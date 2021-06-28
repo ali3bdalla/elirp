@@ -94,12 +94,12 @@
               <el-option
                 v-for="item in items"
                 :key="item.id"
-                :label="`${item.name} - ${item.sku} `"
+                :label="`${item.name} - ${item.sku} - ${item.model_number}`"
                 :value="item.id"
               >
                 <div>
                   <span style="float: left">{{ item.name }}</span>
-                  <span style="float: right; color: #8492a6; font-size: 15px">{{ item.sku }} - {{ item.phone }}</span>
+                  <span style="float: right; color: #8492a6; font-size: 15px">{{ item.sku }} - {{ item.phone }} - {{item.model_number}}</span>
                 </div>
               </el-option>
             </el-select>
@@ -121,6 +121,10 @@ export default {
   },
   name: "DocumentFormItems",
   props: {
+    type: {
+      type: String,
+      required: true,
+    },
     items: {
       type: [Array, null],
       default: () => [],
@@ -141,6 +145,8 @@ export default {
               sku
               purchase_price
               sale_price
+              model_number
+              model_name
             }
           }
         }
@@ -160,9 +166,13 @@ export default {
       const item = items.value.find((p) => p.id === itemId);
       const isExists = documentItems.value.find((p) => p.item_id === itemId);
       if (!isExists && item) {
-        const price = parseFloat(item.purchase_price).toFixed(2);
+        let price = parseFloat(item.purchase_price).toFixed(2);
+        if (props.type == "INVOICE")
+          price = parseFloat(item.sale_price).toFixed(2);
+
         documentItems.value.push({
           quantity: 1,
+          name: item.name,
           discount: 0,
           total: price,
           subtotal: price,

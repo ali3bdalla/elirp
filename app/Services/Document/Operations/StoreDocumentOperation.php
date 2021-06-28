@@ -56,11 +56,6 @@ class StoreDocumentOperation extends Operation
                 'document' => $document,
             ]);
 
-            $this->run(CreateDocumentRecurringJob::class, [
-                'document' => $document,
-                'request'  => $this->request
-            ]);
-
             $this->run(StoreDocumentHistoryJob::class, [
                 'document'    => $document,
                 'notify'      => 0,

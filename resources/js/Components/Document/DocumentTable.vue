@@ -2,13 +2,6 @@
   <div>
     <div class="card-header">
       <div class="d-flex align-items-center justify-content-between">
-        <div>
-          <!-- <el-radio-group v-model="enabledStatus">
-            <el-radio-button :label="1">All ({{totalitems}})</el-radio-button>
-            <el-radio-button :label="2">Active ({{totalActiveitems}})</el-radio-button>
-            <el-radio-button :label="3">In Active ({{totalInActiveitems}})</el-radio-button>
-          </el-radio-group> -->
-        </div>
 
         <div>
           <input
@@ -26,74 +19,54 @@
       :items="items"
       :paginator-info="paginatorInfo"
     >
-      <template v-slot:title>hello</template>
+      <template v-slot:title></template>
       <template v-slot:rows>
         <data-grid-column
-          label="id"
-          props="id"
-          width="100"
+          label="Number"
+          props="document_number"
         >
           <template v-slot:default="{ item }">
-            {{ item.id }}
+            {{ item.document_number }}
           </template>
         </data-grid-column>
         <data-grid-column
-          width="200"
-          label="Name"
-          props="name"
+          :label="`${contactTitle} Name`"
+          props="contact_name"
         >
-          <template v-slot:default="{ item }">
-            <div class="d-flex p-2 bd-highlight justify-items-center
-            align-self-center
-             justify-content-start">
-              <div class="ml-2">
-                {{ item.name }}
-              </div>
-            </div>
-          </template>
-        </data-grid-column>
-        <data-grid-column
-          label="E-mail Address"
-          props="email"
-        >
-          <template v-slot:default="{ item }">
-            {{ item.email }}
-          </template>
-        </data-grid-column>
-        <data-grid-column
-          label="Phone"
-          props="phone"
-        >
-          <template v-slot:default="{ item }">
-            {{ item.phone }}
-          </template>
+
         </data-grid-column>
 
         <data-grid-column
-          label="Address"
-          props="address"
+          label="Amount"
+          props="amount"
         >
-          <template v-slot:default="{ item }">
-            {{ item.address }}
-          </template>
-        </data-grid-column>
-        <data-grid-column
-          label="reference"
-          props="reference"
-        >
-          <template v-slot:default="{ item }">
-            {{ item.reference }}
-          </template>
-        </data-grid-column>
-        <data-grid-column
-          label="Tax Number"
-          props="tax_number"
-        >
-          <template v-slot:default="{ item }">
-            {{ item.tax_number }}
-          </template>
+
         </data-grid-column>
 
+        <data-grid-column
+          label="Issued At"
+          props="issued_at"
+        >
+
+        </data-grid-column>
+        <data-grid-column
+          label="Due At"
+          props="due_at"
+        >
+
+        </data-grid-column>
+        <data-grid-column
+          label="Status"
+          props="status"
+        >
+
+        </data-grid-column>
+        <data-grid-column
+          label="Created At"
+          props="created_at"
+        >
+
+        </data-grid-column>
         <data-grid-column label="Option">
           <template v-slot:default="{ item }">
             <el-dropdown>
@@ -125,48 +98,38 @@ import { useQuery, useResult } from "@vue/apollo-composable";
 import gql from "graphql-tag";
 import { ref } from "vue";
 export default {
-  name: "ContactTable",
+  name: "DocumentTable",
   components: { DataGridColumn, PrimaryButton, DataGridFrame },
   props: {
     url: {
       default: "",
       type: String,
     },
-    isVendor: {
-      default: "",
-      type: String,
-    },
-    isCustomer: {
+    type: {
       default: "",
       type: String,
     },
   },
   setup(props) {
-    console.log(props);
     const page = ref(1);
     const searching = ref("");
     const { result, loading } = useQuery(
       gql`
-        query getContacts(
-          $page: Int!
-          $search: String!
-          $isVendor: String
-          $isCustomer: String
-        ) {
-          getContacts(
-            page: $page
-            search: $search
-            is_vendor: $isVendor
-            is_customer: $isCustomer
-          ) {
+        query getDocuments($page: Int!, $search: String!, $type: String) {
+          getDocuments(page: $page, search: $search, type: $type) {
             data {
               id
-              name
-              email
-              tax_number
-              phone
-              address
-              reference
+              document_number
+              order_number
+              status
+              currency_code
+              issued_at
+              due_at
+              issued_at
+              currency_rate
+              amount
+              contact_name
+              created_at
             }
             paginatorInfo {
               count
@@ -180,16 +143,15 @@ export default {
       {
         page: page,
         search: searching,
-        isVendor: props.isVendor,
-        isCustomer: props.isCustomer,
+        type: props.type,
       }
     );
-    const items = useResult(result, [], (data) => data.getContacts.data);
+    const items = useResult(result, [], (data) => data.getDocuments.data);
 
     const paginatorInfo = useResult(
       result,
       {},
-      (data) => data.getContacts.paginatorInfo
+      (data) => data.getDocuments.paginatorInfo
     );
 
     function pageChanged(currentPage) {
@@ -197,6 +159,7 @@ export default {
     }
 
     return {
+      contactTitle: props.type === "BILL" ? "Vendor" : "Customer",
       searching,
       pageChanged,
       items,

@@ -22,6 +22,7 @@ class BillController extends Controller
       public function create()
     {
         return Inertia::render('Documents/Create',[
+            'document_number' => Document::generatedNextDocumentNumber(DocumentTypeEnum::BILL()),
                'type' => DocumentTypeEnum::BILL()->label,
             'title' => 'Bill',
             'url' => route('bills.index')

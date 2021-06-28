@@ -12,17 +12,16 @@
       </inertia-link>
     </template>
 
-    <contact-table
+    <document-table
       :url="url"
-      :is-vendor="is_vendor"
-      :is-customer="is_customer"
-    ></contact-table>
+      :type="type"
+    ></document-table>
   </app-layout>
 </template>
 
 <script>
 import AppLayout from "../../Layouts/AppLayout";
-import ContactTable from "../../Components/Contact/ContactTable";
+import DocumentTable from "../../Components/Document/DocumentTable";
 export default {
   name: "Index",
   props: {
@@ -38,16 +37,12 @@ export default {
       default: "",
       type: String,
     },
-    is_vendor: {
-      default: "",
-      type: String,
-    },
-    is_customer: {
+    type: {
       default: "",
       type: String,
     },
   },
-  components: { AppLayout, ContactTable },
+  components: { AppLayout, DocumentTable },
 };
 </script>
 

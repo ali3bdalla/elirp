@@ -56,4 +56,14 @@ type Query @guard {
     totalAccounts: Int!  @aggregate(model: "Account", column: "id", function: count)
 
     documentStatuses(type: String = ""): [EnumOption]
+
+    getDocuments(trashed: Trashed @trashed,
+     type: String = "" @WhereInSearch,
+    search: String! = "" @search(within: "documents_index") ,
+    orderBy: OrderByInput  @orderByInSearch(columns: ["id","document_number","created_at"])
+  ): [Document!]! @paginate
+    getDocument(id: ID!): Document! @find
+    totalBills: Int!  @eq(key: "type",value: "BILL")  @aggregate(model: "Document", column: "id", function: count)
+    totalInvoices: Int! @eq(key: "type",value: "INVOICE")  @aggregate(model: "Document", column: "id", function: count)
+
 }

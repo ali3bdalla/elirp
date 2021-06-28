@@ -33,25 +33,26 @@ export default {
     },
   },
   setup(props) {
+    function sm(field) {
+      return parseFloat(
+        props.items.reduce((p, value) => {
+          return parseFloat(p) + parseFloat(value[field]);
+        }, 0)
+      ).toFixed(2);
+    }
     const totals = computed(function () {
       let t = [];
       t.push({
         name: "Total",
-        amount: props.items.reduce((p, value) => {
-          return parseFloat(p) + parseFloat(value.total);
-        }, 0),
+        amount: sm("total"),
       });
       t.push({
         name: "Discount",
-        amount: props.items.reduce((p, value) => {
-          return parseFloat(p) + parseFloat(value.discount);
-        }, 0),
+        amount: sm("discount"),
       });
       t.push({
         name: "Subtotal",
-        amount: props.items.reduce((p, value) => {
-          return parseFloat(p) + parseFloat(value.subtotal);
-        }, 0),
+        amount: sm("subtotal"),
       });
 
       return t;

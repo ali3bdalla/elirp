@@ -1,17 +1,18 @@
 <template>
   <app-layout>
     <template #title>
-      Update {{ title }}
+      Update {{title }}
     </template>
     <template #actions>
       <inertia-link
         :href="url"
         class="btn btn-default"
       >
-        back to {{ title }}s
+        Back to {{title }}s
       </inertia-link>
     </template>
-    <contact-form
+    <document-form
+      :type="type"
       :title="title"
       v-model="form"
       :value='form'
@@ -19,22 +20,26 @@
       <template #form-footer>
         <button
           class="btn btn-primary"
-          @click="updateContact(form,contactId,onSuccess)"
-        >Update</button>
+          @click="update(form,id,onSuccess)"
+        >Save</button>
       </template>
-    </contact-form>
+    </document-form>
 
   </app-layout>
 </template>
 
 <script>
 import AppLayout from "../../Layouts/AppLayout.vue";
-import { updateContact } from "../../Api/contacts";
-import { computed, watch, ref } from "vue";
+import { update } from "../../Api/documents";
+import { computed, ref } from "vue";
 
 import { Inertia } from "@inertiajs/inertia";
-import ContactForm from "../../Components/Contact/ContactForm.vue";
+import DocumentForm from "../../Components/Document/DocumentForm.vue";
 export default {
+  components: {
+    AppLayout,
+    DocumentForm,
+  },
   props: {
     url: {
       default: "",
@@ -44,27 +49,15 @@ export default {
       default: "",
       type: String,
     },
-    is_vendor: {
-      default: "",
-      type: String,
-    },
-    is_customer: {
-      default: "",
-      type: String,
-    },
-    contact: {
-      required: true,
+    document: {
       type: Object,
+      required: true,
     },
   },
-  components: {
-    AppLayout,
-    ContactForm,
-  },
-  name: "Edit",
+  name: "Create",
   setup(props, context) {
     const err = ref({});
-    const form = ref(props.contact);
+    const form = ref(props.document);
     const errors = computed(function () {
       return err.value;
     });
@@ -72,11 +65,11 @@ export default {
       Inertia.visit(props.url);
     }
     return {
-      contactId: props.contact.id,
+      id: props.document.id,
       context,
       form,
       onSuccess,
-      updateContact,
+      update,
       errors,
     };
   },

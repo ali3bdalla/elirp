@@ -7,7 +7,7 @@
       <slot
         name="default"
         :item="props.row"
-      ></slot>
+      >{{ props.row[`${$props.props}`]}}</slot>
     </template>
   </el-table-column>
 </template>
@@ -17,6 +17,10 @@ export default {
   name: "DataGridColumn",
   props: {
     label: {
+      type: String,
+      default: "",
+    },
+    props: {
       type: String,
       default: "",
     },

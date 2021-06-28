@@ -2,6 +2,25 @@
   <div>
     <div class="card-header">
       <div class="row">
+        <div class="col-lg-6 col-sm-12">
+          <div class="form-group">
+            <label for="document_number"><i class="el-icon-number"></i> Number</label>
+            <div>
+              <input
+                disabled
+                :class="{'is-invalid': $page.props.errors.document_number}"
+                class="form-control"
+                v-model="value.document_number"
+                placeholder="Document Number"
+              />
+            </div>
+
+            <error-message-utility :error="$page.props.errors.document_number"></error-message-utility>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+
         <div class="col-lg-4 col-md-6 col-sm-12">
           <div class="form-group">
             <label for="name"><i class="fab fa-product-hunt"></i> {{ contactTitle }}</label>
@@ -72,6 +91,7 @@
           <div class="form-group">
             <label for="status"><i class="el-icon-date"></i>Status</label>
             <el-select
+              :disabled="true"
               v-model="value.status"
               filterable
               class="form-control"
@@ -94,51 +114,11 @@
       </div>
     </div>
     <div class="card-body">
-      <!-- <div class="row">
-
-        <div class="col-lg-4 col-md-4 col-sm-12">
-          <div class="form-group">
-            <label for="phone"><i class="fas fa-phone"></i> Phone Number</label>
-            <input
-              type="model_number"
-              :class="{'is-invalid': $page.props.errors.phone}"
-              class="form-control"
-              v-model="value.phone"
-              placeholder="Phone Number"
-            />
-            <error-message-utility :error="$page.props.errors.phone"></error-message-utility>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-12">
-          <div class="form-group">
-            <label for="website"><i class="fab fa-edit"></i> Website</label>
-            <input
-              type="url"
-              :class="{'is-invalid': $page.props.errors.website}"
-              class="form-control"
-              v-model="value.website"
-              placeholder="Website"
-            />
-            <error-message-utility :error="$page.props.errors.website"></error-message-utility>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-12">
-          <div class="form-group">
-            <label for="tax_number"><i class="fas fa-tag"></i> Tax Number</label>
-            <input
-              type="text"
-              :class="{'is-invalid': $page.props.errors.tax_number}"
-              class="form-control"
-              v-model="value.tax_number"
-              placeholder="Tax Number"
-            />
-            <error-message-utility :error="$page.props.errors.tax_number"></error-message-utility>
-          </div>
-        </div> -->
 
       <div class="row">
         <div class="col-sm-12">
           <DocumentFormItems
+            :type="type"
             :items="value.items"
             v-model="value.items"
           >
@@ -189,10 +169,7 @@ export default {
       type: String,
       default: "",
     },
-    contactTitle: {
-      type: String,
-      default: "Vendor",
-    },
+
     type: {
       type: String,
       required: true,
@@ -205,9 +182,11 @@ export default {
   setup(props, context) {
     const contactSearch = ref("");
     let is_vendor = "";
+    let contactTitle = "Customer";
     let is_customer = "true";
     if (props.type == "BILL") {
       is_vendor = "true";
+      contactTitle = "Vendor";
       is_customer = "";
     }
     const { result, loading } = useQuery(
@@ -247,6 +226,7 @@ export default {
     }
 
     return {
+      contactTitle,
       contactsLoading: loading,
       filterContacts,
       contacts: useResult(result, [], (data) => data.getContacts.data),

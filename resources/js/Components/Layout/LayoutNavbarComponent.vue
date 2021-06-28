@@ -96,7 +96,7 @@
           <a
             class="collapse-item"
             :href="route('bills.index')"
-          >Bills ({{ total.totalItems }})</a>
+          >Bills ({{ total.totalBills }})</a>
           <a
             class="collapse-item"
             :href="route('vendors.index')"
@@ -131,8 +131,8 @@
           <!-- <h6 class="collapse-header">Items:</h6> -->
           <a
             class="collapse-item"
-            :href="route('items.index')"
-          >Invoices ({{ total.totalItems }})</a>
+            :href="route('invoices.index')"
+          >Invoices ({{ total.totalInvoices }})</a>
           <a
             class="collapse-item"
             :href="route('customers.index')"
@@ -208,6 +208,8 @@ export default {
         totalItems
         totalCustomers
         totalVendors
+        totalInvoices
+        totalBills
       }
     `);
     const total = useResult(result, {}, (data) => data);
