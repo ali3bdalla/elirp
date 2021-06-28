@@ -14,7 +14,6 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js').vue()
     .sass('resources/scss/app.scss', 'public/css/app.css')
     .sass('resources/scss/template/sb-admin-2.scss', 'public/css/sb-admin-2.css')
-    .copyDirectory('resources/assets','public/assets')
     .copyDirectory('resources/img','public/img')
     .copyDirectory('resources/template','public/template')
     .webpackConfig(require('./webpack.config'));

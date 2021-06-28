@@ -1,8 +1,16 @@
 <?php
 
+use App\Http\Controllers\Web\InventoryController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Web\AccountController;
+use App\Http\Controllers\Web\BillController;
+use App\Http\Controllers\Web\CustomerController;
+use App\Http\Controllers\Web\EntryController;
+use App\Http\Controllers\Web\InvoiceController;
 use App\Http\Controllers\Web\ItemController;
 use App\Http\Controllers\Web\UserController;
+use App\Http\Controllers\Web\VendorController;
+use App\Http\Controllers\Web\DashboardController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -33,7 +41,14 @@ Route::group(['prefix' => 'auth', 'as' => '.auth', 'middleware' => 'guest'], fun
     }
 });
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::get('/dashboard', \App\Http\Controllers\Web\DashboardController::class)->name('dashboard');
+    Route::get('/dashboard', DashboardController::class)->name('dashboard');
     Route::resource('users', UserController::class);
     Route::resource('items', ItemController::class);
+    Route::resource('vendors', VendorController::class);
+    Route::resource('customers', CustomerController::class);
+    Route::resource('bills', BillController::class);
+    Route::resource('invoices', InvoiceController::class);
+    Route::resource('accounts', AccountController::class);
+    Route::resource('entries', EntryController::class);
+    Route::resource('inventories', InventoryController::class);
 });
