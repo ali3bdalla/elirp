@@ -33,23 +33,40 @@ class SeedCompanyBaseAccountsOperation extends Operation
      */
     public function handle()
     {
-        DB::transaction(function () {
-            $this->run(SeedCompanyAccountingAssetsAccountsJob::class, [
-                'company' => $this->company
-            ]);
-            $this->run(SeedCompanyAccountingLiabilitiesAccountsJob::class, [
-                'company' => $this->company
-            ]);
+        DB::transaction(
+            function () {
+                $this->run(
+                    SeedCompanyAccountingAssetsAccountsJob::class,
+                    [
+                    'company' => $this->company
+                    ]
+                );
+                $this->run(
+                    SeedCompanyAccountingLiabilitiesAccountsJob::class,
+                    [
+                    'company' => $this->company
+                    ]
+                );
 
-            $this->run(SeedCompanyAccountingEquityAccountsJob::class, [
-                'company' => $this->company
-            ]);
-            $this->run(SeedCompanyAccountingIncomeAccountsJob::class, [
-                'company' => $this->company
-            ]);
-            $this->run(SeedCompanyAccountingExpenseAccountsJob::class, [
-                'company' => $this->company
-            ]);
-        });
+                $this->run(
+                    SeedCompanyAccountingEquityAccountsJob::class,
+                    [
+                    'company' => $this->company
+                    ]
+                );
+                $this->run(
+                    SeedCompanyAccountingIncomeAccountsJob::class,
+                    [
+                    'company' => $this->company
+                    ]
+                );
+                $this->run(
+                    SeedCompanyAccountingExpenseAccountsJob::class,
+                    [
+                    'company' => $this->company
+                    ]
+                );
+            }
+        );
     }
 }

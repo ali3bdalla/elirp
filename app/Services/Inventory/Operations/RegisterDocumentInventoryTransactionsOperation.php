@@ -25,23 +25,34 @@ class RegisterDocumentInventoryTransactionsOperation extends Operation
     /**
      * Execute the operation.
      *
-     * @return void
+     * @return array
      */
-    public function handle()
+    public function handle(): array
     {
+        $transactions = [];
         $inventory = $this->run(GetCurrentInventoryJob::class);
+
+        $type = InventoryTransactionTypeEnum::IS();
+        if ($this->document->type->equals(DocumentTypeEnum::BILL())) {
+            $type  = InventoryTransactionTypeEnum::IR();
+        }
+        if ($this->reverse) {
+            $type = $type->equals(InventoryTransactionTypeEnum::IS()) ? InventoryTransactionTypeEnum::IR() : InventoryTransactionTypeEnum::IS();
+        }
         foreach ($this->document->items()->get() as $documentItem) {
-            $this->run(
+            $transactions[] = $this->run(
                 CreateInventoryTransactionOperation::class,
                 [
                     'inventory' => $inventory,
                     'item' => $documentItem->item,
                     'quantity' => $documentItem->quantity,
                     'documentItem' => $documentItem,
-                    'type' => $this->document->type->equals(DocumentTypeEnum::BILL()) && !$this->reverse ? InventoryTransactionTypeEnum::IR() : InventoryTransactionTypeEnum::IS(),
+                    'type' => $type,
                     'entry' => $this->entry
                 ]
             );
         }
+
+        return $transactions;
     }
 }

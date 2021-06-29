@@ -26,6 +26,7 @@
         <button
           class="btn btn-danger mx-2"
           v-if="showReturnInvoiceButton()"
+          @click="confirmAction(invoiceReturn)"
         ><i class="el-icon-refresh"></i> Return</button>
         <button
           class="btn btn-danger mx-2"

@@ -31,23 +31,29 @@ class SeedCompanyAccountingExpenseAccountsJob extends Job
      */
     public function handle()
     {
-        $Expense = Account::create([
+        $Expense = Account::create(
+            [
             'type'           => AccountingTypeEnum::DEBIT(),
             'group'          => AccountGroupEnum::EXPENSE(),
             'name'           => 'Expense',
             'auto_generated' => true,
             'company_id'     => $this->company->id
-        ]);
+            ]
+        );
 
-        Account::create([
+        Account::create(
+            [
             'parent_id'      => $Expense->id,
             'type'           => AccountingTypeEnum::DEBIT(),
             'group'          => AccountGroupEnum::EQUITY(),
             'name'           => 'inventory adjustments',
             'auto_generated' => true,
             'company_id'     => $this->company->id
-        ]);
-        Account::create([
+            ]
+        );
+
+        Account::create(
+            [
             'parent_id'      => $Expense->id,
             'type'           => AccountingTypeEnum::DEBIT(),
             'group'          => AccountGroupEnum::EQUITY(),
@@ -55,6 +61,7 @@ class SeedCompanyAccountingExpenseAccountsJob extends Job
             'slug'           => AccountSlugsEnum::DEFAULT_COGS_ACCOUNT(),
             'auto_generated' => true,
             'company_id'     => $this->company->id
-        ]);
+            ]
+        );
     }
 }

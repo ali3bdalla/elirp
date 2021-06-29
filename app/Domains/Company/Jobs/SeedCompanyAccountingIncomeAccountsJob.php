@@ -31,15 +31,18 @@ class SeedCompanyAccountingIncomeAccountsJob extends Job
      */
     public function handle()
     {
-        $incomes = Account::create([
+        $incomes = Account::create(
+            [
             'type'           => AccountingTypeEnum::CREDIT(),
             'group'          => AccountGroupEnum::INCOMES(),
             'name'           => 'INCOMES',
             'auto_generated' => true,
             'company_id'     => $this->company->id
-        ]);
+            ]
+        );
 
-        Account::create([
+        Account::create(
+            [
             'parent_id'      => $incomes->id,
             'type'           => AccountingTypeEnum::CREDIT(),
             'group'          => AccountGroupEnum::INCOMES(),
@@ -47,6 +50,19 @@ class SeedCompanyAccountingIncomeAccountsJob extends Job
             'slug'           => AccountSlugsEnum::DEFAULT_SALES_INCOMES_ACCOUNT(),
             'auto_generated' => true,
             'company_id'     => $this->company->id
-        ]);
+            ]
+        );
+
+        Account::create(
+            [
+            'parent_id'      => $incomes->id,
+            'type'           => AccountingTypeEnum::DEBIT(),
+            'group'          => AccountGroupEnum::INCOMES(),
+            'name'           => 'Sales Discounts',
+            'slug'           => AccountSlugsEnum::DEFUALT_SALES_DISCOUNTS_ACCOUNT(),
+            'auto_generated' => true,
+            'company_id'     => $this->company->id
+            ]
+        );
     }
 }

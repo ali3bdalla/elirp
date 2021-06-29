@@ -3,6 +3,8 @@
 namespace App\Services\Invoice\Features;
 
 use App\Domains\Accounting\Jobs\CreateBaseEntryJob;
+use App\Domains\Accounting\Jobs\StoreDeliveredInvoiceCogsTransactionsJob;
+use App\Domains\Accounting\Jobs\StoreDeliveredInvoiceSalesTransactionsJob;
 use App\Domains\Accouting\Jobs\StoreDeliveredInvoiceCustomerTransactionJob;
 use App\Domains\Accouting\Jobs\StoreDeliveredInvoiceTaxTransactionsJob;
 use App\Domains\Document\Jobs\ChangeDocumentStatusJob;
@@ -45,7 +47,7 @@ class MarkInvoiceAsDeliveredFeature extends Feature
                         ]
                     );
 
-                    $this->run(
+                    $inventoryTransactions =  $this->run(
                         RegisterDocumentInventoryTransactionsOperation::class,
                         [
                              'entry'    => $entry,
@@ -66,6 +68,25 @@ class MarkInvoiceAsDeliveredFeature extends Feature
                         'document' => $this->document
                         ]
                     );
+
+
+                    $this->run(
+                        StoreDeliveredInvoiceCogsTransactionsJob::class,
+                        [
+                            'entry'    => $entry,
+                            'inventoryTransactions' => $inventoryTransactions,
+                            'document' => $this->document
+                        ]
+                    );
+
+                    $this->run(
+                        StoreDeliveredInvoiceSalesTransactionsJob::class,
+                        [
+                            'entry'    => $entry,
+                            'document' => $this->document
+                        ]
+                    );
+
 
                     $entry->update(
                         [

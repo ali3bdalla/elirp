@@ -3,6 +3,8 @@
 namespace App\Services\Invoice\Features;
 
 use App\Domains\Accounting\Jobs\CreateBaseEntryJob;
+use App\Domains\Accounting\Jobs\StoreDeliveredInvoiceCogsTransactionsJob;
+use App\Domains\Accounting\Jobs\StoreDeliveredInvoiceSalesTransactionsJob;
 use App\Domains\Accouting\Jobs\StoreDeliveredInvoiceCustomerTransactionJob;
 use App\Domains\Accouting\Jobs\StoreDeliveredInvoiceTaxTransactionsJob;
 use App\Domains\Document\Jobs\ChangeDocumentStatusJob;
@@ -33,23 +35,23 @@ class MarkInvoiceAsReturnedFeature extends Feature
                 if ($this->run(
                     ValidateReturnableInvoiceJob::class,
                     [
-                    'document' => $this->document
+                        'document' => $this->document
                     ]
                 )
                 ) {
                     $entry = $this->run(
                         CreateBaseEntryJob::class,
                         [
-                        'documentId'  => $this->document->id,
-                        'description' => 'private-key::invoice_returned',
-                        'isPending'   => false
+                            'documentId'  => $this->document->id,
+                            'description' => 'private-key::invoice_returned',
+                            'isPending'   => false
                         ]
                     );
 
-                    $this->run(
+                    $inventoryTransactions = $this->run(
                         RegisterDocumentInventoryTransactionsOperation::class,
                         [
-                             'entry'    => $entry,
+                            'entry'    => $entry,
                             'document' => $this->document,
                             'reverse' => true
                         ]
@@ -57,23 +59,43 @@ class MarkInvoiceAsReturnedFeature extends Feature
                     $this->run(
                         StoreDeliveredInvoiceCustomerTransactionJob::class,
                         [
-                        'entry'    => $entry,
-                        'document' => $this->document,
-                        'reverse' => true
+                            'entry'    => $entry,
+                            'document' => $this->document,
+                            'reverse' => true
                         ]
                     );
                     $this->run(
                         StoreDeliveredInvoiceTaxTransactionsJob::class,
                         [
-                        'entry'    => $entry,
-                        'document' => $this->document,
-                        'reverse' => true
+                            'entry'    => $entry,
+                            'document' => $this->document,
+                            'reverse' => true
                         ]
                     );
 
+                    $this->run(
+                        StoreDeliveredInvoiceCogsTransactionsJob::class,
+                        [
+                            'entry'    => $entry,
+                            'inventoryTransactions' => $inventoryTransactions,
+                            'document' => $this->document,
+                            'reverse' => true
+                        ]
+                    );
+
+                    $this->run(
+                        StoreDeliveredInvoiceSalesTransactionsJob::class,
+                        [
+                            'entry'    => $entry,
+                            'document' => $this->document,
+                            'reverse' => true
+                        ]
+                    );
+
+
                     $entry->update(
                         [
-                        'amount' => $entry->transactions()->where('type', AccountingTypeEnum::DEBIT())->sum('amount')
+                            'amount' => $entry->transactions()->where('type', AccountingTypeEnum::DEBIT())->sum('amount')
                         ]
                     );
 
@@ -84,8 +106,8 @@ class MarkInvoiceAsReturnedFeature extends Feature
                     $this->run(
                         ChangeDocumentStatusJob::class,
                         [
-                        'document'           => $this->document,
-                        'documentStatusEnum' => DocumentStatusEnum::returned()
+                            'document'           => $this->document,
+                            'documentStatusEnum' => DocumentStatusEnum::returned()
                         ]
                     );
 
@@ -93,9 +115,9 @@ class MarkInvoiceAsReturnedFeature extends Feature
                     $this->run(
                         StoreDocumentHistoryJob::class,
                         [
-                        'document'    => $this->document->fresh(),
-                        'notify'      => 0,
-                        'description' => 'Marked as Returned'
+                            'document'    => $this->document->fresh(),
+                            'notify'      => 0,
+                            'description' => 'Marked as Returned'
                         ]
                     );
 

@@ -13,6 +13,7 @@ use Spatie\Enum\Laravel\Enum;
  * @method static self DEFAULT_BANK_ACCOUNT()
  * @method static self DEFAULT_STOCK_ACCOUNT()
  * @method static self DEFAULT_TAX_ACCOUNT()
+ * @method static self DEFUALT_SALES_DISCOUNTS_ACCOUNT()
  */
 class AccountSlugsEnum extends Enum
 {

@@ -37,6 +37,8 @@ class CalcNewTransactionUnitCostJob extends Job
             if ($this->documentItem->type->equals(DocumentTypeEnum::BILL())) {
                 return round((float)($this->documentItem->subtotal) / (float)($this->documentItem->quantity ? $this->documentItem->quantity : 1), 2);
             } else {
+                //
+                return round((float)($this->documentItem->subtotal) / (float)($this->documentItem->quantity ? $this->documentItem->quantity : 1), 2);
             }
         }
 
