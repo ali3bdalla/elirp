@@ -61,14 +61,14 @@
             class="collapse-item"
             :href="route('items.index')"
           >Items ({{ total.totalItems }})</a>
-          <a
+          <!-- <a
             class="collapse-item"
             href="cards.html"
           >Warehouses</a>
           <a
             class="collapse-item"
             href="cards.html"
-          >Transactions</a>
+          >Transactions</a> -->
         </div>
       </div>
     </li>
@@ -101,10 +101,10 @@
             class="collapse-item"
             :href="route('vendors.index')"
           >Vendors ({{ total.totalVendors }})</a>
-          <a
+          <!-- <a
             class="collapse-item"
             href="cards.html"
-          >Payments</a>
+          >Payments</a> -->
         </div>
       </div>
     </li>
@@ -137,17 +137,17 @@
             class="collapse-item"
             :href="route('customers.index')"
           >Customers ({{ total.totalCustomers}})</a>
-          <a
+          <!-- <a
             class="collapse-item"
             href="cards.html"
-          >Receipts</a>
+          >Receipts</a> -->
         </div>
       </div>
     </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
-    <li class="nav-item">
+    <!-- <li class="nav-item">
       <a
         class="nav-link collapsed"
         href="#"
@@ -166,7 +166,6 @@
         data-parent="#accordionSidebar"
       >
         <div class="bg-white py-2 collapse-inner rounded">
-          <!-- <h6 class="collapse-header">Items:</h6> -->
           <a
             class="collapse-item"
             :href="route('items.index')"
@@ -181,7 +180,7 @@
           >Receipts</a>
         </div>
       </div>
-    </li>
+    </li> -->
     <li class="nav-item">
       <inertia-link
         class="nav-link"
