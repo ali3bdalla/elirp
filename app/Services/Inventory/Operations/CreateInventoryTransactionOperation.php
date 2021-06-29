@@ -27,6 +27,7 @@ class CreateInventoryTransactionOperation extends Operation
         public DocumentItem|null $documentItem = null,
         public Entry|null $entry = null,
         public float|null $unitCost = null,
+        public bool $isReverseing = false,
     ) {
         //
     }
@@ -43,7 +44,8 @@ class CreateInventoryTransactionOperation extends Operation
             [
                 'item' => $this->item,
                 'unitCost' => $this->unitCost,
-                'documentItem' => $this->documentItem
+                'documentItem' => $this->documentItem,
+                'isReverseing' => $this->isReverseing,
             ]
         );
         $parameters = [

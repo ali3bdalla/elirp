@@ -48,7 +48,8 @@ class RegisterDocumentInventoryTransactionsOperation extends Operation
                     'quantity' => $documentItem->quantity,
                     'documentItem' => $documentItem,
                     'type' => $type,
-                    'entry' => $this->entry
+                    'entry' => $this->entry,
+                    'isReverseing' => $this->reverse
                 ]
             );
         }

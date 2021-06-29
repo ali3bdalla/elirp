@@ -14,7 +14,8 @@ class CreateDocumentItemsTable extends Migration
     public function up()
     {
         Schema::create(
-            'document_items', function (Blueprint $table) {
+            'document_items',
+            function (Blueprint $table) {
                 $table->id();
                 $table->unsignedBigInteger('company_id');
                 $table->unsignedBigInteger('document_id');
@@ -30,6 +31,7 @@ class CreateDocumentItemsTable extends Migration
                 $table->double('discount', 15, 4)->default('0.0000');
                 $table->double('total', 50, 4)->default(0);
                 $table->double('subtotal', 50, 4)->default(0);
+                $table->double('unit_cost', 50, 4)->default(0);
                 $table->foreign('company_id')->references('id')->on('companies');
                 $table->foreign('document_id')->references('id')->on('documents');
                 $table->foreign('item_id')->references('id')->on('items');
