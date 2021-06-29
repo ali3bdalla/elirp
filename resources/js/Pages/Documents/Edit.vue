@@ -23,38 +23,39 @@
           class="btn btn-secondary mx-2"
           :href="route('documents.print',document.id)"
         ><i class="fas fa-print"></i> Print {{ title }}</a>
-
         <button
           class="btn btn-danger mx-2"
-          v-if="showReturnButton()"
-        ><i class="el-icon-refresh"></i> Returned</button>
+          v-if="showReturnInvoiceButton()"
+        ><i class="el-icon-refresh"></i> Return</button>
+        <button
+          class="btn btn-danger mx-2"
+          v-if="showReturnBillButton()"
+          @click="confirmAction(billReturn)"
+        ><i class="el-icon-refresh"></i> Return</button>
+        <button
+          class="btn btn-warning mx-2"
+          v-if="showRefundButton()"
+          @click="confirmAction(refunded)"
+        ><i class="el-icon-back"></i> Refund</button>
+
+        <button
+          class="btn btn-success mx-2"
+          v-if="showDeliveredButton()"
+          @click="confirmAction(delivered)"
+        ><i class="el-icon-coin"></i> Deliver</button>
 
         <button
           class="btn btn-success mx-2"
           v-if="showRecievedButton()"
           @click="confirmAction(received)"
-        ><i class="el-icon-coin"></i> Received</button>
+        ><i class="el-icon-coin"></i> Receive</button>
 
         <button
           class="btn btn-warning mx-2"
           v-if="showPaidButton()"
-        ><i class="el-icon-money"></i> Paid</button>
+          @click="confirmAction(paid)"
+        ><i class="el-icon-money"></i> Pay</button>
 
-        <!-- <button class="btn btn-primary mx-2"><i class="fas fa-cloud"></i> Billed {{ title }}</button>
-
-        <a
-          class="btn btn-info mx-2"
-          :href="route('documents.print',document.id)"
-        ><i class="fas fa-print"></i> Print {{ title }}</a> -->
-
-        <!-- <a
-          class="btn btn-danger mx-2"
-          :href="route('documents.print',document.id)"
-        ><i class="fas fa-close"></i> Cancel {{ title }}</a>
-        <a
-          class="btn btn-dark mx-2"
-          :href="route('documents.print',document.id)"
-        ><i class="fas fa-print"></i> Print {{ title }}</a> -->
       </template>
     </document-form>
 
@@ -63,7 +64,14 @@
 
 <script>
 import AppLayout from "../../Layouts/AppLayout.vue";
-import { update, received } from "../../Api/documents";
+import {
+  delivered,
+  received,
+  paid,
+  refunded,
+  billReturn,
+  invoiceReturn,
+} from "../../Api/documents";
 import { computed, ref } from "vue";
 import { askUser } from "./../../Plugins/alert";
 import { Inertia } from "@inertiajs/inertia";
@@ -105,7 +113,16 @@ export default {
       return (
         props.type === "BILL" &&
         props.document.status !== "cancelled" &&
-        !props.document.histories.find((p) => p.status == "received")
+        !props.document.histories.find((p) => p.status == "received") &&
+        !props.document.histories.find((p) => p.status == "refunded")
+      );
+    }
+    function showDeliveredButton() {
+      return (
+        props.type === "INVOICE" &&
+        props.document.status !== "cancelled" &&
+        !props.document.histories.find((p) => p.status == "delivered") &&
+        !props.document.histories.find((p) => p.status == "refunded")
       );
     }
     function showPaidButton() {
@@ -115,11 +132,29 @@ export default {
         !props.document.histories.find((p) => p.status == "returned")
       );
     }
-    function showReturnButton() {
+    function showReturnBillButton() {
       return (
+        props.document.type === "BILL" &&
         props.document.status !== "cancelled" &&
         props.document.histories.find((p) => p.status == "received") &&
         !props.document.histories.find((p) => p.status == "returned")
+      );
+    }
+
+    function showReturnInvoiceButton() {
+      return (
+        props.document.type === "INVOICE" &&
+        props.document.status !== "cancelled" &&
+        props.document.histories.find((p) => p.status == "delivered") &&
+        !props.document.histories.find((p) => p.status == "returned")
+      );
+    }
+
+    function showRefundButton() {
+      return (
+        props.document.status !== "cancelled" &&
+        props.document.histories.find((p) => p.status == "paid") &&
+        !props.document.histories.find((p) => p.status == "refunded")
       );
     }
 
@@ -131,16 +166,24 @@ export default {
       });
     }
     return {
+      billReturn,
+      invoiceReturn,
+      delivered,
+      refunded,
+      paid,
       received,
       confirmAction,
-      showReturnButton,
+      showReturnInvoiceButton,
+      showDeliveredButton,
+      showReturnBillButton,
+      showRefundButton,
       showPaidButton,
       showRecievedButton,
       id: props.document.id,
       context,
       form,
       onSuccess,
-      update,
+
       errors,
     };
   },

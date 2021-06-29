@@ -16,3 +16,10 @@ if (! function_exists('company')) {
         return $user->company;
     }
 }
+
+if (! function_exists('user_id')) {
+    function user_id()
+    {
+        return Auth::user()->id;
+    }
+}

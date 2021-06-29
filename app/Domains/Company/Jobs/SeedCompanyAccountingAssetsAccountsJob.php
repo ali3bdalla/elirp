@@ -31,24 +31,29 @@ class SeedCompanyAccountingAssetsAccountsJob extends Job
      */
     public function handle()
     {
-        $assets = Account::create([
+        $assets = Account::create(
+            [
             'type'           => AccountingTypeEnum::DEBIT(),
             'group'          => AccountGroupEnum::ASSETS(),
             'name'           => 'Assets',
             'auto_generated' => true,
             'company_id'     => $this->company->id
-        ]);
+            ]
+        );
 
-        $currentAssets = Account::create([
+        $currentAssets = Account::create(
+            [
             'parent_id'      => $assets->id,
             'type'           => AccountingTypeEnum::DEBIT(),
             'group'          => AccountGroupEnum::CURRENT_ASSETS(),
             'name'           => 'Current Assets',
             'auto_generated' => true,
             'company_id'     => $this->company->id
-        ]);
+            ]
+        );
 
-        $customers = Account::create([
+        $customers = Account::create(
+            [
             'parent_id'      => $currentAssets->id,
             'type'           => AccountingTypeEnum::DEBIT(),
             'group'          => AccountGroupEnum::RECEIVABLE(),
@@ -56,19 +61,23 @@ class SeedCompanyAccountingAssetsAccountsJob extends Job
             'slug'           => AccountSlugsEnum::DEFAULT_RECEIVABLE_ACCOUNT(),
             'auto_generated' => true,
             'company_id'     => $this->company->id
-        ]);
+            ]
+        );
 
-        $cash = Account::create([
+        $banks = Account::create(
+            [
             'parent_id'      => $currentAssets->id,
             'type'           => AccountingTypeEnum::DEBIT(),
             'group'          => AccountGroupEnum::BANK(),
-            'name'           => 'Cash',
+            'name'           => 'BANKS',
             'slug'           => AccountSlugsEnum::DEFAULT_BANK_ACCOUNT(),
             'auto_generated' => true,
             'company_id'     => $this->company->id
-        ]);
+            ]
+        );
 
-        $stock = Account::create([
+        $stock = Account::create(
+            [
             'parent_id'      => $currentAssets->id,
             'type'           => AccountingTypeEnum::DEBIT(),
             'group'          => AccountGroupEnum::CURRENT_ASSETS(),
@@ -76,23 +85,28 @@ class SeedCompanyAccountingAssetsAccountsJob extends Job
             'slug'           => AccountSlugsEnum::DEFAULT_STOCK_ACCOUNT(),
             'auto_generated' => true,
             'company_id'     => $this->company->id
-        ]);
-        $bank = Account::create([
+            ]
+        );
+        $bank = Account::create(
+            [
             'parent_id'      => $currentAssets->id,
             'type'           => AccountingTypeEnum::DEBIT(),
             'group'          => AccountGroupEnum::BANK(),
             'name'           => 'Bank',
             'auto_generated' => true,
             'company_id'     => $this->company->id
-        ]);
+            ]
+        );
 
-        $fixedAssets = Account::create([
+        $fixedAssets = Account::create(
+            [
             'parent_id'      => $assets->id,
             'type'           => AccountingTypeEnum::DEBIT(),
             'group'          => AccountGroupEnum::FIXED_ASSETS(),
             'name'           => 'Fixed Assets',
             'auto_generated' => true,
             'company_id'     => $this->company->id
-        ]);
+            ]
+        );
     }
 }

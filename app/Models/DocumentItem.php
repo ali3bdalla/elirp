@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Data\HasCompany;
 use App\Data\HasUserActions;
+use App\Enums\DocumentTypeEnum;
 use App\Frame\ModelFrame;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -14,7 +15,7 @@ use Illuminate\Support\HigherOrderCollectionProxy;
 /**
  * @property HigherOrderCollectionProxy|mixed company_id
  * @property HigherOrderCollectionProxy|mixed document_id
- * @property string type
+ * @property DocumentTypeEnum type
  * @property float discount
  * @property float total
  * @property mixed taxes()
@@ -30,6 +31,9 @@ class DocumentItem extends ModelFrame
     use HasCompany;
     use HasUserActions;
 
+    protected $casts = [
+        'type' => DocumentTypeEnum::class
+    ];
     protected $fillable = [
         'company_id',
         'type',

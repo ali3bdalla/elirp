@@ -16,7 +16,6 @@ use Illuminate\Support\HigherOrderCollectionProxy;
 /**
  * @property HigherOrderCollectionProxy|mixed company_id
  * @property mixed name
- * @method static find(int|string $taxId)
  */
 class Tax extends ModelFrame
 {

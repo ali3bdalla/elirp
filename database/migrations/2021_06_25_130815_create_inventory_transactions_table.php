@@ -13,25 +13,30 @@ class CreateInventoryTransactionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('inventory_transactions', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('company_id');
-            $table->unsignedBigInteger('inventory_id');
-            $table->unsignedBigInteger('item_id');
-            $table->unsignedBigInteger('document_item_id')->nullable();
-            $table->unsignedBigInteger('document_id')->nullable();
-            $table->double('quantity', 25, 2);
-            $table->string('type')->nullable();
-            $table->string('reference')->default(uniqid());
-            $table->boolean('enabled')->default(true);
-            $table->foreign('inventory_id')->references('id')->on('inventories');
-            $table->foreign('company_id')->references('id')->on('companies');
-            $table->foreign('item_id')->references('id')->on('items');
-            $table->foreign('document_item_id')->references('id')->on('document_items');
-            $table->foreign('document_id')->references('id')->on('documents');
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        Schema::create(
+            'inventory_transactions',
+            function (Blueprint $table) {
+                $table->id();
+                $table->unsignedBigInteger('company_id');
+                $table->unsignedBigInteger('inventory_id');
+                $table->unsignedBigInteger('item_id');
+                $table->unsignedBigInteger('document_item_id')->nullable();
+                $table->unsignedBigInteger('document_id')->nullable();
+                $table->double('quantity', 25, 2);
+                $table->double('unit_cost', 100, 2)->default(0);
+                $table->double('available_quantity', 200, 2)->default(0);
+                $table->string('type')->nullable();
+                $table->string('reference')->default(uniqid());
+                $table->boolean('enabled')->default(true);
+                $table->foreign('inventory_id')->references('id')->on('inventories');
+                $table->foreign('company_id')->references('id')->on('companies');
+                $table->foreign('item_id')->references('id')->on('items');
+                $table->foreign('document_item_id')->references('id')->on('document_items');
+                $table->foreign('document_id')->references('id')->on('documents');
+                $table->timestamps();
+                $table->softDeletes();
+            }
+        );
     }
 
     /**

@@ -38,36 +38,53 @@ class StoreDocumentOperation extends Operation
      */
     public function handle() : Document
     {
-        return DB::transaction(function () {
-            $document = $this->run(StoreDocumentJob::class, [
-                'request'          => $this->request,
-                'documentTypeEnum' => $this->documentTypeEnum
-            ]);
-            $this->run(UploadDocumentAttachmentJob::class, [
-                'document' => $document,
-                'request'  => $this->request
-            ]);
-            $items = $this->run(StoreDocumentItemsOperation::class, [
-                'request'  => $this->request,
-                'discount' => $this->request->input('discount', 0),
-                'document' => $document
-            ]);
-            $this->run(StoreDocumentTotalJob::class, [
-                'document' => $document,
-            ]);
+        return DB::transaction(
+            function () {
+                $document = $this->run(
+                    StoreDocumentJob::class,
+                    [
+                    'request'          => $this->request,
+                    'documentTypeEnum' => $this->documentTypeEnum
+                    ]
+                );
+                $this->run(
+                    UploadDocumentAttachmentJob::class,
+                    [
+                    'document' => $document,
+                    'request'  => $this->request
+                    ]
+                );
+                $items = $this->run(
+                    StoreDocumentItemsOperation::class,
+                    [
+                    'request'  => $this->request,
+                    'discount' => $this->request->input('discount', 0),
+                    'document' => $document
+                    ]
+                );
+                $this->run(
+                    StoreDocumentTotalJob::class,
+                    [
+                    'document' => $document,
+                    ]
+                );
 
-            $this->run(StoreDocumentHistoryJob::class, [
-                'document'    => $document,
-                'notify'      => 0,
-                'description' => trans('messages.success.added', ['type' => $document->document_number])
-            ]);
-            if ($document->type == DocumentTypeEnum::INVOICE()) {
-                event(new InvoiceDocumentCreatedEvent($document));
-            } else {
-                event(new BillDocumentCreatedEvent($document));
+                $this->run(
+                    StoreDocumentHistoryJob::class,
+                    [
+                    'document'    => $document,
+                    'notify'      => 0,
+                    'description' => "Created As Draft"
+                    ]
+                );
+                if ($document->type == DocumentTypeEnum::INVOICE()) {
+                    event(new InvoiceDocumentCreatedEvent($document));
+                } else {
+                    event(new BillDocumentCreatedEvent($document));
+                }
+
+                return $document;
             }
-
-            return $document;
-        });
+        );
     }
 }

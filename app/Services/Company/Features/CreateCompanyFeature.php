@@ -2,6 +2,7 @@
 
 namespace App\Services\Company\Features;
 
+use App\Domains\Company\Jobs\SeedCompanyCashPaymentMethodJob;
 use App\Domains\Company\Jobs\SeedCompanyMainInventoryJob;
 use App\Domains\Company\Jobs\StoreCompanyJob;
 use App\Models\User;
@@ -42,6 +43,12 @@ class CreateCompanyFeature extends Feature
                 );
                 $this->run(
                     SeedCompanyMainInventoryJob::class,
+                    [
+                    'company' => $company
+                    ]
+                );
+                $this->run(
+                    SeedCompanyCashPaymentMethodJob::class,
                     [
                     'company' => $company
                     ]

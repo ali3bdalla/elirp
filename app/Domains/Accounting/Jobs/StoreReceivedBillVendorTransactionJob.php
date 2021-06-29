@@ -20,7 +20,7 @@ class StoreReceivedBillVendorTransactionJob extends Job
      *
      * @return void
      */
-    public function __construct(Entry $entry, Document $document)
+    public function __construct(Entry $entry, Document $document, private bool $reverse = false)
     {
         //
         $this->entry    = $entry;
@@ -45,7 +45,8 @@ class StoreReceivedBillVendorTransactionJob extends Job
         $data['document_id']   = $this->document->id;
         $data['currency_rate'] = $this->document->currency_rate;
         $data['currency_code'] = $this->document->currency_code;
-        $data['type']          = AccountingTypeEnum::CREDIT();
+        $data['type']          = $this->reverse ? AccountingTypeEnum::DEBIT() : AccountingTypeEnum::CREDIT();
+
         return $payable->transactions()->create($data);
     }
 }

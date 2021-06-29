@@ -23,7 +23,6 @@ use Illuminate\Support\HigherOrderCollectionProxy;
  * @property HigherOrderCollectionProxy|mixed company_id
  * @property mixed type
  * @property mixed id
- * @method static find($account_id)
  */
 class Account extends ModelFrame
 {

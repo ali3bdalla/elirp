@@ -8,6 +8,7 @@ use App\Data\HasUserActions;
 use App\Events\Inventory\InventoryCreatedEvent;
 use App\Frame\ModelFrame;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Inventory extends ModelFrame
@@ -31,4 +32,9 @@ class Inventory extends ModelFrame
         'address',
         'enabled'
     ];
+
+    public function account() : BelongsTo
+    {
+        return $this->belongsTo(Account::class);
+    }
 }

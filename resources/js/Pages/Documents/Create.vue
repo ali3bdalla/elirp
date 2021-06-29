@@ -79,8 +79,8 @@ export default {
     const errors = computed(function () {
       return err.value;
     });
-    function onSuccess() {
-      Inertia.visit(props.url);
+    function onSuccess(e) {
+      Inertia.visit(`${props.url}/${e.id}/edit`);
     }
     return {
       context,

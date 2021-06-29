@@ -27,7 +27,7 @@ class ItemFactory extends Factory
     {
         return [
             'company_id'      => null,
-            'name'            => $this->faker->text(85),
+            'name'            => $this->faker->words($this->faker->numberBetween(1, 10), true),
             'sku'             => $this->faker->macAddress,
             'description'     => $this->faker->text(100),
             'purchase_price'  => $this->faker->randomFloat(2, 10, 20),
@@ -46,12 +46,16 @@ class ItemFactory extends Factory
 
     public function configure()
     {
-        return $this->afterMaking(function (Item $item) {
-            if (! $item->company_id) {
-                $item->company_id = Company::factory()->create()->id;
+        return $this->afterMaking(
+            function (Item $item) {
+                if (! $item->company_id) {
+                    $item->company_id = Company::factory()->create()->id;
+                }
+                return $item;
             }
-            return $item;
-        })->afterCreating(function (Item $item) {
-        });
+        )->afterCreating(
+            function (Item $item) {
+            }
+        );
     }
 }

@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+
 /**
  * @property \Illuminate\Support\HigherOrderCollectionProxy|mixed company_id
  * @property mixed contact_address
@@ -23,7 +24,7 @@ use Illuminate\Support\Str;
  * @property mixed contact_name
  * @property mixed document_number
  * @property mixed contact_id
- * @property DocumentTypeEnum|mixed type
+ * @property DocumentTypeEnum type
  * @property mixed footer
  * @property mixed notes
  * @property null|integer|mixed parent_id
@@ -44,6 +45,10 @@ class Document extends ModelFrame
     use HasCompany;
     use HasUserActions;
     use CanBeEnabled;
+
+    protected $casts = [
+        'type' => DocumentTypeEnum::class
+    ];
     protected $fillable = [
         'company_id',
         'type',
@@ -93,5 +98,9 @@ class Document extends ModelFrame
     public function transactions() : HasMany
     {
         return $this->hasMany(Transaction::class);
+    }
+    public function inventoryTransactions() : HasMany
+    {
+        return $this->hasMany(InventoryTransaction::class, 'document_id');
     }
 }

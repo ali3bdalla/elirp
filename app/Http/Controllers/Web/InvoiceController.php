@@ -12,29 +12,39 @@ class InvoiceController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Documents/Index',[
+        return Inertia::render(
+            'Documents/Index',
+            [
             'type' => DocumentTypeEnum::INVOICE()->value,
             'title' => 'Invoice',
             'create_url' => route('invoices.create'),
             'url' => route('invoices.index')
-        ]);
+            ]
+        );
     }
-      public function create()
+    public function create()
     {
-        return Inertia::render('Documents/Create',[
+        return Inertia::render(
+            'Documents/Create',
+            [
             'document_number' => Document::generatedNextDocumentNumber(DocumentTypeEnum::INVOICE()),
                'type' => DocumentTypeEnum::INVOICE()->label,
             'title' => 'Invoice',
             'url' => route('invoices.index')
-        ]);
+            ]
+        );
     }
 
-     public function edit(Document $invoice)
+    public function edit(Document $invoice)
     {
-        return Inertia::render('Documents/Edit',[
-            'document' => $invoice->load('items.item','contact'),
+        return Inertia::render(
+            'Documents/Edit',
+            [
+                 'type' => $invoice->type,
+            'document' => $invoice->load('items.item', 'contact', 'histories.createdBy', 'transactions.account', 'inventoryTransactions.item'),
             'title' => 'Invoice',
             'url' => route('invoices.index')
-        ]);
+            ]
+        );
     }
 }

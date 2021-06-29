@@ -12,5 +12,38 @@ export function update(form, id, successCallback = null) {
 
 export function received(id, successCallback = null) {
 	Inertia.put(route('api.documents.received', id));
-	handleInvalidResponse(successCallback, 'Updated', 'Document Has Been Received');
+	handleInvalidResponse(successCallback, 'Received', 'Document Has Been Received');
+}
+
+
+export function paid(id, successCallback = null) {
+	Inertia.put(route('api.documents.paid', id));
+	handleInvalidResponse(successCallback, 'Paid', 'Document Has Been Marked As Paid');
+}
+
+
+
+export function refunded(id, successCallback = null) {
+	Inertia.put(route('api.documents.refunded', id));
+	handleInvalidResponse(successCallback, 'Refunded', 'Document Has Been Marked As Refunded');
+}
+
+
+
+export function delivered(id, successCallback = null) {
+	Inertia.put(route('api.documents.delivered', id));
+	handleInvalidResponse(successCallback, 'Delivered', 'Document Has Been Delivered');
+}
+
+
+export function billReturn(id, successCallback = null) {
+	Inertia.put(route('api.documents.bill_returned', id));
+	handleInvalidResponse(successCallback, 'Returned', 'Document Has Been Marked As Returned');
+}
+
+
+
+export function invoiceReturn(id, successCallback = null) {
+	Inertia.put(route('api.documents.invoice_returned', id));
+	handleInvalidResponse(successCallback, 'Returned', 'Document Has Been Marked As Returned');
 }

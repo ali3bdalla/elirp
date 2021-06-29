@@ -25,8 +25,11 @@ class Transaction extends ModelFrame
     use HasUserActions;
     use CanBeEnabled;
 
-    protected $fillable = ['company_id', 'type', 'paid_at', 'amount', 'currency_code', 'currency_rate', 'account_id', 'document_id', 'contact_id', 'category_id', 'description', 'reference', 'parent_id', 'reconciled', 'entry_id', 'item_id', 'is_pending'];
+    protected $fillable = ['company_id', 'type', 'paid_at', 'amount', 'currency_code', 'currency_rate', 'account_id', 'document_id', 'contact_id', 'category_id', 'description', 'reference', 'parent_id', 'reconciled', 'entry_id', 'item_id', 'is_pending','inventory_transaction_id'];
 
+    protected $appends = [
+        'account_name'
+    ];
     public function account() : BelongsTo
     {
         return $this->belongsTo(Account::class);
@@ -41,6 +44,9 @@ class Transaction extends ModelFrame
     {
         if ($this->item) {
             return $this->item->name;
+        }
+        if ($this->contact) {
+            return $this->account->name . ' (' . $this->contact->name . ')';
         }
         return $this->account->name;
     }

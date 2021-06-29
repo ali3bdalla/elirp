@@ -2,13 +2,17 @@
 
 namespace App\Services\Bill\Features;
 
+use App\Domains\Accounting\Jobs\CreateBaseEntryJob;
+use App\Domains\Accounting\Jobs\StoreReceivedBillVendorTransactionJob;
+use App\Domains\Accounting\Jobs\StoreReceviedBillTaxTransactionsJob;
 use App\Domains\Bill\Jobs\ValidateReceiableBillJob;
 use App\Domains\Document\Jobs\ChangeDocumentStatusJob;
 use App\Domains\Document\Jobs\StoreDocumentHistoryJob;
+use App\Enums\AccountingTypeEnum;
 use App\Enums\DocumentStatusEnum;
-use App\Events\Bill\BillHasBeenMarkedAsReceivedEvent;
 use App\Models\Document;
-use App\Services\Inventory\Operations\RegisterRecievedDocumentInventoryTransactionsOperation;
+use App\Services\Inventory\Operations\RegisterDocumentInventoryTransactionsOperation;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Lucid\Units\Feature;
@@ -33,12 +37,45 @@ class MarkBillAsReceivedFeature extends Feature
                     ]
                 )
                 ) {
-                    $this->run(
-                        RegisterRecievedDocumentInventoryTransactionsOperation::class,
+                    $entry = $this->run(
+                        CreateBaseEntryJob::class,
                         [
+                        'documentId'  => $this->document->id,
+                        'description' => 'private-key::bill_received',
+                        'isPending'   => false
+                        ]
+                    );
+
+                    $this->run(
+                        RegisterDocumentInventoryTransactionsOperation::class,
+                        [
+                             'entry'    => $entry,
+                            'document' => $this->document
+                        ]
+                    );
+                    $this->run(
+                        StoreReceivedBillVendorTransactionJob::class,
+                        [
+                        'entry'    => $entry,
                         'document' => $this->document
                         ]
                     );
+                    $this->run(
+                        StoreReceviedBillTaxTransactionsJob::class,
+                        [
+                        'entry'    => $entry,
+                        'document' => $this->document
+                        ]
+                    );
+
+                    $entry->update(
+                        [
+                        'amount' => $entry->transactions()->where('type', AccountingTypeEnum::DEBIT())->sum('amount')
+                        ]
+                    );
+
+
+
 
 
                     $this->run(
@@ -59,7 +96,6 @@ class MarkBillAsReceivedFeature extends Feature
                         ]
                     );
 
-                    // event(new BillHasBeenMarkedAsReceivedEvent($this->document));
                     return $this->document;
                 }
             }

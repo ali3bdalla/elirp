@@ -34,32 +34,44 @@ class StoreReceivedBillEntryOperation extends Operation
      */
     public function handle() : ?Entry
     {
-        return DB::transaction(function () {
-            $entry = $this->run(CreateBaseEntryJob::class, [
-                'documentId'  => $this->document->id,
-                'description' => 'private-key::bill_received',
-                'isPending'   => false
-            ]);
+        return DB::transaction(
+            function () {
+                $entry = $this->run(
+                    CreateBaseEntryJob::class, [
+                    'documentId'  => $this->document->id,
+                    'description' => 'private-key::bill_received',
+                    'isPending'   => false
+                    ]
+                );
 
-            $this->run(StoreReceivedBillItemsTransactionsJob::class, [
-                'entry'    => $entry,
-                'document' => $this->document
-            ]);
+                $this->run(
+                    StoreReceivedBillItemsTransactionsJob::class, [
+                    'entry'    => $entry,
+                    'document' => $this->document
+                    ]
+                );
 
-            $this->run(StoreReceivedBillVendorTransactionJob::class, [
-                'entry'    => $entry,
-                'document' => $this->document
-            ]);
-            $this->run(StoreReceviedBillTaxTransactionsJob::class, [
-                'entry'    => $entry,
-                'document' => $this->document
-            ]);
+                $this->run(
+                    StoreReceivedBillVendorTransactionJob::class, [
+                    'entry'    => $entry,
+                    'document' => $this->document
+                    ]
+                );
+                $this->run(
+                    StoreReceviedBillTaxTransactionsJob::class, [
+                    'entry'    => $entry,
+                    'document' => $this->document
+                    ]
+                );
 
-            $entry->update([
-                'amount' => $entry->transactions()->where('type', AccountingTypeEnum::DEBIT())->sum('amount')
-            ]);
+                $entry->update(
+                    [
+                    'amount' => $entry->transactions()->where('type', AccountingTypeEnum::DEBIT())->sum('amount')
+                    ]
+                );
 
-            return $entry;
-        });
+                return $entry;
+            }
+        );
     }
 }

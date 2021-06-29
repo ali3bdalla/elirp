@@ -17,6 +17,7 @@ class CreateDocumentHistoriesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('document_id');
+            $table->unsignedBigInteger('created_by_id');
             $table->string('status')->nullable();
             $table->boolean('notify')->default(true);
             $table->boolean('notified')->default(false);
@@ -24,6 +25,7 @@ class CreateDocumentHistoriesTable extends Migration
             $table->text('description')->nullable();
             $table->foreign('company_id')->references('id')->on('companies');
             $table->foreign('document_id')->references('id')->on('documents');
+            $table->foreign('created_by_id')->references('id')->on('users');
             $table->timestamps();
             $table->softDeletes();
         });

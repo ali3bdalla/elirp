@@ -7,8 +7,8 @@ type User  @model(class: "App\\Models\\User")  {
     company_id: Int!
     profile_photo_url: String!
     enabled: Boolean!,
-    created_at: DateTime!
-    updated_at: DateTime!
+    created_at: String!
+    updated_at: String!
     company: Company @belongsTo
     actions: [UserAction]! @paginate
 }
@@ -17,8 +17,8 @@ type Company @model(class: "App\\Models\\Company") {
     id: ID!
     enabled: Boolean!
     domain: String!,
-    created_at: DateTime!
-    updated_at: DateTime!
+    created_at: String!
+    updated_at: String!
     users: [User!]! @paginate
     accounts: [Account!] @paginate
     entries: [Entry!] @paginate
@@ -40,8 +40,8 @@ type UserAction  @model(class: "App\\Models\\UserAction") {
    company_id: Int!
    user_id: Int!
    action: String!
-   created_at: DateTime!
-   updated_at: DateTime!
+   created_at: String!
+   updated_at: String!
    company: Company @belongsTo
    user: User @belongsTo
 }
@@ -61,8 +61,8 @@ type Account  @model(class: "App\\Models\\Account"){
    slug: String!
    auto_generated: Boolean!
    enabled: Boolean!
-   created_at: DateTime!
-   updated_at: DateTime!
+   created_at: String!
+   updated_at: String!
    company: Company @belongsTo
    parent: Account! @belongsTo
    children: [Account!] @paginate
@@ -81,8 +81,8 @@ type Entry @model(class: "App\\Models\\Entry"){
    is_pending: Boolean!
    parent_id: Int!
    enabled: Boolean!
-   created_at: DateTime!
-   updated_at: DateTime!
+   created_at: String!
+   updated_at: String!
    company: Company @belongsTo
    document: Document! @belongsTo
    parent: Entry! @belongsTo
@@ -106,8 +106,8 @@ type Transaction @model(class: "App\\Models\\Transaction"){
    is_pending: Boolean!
    parent_id: Int!
    enabled: Boolean!
-   created_at: DateTime!
-   updated_at: DateTime!
+   created_at: String!
+   updated_at: String!
    company: Company @belongsTo
    document: Document! @belongsTo
    item: Item! @belongsTo
@@ -122,24 +122,24 @@ type Transaction @model(class: "App\\Models\\Transaction"){
 type Inventory  @model(class: "App\\Models\\Inventory"){
    id: ID!
    company_id: Int!
-   created_at: DateTime!
-   updated_at: DateTime!
+   created_at: String!
+   updated_at: String!
 }
 
 
 type InventoryTransaction {
    id: ID!
    company_id: Int!
-   created_at: DateTime!
-   updated_at: DateTime!
+   created_at: String!
+   updated_at: String!
 }
 
 
 type Tax  @model(class: "App\\Models\\Tax"){
    id: ID!
    company_id: Int!
-   created_at: DateTime!
-   updated_at: DateTime!
+   created_at: String!
+   updated_at: String!
 }
 
 
@@ -161,8 +161,8 @@ type Item @model(class: "App\\Models\\Item"){
    has_detail: Boolean
    fixed_price: Boolean
    item_photo_path: String
-   created_at: DateTime!
-   updated_at: DateTime!
+   created_at: String!
+   updated_at: String!
 }
 
 
@@ -176,9 +176,9 @@ type Document @model(class: "App\\Models\\Document"){
    order_number: String
    status: String!
    currency_code: String!
-   issued_at: DateTime!
-   due_at: DateTime!
-   issued_at: DateTime!
+   issued_at: String!
+   due_at: String!
+   issued_at: String!
    currency_rate: Float!
    amount: Float!
    contact_name: String
@@ -188,24 +188,24 @@ type Document @model(class: "App\\Models\\Document"){
    contact_address: String
    notes: String
    footer: String
-   created_at: DateTime!
-   updated_at: DateTime!
+   created_at: String!
+   updated_at: String!
    contact: Contact! @belongsTo
    company: Company! @belongsTo
 }
 type AccountSnapshot @model(class: "App\\Models\\AccountSnapshot"){
    id: ID!
    company_id: Int!
-   created_at: DateTime!
-   updated_at: DateTime!
+   created_at: String!
+   updated_at: String!
 }
 
 
 type Currency @model(class: "App\\Models\\Currency"){
    id: ID!
    company_id: Int!
-   created_at: DateTime!
-   updated_at: DateTime!
+   created_at: String!
+   updated_at: String!
 }
 
 
@@ -222,6 +222,6 @@ type Contact @model(class: "App\\Models\\Contact"){
    is_vendor: Boolean
    is_customer: Boolean
    company_id: Int!
-   created_at: DateTime!
-   updated_at: DateTime!
+   created_at: String!
+   updated_at: String!
 }

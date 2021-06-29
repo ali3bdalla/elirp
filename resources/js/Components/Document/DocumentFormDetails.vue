@@ -14,13 +14,16 @@
           v-for="(history,index) in histories"
           :key="index"
         >
-          <div>
+          <div class="w-25">
             {{  history.status }}
           </div>
-          <div class="">
+          <div class="w-25">
             {{  history.description }}
           </div>
-          <div class="">
+          <div class="w-25">
+            {{  history.created_by ?  history.created_by.name : " " }}
+          </div>
+          <div class="w-25">
             {{  history.created_at }}
           </div>
         </div>
@@ -50,14 +53,14 @@
     <div class="row my-5">
 
       <div
-        class="col-md-12 col-sm-12 text-center "
+        class="col-md-6 col-sm-12 text-center shadow"
         v-if="transactions && transactions.length"
       >
         <div class="bg-primary text-white p-2 font-bold">
-          transactions
+          Accounting transactions
         </div>
         <div class="border-bottom  p-2 font-bold d-flex justify-content-between
-       justify-items-center shadow">
+       justify-items-center text-primary">
           <div class="w-25">
             Account
           </div>
@@ -78,7 +81,7 @@
           :key="index"
         >
           <div class="w-25 text-lg">
-            {{  transaction.account.name }}
+            {{  transaction.account_name }}
           </div>
           <div class="w-25">
             <span v-if="transaction.type === 'DEBIT'">
@@ -111,6 +114,50 @@
           </div>
         </div>
       </div>
+
+      <div
+        class="col-md-6 col-sm-12 text-center  border-left-primary shadow"
+        v-if="transactions && transactions.length"
+      >
+        <div class="bg-primary text-white p-2 font-bold">
+          Inventory transactions
+        </div>
+        <div class="border-bottom  p-2 font-bold d-flex justify-content-between
+       justify-items-center text-primary">
+          <div class="w-25">
+            Item
+          </div>
+          <div class="w-25">
+            quantity
+          </div>
+          <div class="w-25">
+            type
+          </div>
+          <div class="w-25">
+            Date
+          </div>
+        </div>
+        <div
+          class="border-bottom  p-2 font-bold d-flex justify-content-between
+       justify-items-center"
+          v-for="(transaction,index) in inventoryTransactions"
+          :key="index"
+        >
+          <div class="w-25 text-lg">
+            {{  transaction.item.name }}
+          </div>
+          <div class="w-25">
+            {{  transaction.quantity }}
+          </div>
+          <div class="w-25">
+            {{  transaction.type }}
+          </div>
+          <div class="w-25">
+            {{  transaction.created_at }}
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </template>
@@ -129,6 +176,10 @@ export default {
       default: () => [],
     },
     transactions: {
+      type: Array,
+      default: () => [],
+    },
+    inventoryTransactions: {
       type: Array,
       default: () => [],
     },

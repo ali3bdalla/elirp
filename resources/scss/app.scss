@@ -1,31 +1,37 @@
-.el-input,.el-select-dropdown__item,.el-popper ,.el-date-table {
-	font-size: inherit !important;
+.el-input,
+.el-select-dropdown__item,
+.el-popper,
+.el-date-table {
+    font-size: inherit !important;
 }
 
-.el-date-picker .el-picker-panel__content,.el-date-picker {
-	    width: 510px !important;
+.el-date-picker .el-picker-panel__content,
+.el-date-picker {
+    width: 510px !important;
 }
-.el-date-table td,.el-date-table td span ,.el-date-table td div{
-	height: 50px !important;
-	width: 50px !important;
+.el-date-table td,
+.el-date-table td span,
+.el-date-table td div {
+    height: 50px !important;
+    width: 50px !important;
 }
 .el-date-table td span {
-	line-height: 50px !important;
+    line-height: 50px !important;
 }
 .el-input__inner {
-border: none !important;
+    border: none !important;
     padding: 0px !important;
+    height: 36px !important;
 }
 
 .el-select-dropdown__wrap {
-	max-height: 400px !important;
+    max-height: 400px !important;
 }
 
 .el-select__popper {
-	margin-left: -20px !important;
+    margin-left: -20px !important;
 }
 
-
 .el-input.is-disabled .el-input__inner {
-	background-color: white !important;
+    background-color: white !important;
 }

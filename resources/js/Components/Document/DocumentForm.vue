@@ -140,6 +140,7 @@
         :items="value.items"
         :histories="value.histories"
         :transactions="value.transactions"
+        :inventory-transactions="value.inventory_transactions"
       >
       </DocumentFormDetails>
       <div class="row">

@@ -6,10 +6,12 @@ use App\Events\Bill\BillHasBeenMarkedAsReceivedEvent;
 use App\Events\Document\BillDocumentCreatedEvent;
 use App\Events\Document\InvoiceDocumentCreatedEvent;
 use App\Events\Inventory\InventoryCreatedEvent;
+use App\Events\PaymentMethod\PaymentMethodCreatedEvent;
 use App\Events\Tax\TaxCreatedEvent;
 use App\Listeners\Bill\RegisterReceivedBillAccountingEntryListener;
 use App\Listeners\Bill\RegisterReceivedBillInventoryTransactionsListener;
 use App\Listeners\Inventory\CreateInventoryAccountListener;
+use App\Listeners\PaymentMethod\CreatePaymentMethodAccountListener;
 use App\Listeners\Tax\CreateTaxAccountListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -32,7 +34,7 @@ class EventServiceProvider extends ServiceProvider
         BillDocumentCreatedEvent::class => [
         ],
         BillHasBeenMarkedAsReceivedEvent::class => [
-            RegisterReceivedBillInventoryTransactionsListener::class,
+            // RegisterReceivedBillInventoryTransactionsListener::class,
             // RegisterReceivedBillAccountingEntryListener::class,
         ],
         TaxCreatedEvent::class => [
@@ -40,6 +42,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         InventoryCreatedEvent::class => [
             CreateInventoryAccountListener::class
+        ],
+        PaymentMethodCreatedEvent::class => [
+            CreatePaymentMethodAccountListener::class
         ]
     ];
 
