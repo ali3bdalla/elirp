@@ -13,7 +13,6 @@ class UserClientToken extends ModelFrame
 {
     use HasFactory;
     use SoftDeletes;
-    use HasCompany;
     use HasUserActions;
     use CanBeEnabled;
 

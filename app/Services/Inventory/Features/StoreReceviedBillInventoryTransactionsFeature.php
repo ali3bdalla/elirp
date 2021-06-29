@@ -10,10 +10,9 @@ class StoreReceviedBillInventoryTransactionsFeature extends Feature
 {
     public function __construct(public Document $document)
     {
-        # code...
+        // code...
     }
     public function handle(Request $request)
     {
-
     }
 }

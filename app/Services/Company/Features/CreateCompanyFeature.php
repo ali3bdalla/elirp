@@ -2,6 +2,7 @@
 
 namespace App\Services\Company\Features;
 
+use App\Domains\Company\Jobs\SeedCompanyMainInventoryJob;
 use App\Domains\Company\Jobs\StoreCompanyJob;
 use App\Models\User;
 use App\Services\Company\Operations\SeedCompanyBaseAccountsOperation;
@@ -24,20 +25,37 @@ class CreateCompanyFeature extends Feature
     public function handle() : User
     {
         $request = $this->request;
-        return DB::transaction(function () use ($request) {
-            $company = $this->run(StoreCompanyJob::class, [
-                'companyName'  => $request->input('name'),
-                'companyEmail' => $request->input('email'),
-            ]);
-            $this->run(SeedCompanyBaseAccountsOperation::class, [
-                'company' => $company
-            ]);
-            return $this->run(CreateSupervisorUserOperation::class, [
-                'company'  => $company,
-                'name'     => $request->input('name'),
-                'email'    => $request->input('email'),
-                'password' => $request->input('password'),
-            ]);
-        });
+        return DB::transaction(
+            function () use ($request) {
+                $company = $this->run(
+                    StoreCompanyJob::class,
+                    [
+                    'companyName'  => $request->input('name'),
+                    'companyEmail' => $request->input('email'),
+                    ]
+                );
+                $this->run(
+                    SeedCompanyBaseAccountsOperation::class,
+                    [
+                    'company' => $company
+                    ]
+                );
+                $this->run(
+                    SeedCompanyMainInventoryJob::class,
+                    [
+                    'company' => $company
+                    ]
+                );
+                return $this->run(
+                    CreateSupervisorUserOperation::class,
+                    [
+                    'company'  => $company,
+                    'name'     => $request->input('name'),
+                    'email'    => $request->input('email'),
+                    'password' => $request->input('password'),
+                    ]
+                );
+            }
+        );
     }
 }
