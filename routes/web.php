@@ -26,17 +26,17 @@ use Laravel\Socialite\Facades\Socialite;
     |
     */
 
-Route::group(['prefix' => 'auth', 'as' => '.auth', 'middleware' => 'guest'], function () {
+Route::group(['prefix' => 'auth', 'as' => 'auth.', 'middleware' => 'guest'], function () {
     foreach (config('oauth-clients') as $client => $enabled) {
         if ($enabled) {
-            Route::group(['prefix' => $client, 'as' => ".$client"], function () use ($client) {
+            Route::group(['prefix' => $client, 'as' => "$client."], function () use ($client) {
                 Route::get('redirect', function () use ($client) {
                     return Socialite::driver($client)->redirect();
-                });
+                })->name('redirect');
                 Route::get('callback', function () use ($client) {
                     $authController = new AuthController();
                     return $authController->auth($client);
-                });
+                })->name('callback');
             });
         }
     }

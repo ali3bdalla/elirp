@@ -18,5 +18,18 @@ WORKDIR /var/www/html
 COPY . .
 RUN composer install --prefer-dist --no-dev
 RUN cp .env.example .env
-CMD php artisan key:generate && php artisan optimize:clear && php artisan optimize:cache &&  php artisan migrate --force && php artisan octane:start --port=8000
+COPY ./scripts/init.sh /init.sh
+RUN chmod a+x /init.sh
+ENTRYPOINT ["/init.sh"]
+# Add a user with id of host system so files are writable
+# RUN useradd -G www-data,root -u 19932 -d /home/app app
+# RUN mkdir -p /home/app/.composer && \
+#     chown -R app:app /home/app
+
+# RUN chmod 777 /var/www/html/storage
+# RUN chmod 777 /var/www/html/storage/*
+# RUN chmod 777 /var/www/html/storage/**/*
+# # Change current user
+# USER app
+
 EXPOSE 8000
