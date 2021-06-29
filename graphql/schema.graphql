@@ -65,5 +65,6 @@ type Query @guard {
     getDocument(id: ID!): Document! @find
     totalBills: Int!  @eq(key: "type",value: "BILL")  @aggregate(model: "Document", column: "id", function: count)
     totalInvoices: Int! @eq(key: "type",value: "INVOICE")  @aggregate(model: "Document", column: "id", function: count)
+    totalInvoicesAmount: Int! @eq(key: "type",value: "INVOICE")  @aggregate(model: "Document", column: "amount", function: sum)
 
 }
