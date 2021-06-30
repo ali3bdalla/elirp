@@ -1,2 +1,5 @@
-# ENVIROMENT
+# RUN
+## Docker
+`docker-compose up`
+
 

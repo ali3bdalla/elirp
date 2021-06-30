@@ -6,4 +6,4 @@ echo 'running npm install'
 npm install
 
 echo 'initialization done, start watching'
-npm run watch-poll
+npm run prod

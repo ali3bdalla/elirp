@@ -37,7 +37,7 @@
         "apollo-link": "^1.2.14",
         "apollo-link-http": "^1.5.17",
         "bootstrap": "^5.0.2",
-        "element-plus": "*",
+        "element-plus": "^1.0.2-beta.53",
         "graphql": "^15.5.1",
         "graphql-tag": "^2.12.5",
         "sweetalert2": "^11.0.17",

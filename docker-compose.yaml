@@ -26,7 +26,7 @@ services:
   redis:
     image: redis:3
     container_name: elirp-app-redis
-    # restart: unless-stopped
+    restart: unless-stopped
     networks:
       - elirp-app-network
 
@@ -35,7 +35,7 @@ services:
     depends_on:
       - postgres
       - redis
-    restart: unless-stopped
+    restart: always
     build:
       context: ./
       dockerfile: Dockerfile
@@ -57,7 +57,7 @@ services:
     container_name: elirp-app-nginx
     depends_on:
       - php
-    # restart: unless-stopped
+    restart: always
     ports:
       - 80:80
     volumes:
@@ -67,7 +67,7 @@ services:
       - elirp-app-network
 
   node:
-    image: node:14-alpine
+    image: node:12-alpine
     container_name: elrip-node
     depends_on:
       - php
