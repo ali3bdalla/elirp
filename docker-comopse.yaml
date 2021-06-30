@@ -1,0 +1,86 @@
+# test deployment: sudo docker-compose down --remove-orphans && sudo UID=1000 docker-compose up --build -d
+# use for development: sudo docker-compose stop && sudo UID=1000 docker-compose up
+# UID: user id of local user owning the current dir
+
+version: "3.7"
+services:
+  meilisearch:
+    image: getmeili/meilisearch
+    environment:
+      MEILI_MASTER_KEY: "masterKey"
+    ports:
+      - 7700:7700
+  postgres:
+    image: postgres:latest
+    container_name: elrip-postgres
+    # restart: unless-stopped
+    volumes:
+      - ./:/opt/www
+    environment:
+      - POSTGRES_USER=elirp_app
+      - POSTGRES_PASSWORD=elirp_app
+      - POSTGRES_DB=elirp_app
+    networks:
+      - elirp-app-network
+
+  redis:
+    image: redis:3
+    container_name: elirp-app-redis
+    # restart: unless-stopped
+    networks:
+      - elirp-app-network
+
+  php:
+    container_name: elirp-app-php
+    depends_on:
+      - postgres
+      - redis
+    # restart: unless-stopped
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        uid: "${UID}"
+        user: "elirp-app"
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    environment:
+      - DB_PORT=5432
+      - DB_HOST=postgres
+    networks:
+      - elirp-app-network
+
+
+  nginx:
+    image: nginx:alpine
+    container_name: elirp-app-nginx
+    depends_on:
+      - php
+    # restart: unless-stopped
+    ports:
+      - 80:80
+    volumes:
+      - ./:/var/www/html
+      - ./scripts/nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - elirp-app-network
+
+  node:
+    image: node:14-alpine
+    container_name: recom-node
+    depends_on:
+      - php
+    # restart: unless-stopped
+    working_dir: /usr/src/app
+    volumes:
+      - ./:/usr/src/app
+    networks:
+      - elirp-app-network
+    entrypoint:
+      # scripts need to be executable
+      - docker/init-scripts/node_start.sh
+
+networks:
+  elirp-app-network:
+    driver: bridge
