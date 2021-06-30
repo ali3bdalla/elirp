@@ -25,7 +25,9 @@ use Laravel\Socialite\Facades\Socialite;
     | contains the "web" middleware group. Now create something great!
     |
     */
-
+Route::get('/',function() {
+    return redirect('/login');
+});
 Route::group(['prefix' => 'auth', 'as' => 'auth.', 'middleware' => 'guest'], function () {
     foreach (config('oauth-clients') as $client => $enabled) {
         if ($enabled) {

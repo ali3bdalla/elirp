@@ -35,12 +35,12 @@ services:
     depends_on:
       - postgres
       - redis
-    # restart: unless-stopped
+    restart: unless-stopped
     build:
       context: ./
       dockerfile: Dockerfile
       args:
-        uid: "${UID}"
+        uid: "123"
         user: "elirp-app"
     working_dir: /var/www/html
     volumes:
@@ -68,7 +68,7 @@ services:
 
   node:
     image: node:14-alpine
-    container_name: recom-node
+    container_name: elrip-node
     depends_on:
       - php
     # restart: unless-stopped
@@ -79,7 +79,7 @@ services:
       - elirp-app-network
     entrypoint:
       # scripts need to be executable
-      - docker/init-scripts/node_start.sh
+      - ./scripts/node-dev-init.sh
 
 networks:
   elirp-app-network:

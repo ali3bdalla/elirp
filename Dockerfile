@@ -35,13 +35,7 @@ COPY ./scripts/init.sh /init.sh
 RUN chmod a+x /init.sh
 ENTRYPOINT ["/init.sh"]
 
-# Add a user with id of host system so files are writable
-RUN useradd -G www-data,root -u $uid -d /home/$user $user
-RUN mkdir -p /home/$user/.composer && \
-    chown -R $user:$user /home/$user
 
-# Change current user
-USER $user
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
