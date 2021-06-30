@@ -18,18 +18,7 @@ WORKDIR /var/www/html
 COPY . .
 RUN composer install --prefer-dist --no-dev
 RUN cp .env.example .env
-COPY ./scripts/init.sh /init.sh
+COPY ./scripts/init-prod.sh /init-prod.sh
 RUN chmod a+x /init.sh
-ENTRYPOINT ["/init.sh"]
-# Add a user with id of host system so files are writable
-# RUN useradd -G www-data,root -u 19932 -d /home/app app
-# RUN mkdir -p /home/app/.composer && \
-#     chown -R app:app /home/app
-
-# RUN chmod 777 /var/www/html/storage
-# RUN chmod 777 /var/www/html/storage/*
-# RUN chmod 777 /var/www/html/storage/**/*
-# # Change current user
-# USER app
-
+ENTRYPOINT ["/init-prod.sh"]
 EXPOSE 8000
