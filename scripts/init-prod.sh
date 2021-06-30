@@ -12,7 +12,11 @@ echo 'php artisan migrate --force'
 php artisan migrate --force
 
 
-echo 'php artisan octane:start --port=8000'
-php artisan octane:start --port=8000
+chmod 777 storage
+chmod 777 storage/*
+chmod 777 storage/**/*
+
+echo 'exec docker-php-entrypoint php-fpm'
+exec docker-php-entrypoint php-fpm
 
 

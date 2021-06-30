@@ -1,4 +1,4 @@
-FROM php:8.0
+FROM php:8.0-fpm
 RUN apt-get update -y && apt-get install -y openssl zip unzip git
 RUN apt-get install -yqq curl
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -14,11 +14,26 @@ RUN docker-php-ext-install bz2 opcache bcmath ctype
 RUN docker-php-ext-install pcntl
 RUN pecl install swoole
 RUN docker-php-ext-enable swoole
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+# Install Node
+RUN apt-get install -yqq nodejs
+
+COPY ./scripts/memory-limit-php.ini /usr/local/etc/php/conf.d/memory-limit-php.ini
+
 WORKDIR /var/www/html
 COPY . .
 RUN composer install --prefer-dist --no-dev
 RUN cp .env.example .env
+
+RUN echo 'npm install'
+RUN npm install
+
+RUN echo 'npm run dev'
+RUN npm run prod
+
+
 COPY ./scripts/init-prod.sh /init-prod.sh
-RUN chmod a+x /init.sh
+RUN chmod a+x /init-prod.sh
 ENTRYPOINT ["/init-prod.sh"]
-EXPOSE 8000
+EXPOSE 9000
+CMD ["php-fpm"]
