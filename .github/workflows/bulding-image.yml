@@ -59,11 +59,10 @@ jobs:
         id: get_version
         run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
       - name: ssh to cluster
-        run: eval $(ssh-agent -s)
-        run: echo ${{ secrets.MASTER_K8S_PVKEY }} | tr -d '\r' | ssh-add -
-        run: mkdir -p ~/.ssh
-        run: ssh root@${{ secrets.MASTER_K8S_IP }}
-        run: |
-          cd ~/elirp-chart
-          helm upgrade --install elirp ./ --version=${{ steps.get_version.outputs.VERSION }}
+        run: eval $(ssh-agent -s) \
+        echo ${{ secrets.MASTER_K8S_PVKEY }} | tr -d '\r' | ssh-add - \
+        mkdir -p ~/.ssh \
+        ssh root@${{ secrets.MASTER_K8S_IP }} \
+        cd ~/elirp-chart \
+        helm upgrade --install elirp ./ --version=${{ steps.get_version.outputs.VERSION }}
 
