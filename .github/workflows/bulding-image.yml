@@ -63,7 +63,7 @@ jobs:
         with:
           host: ${{ secrets.MASTER_K8S_IP }}
           key: ${{ secrets.MASTER_K8S_PVKEY }}
-          # fingerprint: ${{ secrets.MASTER_K8S_PBKEY }}
+          fingerprint: ${{ secrets.MASTER_K8S_PBKEY }}
           script: |
             cd ~/elirp-chart
             helm upgrade --install elirp ./ --version=${{ steps.get_version.outputs.VERSION }}
