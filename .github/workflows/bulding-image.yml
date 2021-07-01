@@ -1,9 +1,24 @@
-name: ci
+name: BuildingImage
 on:
-  push:
-    # branches:
-    #   - 'master'
+  # push:
+  #   branches:
+  #     - main
+  # pull_request:
+  #   branches:
+  #     - main
+  # # Also trigger on page_build, as well as release created events
+  # page_build:
+  release:
+    types: # This configuration does not affect the page_build event above
+      - published
 
+# published
+# - unpublished
+# - created
+# - edited
+# - deleted
+# - prereleased
+# - released
 jobs:
   docker:
     runs-on: ubuntu-latest
