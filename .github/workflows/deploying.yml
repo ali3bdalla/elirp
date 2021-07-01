@@ -2,7 +2,7 @@ name: BuildingImageAndDeploying
 
 on:
   release:
-    types: [created,prereleased,released,published]
+    types: [prereleased,released]
 
 jobs:
   building:
