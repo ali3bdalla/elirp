@@ -61,7 +61,7 @@ jobs:
     - name: 'Deploy'
       uses: 'deliverybot/helm@v1'
       with:
-        release: 'elirp-${{ steps.get_version.outputs.VERSION }}'
+        release: 'elirp'
         chart: 'elirp'
         version: ${{ steps.get_version.outputs.VERSION }}
         namespace: 'default'
