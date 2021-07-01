@@ -68,4 +68,5 @@ jobs:
           script: |
             ${{ secrets.MASTER_K8S_READYNESS_SCRIPT }}
             cd ~/elirp-chart
+            helm dependency update
             helm upgrade --install elirp  --version=${{ steps.get_version.outputs.VERSION }} .
