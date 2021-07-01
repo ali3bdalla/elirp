@@ -9,6 +9,5 @@ composer install
 php artisan migrate --force
 
 echo 'initialization done'
-
 exec docker-php-entrypoint php-fpm
 

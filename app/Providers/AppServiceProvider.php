@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
-
+use Illuminate\Support\Facades\URL;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -27,6 +27,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Model::preventLazyLoading(! app()->isProduction());
+        if(app()->isProduction()) {
+            URL::forceScheme('https');
+        }
+
         Validator::extendImplicit(
             'currency',
             function ($attribute, $value, $parameters, $validator) use (&$currency_code) {

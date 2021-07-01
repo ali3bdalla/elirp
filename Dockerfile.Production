@@ -36,4 +36,4 @@ COPY ./scripts/init-prod.sh /init-prod.sh
 RUN chmod a+x /init-prod.sh
 ENTRYPOINT ["/init-prod.sh"]
 EXPOSE 9000
-CMD ["php-fpm"]
+
