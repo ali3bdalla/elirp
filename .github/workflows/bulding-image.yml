@@ -1,6 +1,6 @@
 name: BuildingImageAndDeploying
 on:
-  # push:
+  push:
   #   branches:
   #     - main
   # pull_request:
@@ -8,9 +8,9 @@ on:
   #     - main
   # # Also trigger on page_build, as well as release created events
   # page_build:
-  release:
-    types: # This configuration does not affect the page_build event above
-      - released
+  # release:
+  #   types: # This configuration does not affect the page_build event above
+  #     - released
 
 # published
 # - unpublished
