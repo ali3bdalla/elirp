@@ -65,7 +65,6 @@ jobs:
         chart: 'elirp'
         version: ${{ steps.get_version.outputs.VERSION }}
         namespace: 'default'
-        chart: 'app'
         token: '${{ github.token }}'
       env:
         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
