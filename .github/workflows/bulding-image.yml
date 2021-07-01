@@ -1,57 +1,42 @@
 name: BuildingImageAndDeploying
-on: [push, pull_request]
-# on:
-#   push:
-  #   branches:
-  #     - main
-  # pull_request:
-  #   branches:
-  #     - main
-  # # Also trigger on page_build, as well as release created events
-  # page_build:
-  # release:
-  #   types: # This configuration does not affect the page_build event above
-  #     - released
 
-# published
-# - unpublished
-# - created
-# - edited
-# - deleted
-# - prereleased
-# - released
+on:
+  release:
+    types: [created,prereleased,released,published]
+
 jobs:
-  # building:
-  #   name: building
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Get the version
-  #       id: get_version
-  #       run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
-  #     -
-  #       name: Checkout
-  #       uses: actions/checkout@v2
-  #     -
-  #       name: Set up QEMU
-  #       uses: docker/setup-qemu-action@v1
-  #     -
-  #       name: Set up Docker Buildx
-  #       uses: docker/setup-buildx-action@v1
-  #     -
-  #       name: Login to DockerHub
-  #       uses: docker/login-action@v1
-  #       with:
-  #         username: ${{ secrets.DOCKERHUB_USERNAME }}
-  #         password: ${{ secrets.DOCKERHUB_TOKEN }}
-  #     -
-  #       name: Build and push ${{ steps.get_version.outputs.VERSION }}
-  #       uses: docker/build-push-action@v2
-  #       with:
-  #         file: Dockerfile.Production
-  #         context: .
-  #         push: true
-  #         tags: aliabdalla/elirp:${{ steps.get_version.outputs.VERSION }},aliabdalla/elirp:latest
+  building:
+    name: building
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push ${{ steps.get_version.outputs.VERSION }}
+        uses: docker/build-push-action@v2
+        with:
+          file: Dockerfile.Production
+          context: .
+          push: true
+          tags: aliabdalla/elirp:${{ steps.get_version.outputs.VERSION }},aliabdalla/elirp:latest
   deploying:
+    needs: building
     name: deploying
     runs-on: ubuntu-latest
     steps:
