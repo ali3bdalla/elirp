@@ -59,11 +59,11 @@ jobs:
         id: get_version
         run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
       - name: ssh to cluster
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.MASTER_K8S_IP }}
-          key: ${{ secrets.MASTER_K8S_PVKEY }}
-          fingerprint: ${{ secrets.MASTER_K8S_PBKEY }}
-          script: |
-            cd ~/elirp-chart
-            helm upgrade --install elirp ./ --version=${{ steps.get_version.outputs.VERSION }}
+        run: eval $(ssh-agent -s)
+        run: echo ${{ secrets.MASTER_K8S_PVKEY }} | tr -d '\r' | ssh-add -
+        run: mkdir -p ~/.ssh
+        run: ssh root@${{ secrets.MASTER_K8S_IP }}
+        run: |
+          cd ~/elirp-chart
+          helm upgrade --install elirp ./ --version=${{ steps.get_version.outputs.VERSION }}
+
