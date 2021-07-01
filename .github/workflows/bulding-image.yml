@@ -62,8 +62,9 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.MASTER_K8S_IP }}
-          key: ${{ secrets.MASTER_K8S_PVKEY }}
-          fingerprint: ${{ secrets.MASTER_K8S_PBKEY }}
+          username: ${{ secrets.MASTER_K8S_USERNAME }}
+          key: ${{ secrets.MASTER_K8S_PRIVATE_KEY }}
+          fingerprint: ${{ secrets.MASTER_K8S_PUBLIC_KEY_FINGERPRINT }}
           script: |
             cd ~/elirp-chart
             helm upgrade --install elirp  --version=${{ steps.get_version.outputs.VERSION }} .
