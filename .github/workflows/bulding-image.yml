@@ -1,4 +1,5 @@
 name: BuildingImageAndDeploying
+
 on:
   push:
   #   branches:
@@ -51,27 +52,44 @@ jobs:
           tags: aliabdalla/elirp:${{ steps.get_version.outputs.VERSION }},aliabdalla/elirp:latest
 
 
-  depoying:
-    runs-on: ubuntu-latest
-    steps:
+  # depoying:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #
+  #     - uses: actions/checkout@v1
+  #     - name: 'Deploy'
+  #       uses: 'deliverybot/helm@v1'
+  #       with:
+  #         release: 'elirp-'${{ steps.get_version.outputs.VERSION }}
+  #         namespace: 'default'
+  #         version: ${{ steps.get_version.outputs.VERSION }}
+  #         chart: 'elirp'
+  #         token: '${{ github.token }}'
+  #         # values: |
+  #         #   name: foobar
+  #         # value-files: >-
+  #         # [
+  #         #   "values.yaml",
+  #         #   "values.production.yaml"
+  #         # ]
+  #       env:
+  #         KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
+    deployment:
+      runs-on: 'ubuntu-latest'
+      steps:
       - name: Get the version
         id: get_version
         run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
       - uses: actions/checkout@v1
+
       - name: 'Deploy'
         uses: 'deliverybot/helm@v1'
         with:
-          release: 'elirp-'${{ steps.get_version.outputs.VERSION }}
-          namespace: 'default'
-          version: ${{ steps.get_version.outputs.VERSION }}
+          release: 'elirp-${{ steps.get_version.outputs.VERSION }}'
           chart: 'elirp'
+          version: ${{ steps.get_version.outputs.VERSION }}
+          namespace: 'default'
+          chart: 'app'
           token: '${{ github.token }}'
-          # values: |
-          #   name: foobar
-          # value-files: >-
-          # [
-          #   "values.yaml",
-          #   "values.production.yaml"
-          # ]
         env:
           KUBECONFIG_FILE: '${{ secrets.KUBECONFIG }}'
