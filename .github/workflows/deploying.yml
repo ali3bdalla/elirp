@@ -2,7 +2,7 @@ name: BuildingImageAndDeploying
 
  on:
    release:
-#     types: [prereleased,released]
+     types: [prereleased,released]
 #on:
 #  push:
 #    # types: [prereleased,released]
