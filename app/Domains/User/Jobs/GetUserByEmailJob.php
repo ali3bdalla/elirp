@@ -7,17 +7,17 @@ use Lucid\Units\Job;
 
 class GetUserByEmailJob extends Job
 {
-    private string|null $email;
+    private $keycloakId;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(string|null $email = null)
+    public function __construct( $keycloakId = null)
     {
         //
-        $this->email=$email;
+        $this->keycloakId = $keycloakId;
     }
 
     /**
@@ -27,6 +27,6 @@ class GetUserByEmailJob extends Job
      */
     public function handle() : ?User
     {
-        return User::where('email', $this->email)->first();
+        return User::where('keycloak_id', $this->keycloakId)->first();
     }
 }

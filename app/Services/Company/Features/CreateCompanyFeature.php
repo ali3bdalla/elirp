@@ -58,6 +58,7 @@ class CreateCompanyFeature extends Feature
                     [
                     'company'  => $company,
                     'name'     => $request->input('name'),
+                    'keycloakId'     => $request->input('keycloakId'),
                     'email'    => $request->input('email'),
                     'password' => $request->input('password'),
                     ]

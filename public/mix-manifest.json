@@ -1,11 +1,11 @@
 {
-    "/js/app.js": "/js/app.js?id=0b4771cc752cdf65a4ef",
-    "/css/sb-admin-2.css": "/css/sb-admin-2.css?id=bd91229bb487e4ac98d1",
-    "/css/app.css": "/css/app.css?id=0ee5b2bbfe58fbf991d0",
-    "/img/undraw_posting_photo.svg": "/img/undraw_posting_photo.svg?id=96a2c3f036f07f962f82",
-    "/img/undraw_profile.svg": "/img/undraw_profile.svg?id=1da2f2267c5329b67d0f",
-    "/img/undraw_profile_1.svg": "/img/undraw_profile_1.svg?id=5bb1098122c3b5657ba2",
-    "/img/undraw_profile_2.svg": "/img/undraw_profile_2.svg?id=afc2324390ee8f7be9c1",
-    "/img/undraw_profile_3.svg": "/img/undraw_profile_3.svg?id=e993abbdc5bf80d51a49",
-    "/img/undraw_rocket.svg": "/img/undraw_rocket.svg?id=91e48aafb8c05f2e52db"
+    "/js/app.js": "/js/app.js",
+    "/css/sb-admin-2.css": "/css/sb-admin-2.css",
+    "/css/app.css": "/css/app.css",
+    "/img/undraw_posting_photo.svg": "/img/undraw_posting_photo.svg",
+    "/img/undraw_profile.svg": "/img/undraw_profile.svg",
+    "/img/undraw_profile_1.svg": "/img/undraw_profile_1.svg",
+    "/img/undraw_profile_2.svg": "/img/undraw_profile_2.svg",
+    "/img/undraw_profile_3.svg": "/img/undraw_profile_3.svg",
+    "/img/undraw_rocket.svg": "/img/undraw_rocket.svg"
 }

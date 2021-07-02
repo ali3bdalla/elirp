@@ -25,59 +25,40 @@ use Laravel\Socialite\Facades\Socialite;
     | contains the "web" middleware group. Now create something great!
     |
     */
-Route::middleware('guest')->get(
-    '/',
-    function () {
-        return Socialite::driver('keycloak')->redirect();
-    }
-);
-Route::get(
-    '/auth/keycloak/redirect',
-    [AuthController::class,'auth']
-)->name('auth.keycloak.redirect');
-Route::middleware('guest')->get(
-    '/login',
-    function () {
-        return Socialite::driver('keycloak')->redirect();
-    }
-)->name('login');
-// Route::group(
-//     ['prefix' => 'auth', 'as' => 'auth.', 'middleware' => 'guest'], function () {
-//         foreach (config('oauth-clients') as $client => $enabled) {
-//             if ($enabled) {
-//                 Route::group(
-//                     ['prefix' => $client, 'as' => "$client."], function () use ($client) {
-//                         Route::get(
-//                             'redirect', function () use ($client) {
-//                                 return Socialite::driver($client)->redirect();
-//                             }
-//                         )->name('redirect');
-//                         Route::get(
-//                             'callback', function () use ($client) {
-//                                 $authController = new AuthController();
-//                                 return $authController->auth($client);
-//                             }
-//                         )->name('callback');
-//                     }
-//                 );
-//             }
-//         }
-//     }
-// );
-Route::middleware(['auth:sanctum', 'verified'])->group(
-    function () {
-        Route::get('/', DashboardController::class)->name('dashboard');
-        Route::resource('users', UserController::class);
-        Route::resource('items', ItemController::class);
-        Route::resource('vendors', VendorController::class);
-        Route::resource('customers', CustomerController::class);
-        Route::resource('bills', BillController::class);
-        Route::resource('invoices', InvoiceController::class);
-        Route::resource('accounts', AccountController::class);
-        Route::resource('entries', EntryController::class);
-        Route::resource('inventories', InventoryController::class);
 
 
-        Route::get('documents/{document}/print', [DocumentController::class,'printDocument'])->name('documents.print');
-    }
-);
+    Route::middleware('guest')->group(
+        function () {
+            Route::get(
+                '/login',
+                function () {
+                    return Socialite::driver('keycloak')->redirect();
+                }
+            )->name('login');
+
+        }
+    );
+    Route::get(
+        '/auth/keycloak/callback',
+        [AuthController::class,'auth']
+    )->name('auth.keycloak.redirect');
+    Route::middleware(['auth', 'verified'])->group(
+        function () {
+            Route::get('/', DashboardController::class)->name('dashboard');
+            Route::post('/logout', [AuthController::class,'logout'])->name('logout');
+            Route::resource('users', UserController::class);
+            Route::resource('items', ItemController::class);
+            Route::resource('vendors', VendorController::class);
+            Route::resource('customers', CustomerController::class);
+            Route::resource('bills', BillController::class);
+            Route::resource('invoices', InvoiceController::class);
+            Route::resource('accounts', AccountController::class);
+            Route::resource('entries', EntryController::class);
+            Route::resource('inventories', InventoryController::class);
+            Route::get('/profile',function(){
+                return redirect(config('services.keycloak.base_url') . '/realms/master/account/#/personal-info');
+            })->name('profile.show');
+    
+            Route::get('documents/{document}/print', [DocumentController::class,'printDocument'])->name('documents.print');
+        }
+    );

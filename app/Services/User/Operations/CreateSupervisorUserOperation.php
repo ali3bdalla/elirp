@@ -15,19 +15,21 @@ class CreateSupervisorUserOperation extends Operation
     private $email;
     private $name;
     private $password;
-
+    private $keycloakId;
+    
     /**
      * Create a new operation instance.
      *
      * @return void
      */
-    public function __construct(Company $company, $email = '', $password = '', $name = '')
+    public function __construct(Company $company,$keycloakId, $email = '', $password = '', $name = '')
     {
         //
         $this->company  = $company;
         $this->email    = $email;
         $this->password = $password;
         $this->name     = $name;
+        $this->keycloakId=$keycloakId;
     }
 
     /**
@@ -43,6 +45,7 @@ class CreateSupervisorUserOperation extends Operation
             $user = $this->run(
                 CreateNewUserJob::class,
                 [
+                'keycloakId'      => $this->keycloakId,
                 'name'      => $this->name,
                 'email'     => $this->email,
                 'password'  => Hash::make($this->password),

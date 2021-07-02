@@ -28,19 +28,19 @@ class JetstreamServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->configurePermissions();
-
-        Jetstream::deleteUsersUsing(DeleteUser::class);
-        Fortify::loginView(function () {
-            Inertia::setRootView('login');
-            $oauthClients = collect(config('oauth-clients'))->filter(function ($key, $driver) {
-                return $key;
-            })->keys()->toArray();
-            return view('login', compact('oauthClients'));
-
-//            return Inertia::render('Auth/Login', [
-//                'oauthClients' =>
-//            ]);
-        });
+//
+//        Jetstream::deleteUsersUsing(DeleteUser::class);
+//        Fortify::loginView(function () {
+//            Inertia::setRootView('login');
+//            $oauthClients = collect(config('oauth-clients'))->filter(function ($key, $driver) {
+//                return $key;
+//            })->keys()->toArray();
+//            return view('login', compact('oauthClients'));
+//
+////            return Inertia::render('Auth/Login', [
+////                'oauthClients' =>
+////            ]);
+//        });
     }
 
     /**

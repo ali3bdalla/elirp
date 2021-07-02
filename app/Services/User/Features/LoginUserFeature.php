@@ -24,10 +24,12 @@ class LoginUserFeature extends Feature
 
     public function handle(Request $request)
     {
-        $email   =$this->user->getEmail();
-        $authUser=$this->run(GetUserByEmailJob::class, ['email'=>$email]);
+        $keycloakId   =$this->user->getId();
+        $authUser=$this->run(GetUserByEmailJob::class, ['keycloakId'=>$keycloakId]);
         if (! $authUser) {
-            $authUser=$this->run(CreateCompanyFeature::class, ['request'=>['name'=>$this->user->getName(), 'email'=>$this->user->getEmail(), 'password'=>Str::random(20)]]);
+            $authUser=$this->run(CreateCompanyFeature::class, ['request'=>[
+                'keycloakId' => $this->user->getId(),
+                'name'=>$this->user->getName(), 'email'=>$this->user->getEmail(), 'password'=>Str::random(20)]]);
         }
         $authUser->update(
             [

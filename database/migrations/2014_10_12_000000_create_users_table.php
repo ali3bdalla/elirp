@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             function (Blueprint $table) {
                 $table->id();
                 $table->string('name')->nullable();
+                $table->string('keycloak_id')->nullable()->unique();
                 $table->string('email')->unique()->nullable();
                 $table->timestamp('email_verified_at')->nullable();
                 $table->string('password')->nullable();

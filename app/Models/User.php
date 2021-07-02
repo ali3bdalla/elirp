@@ -5,16 +5,19 @@ namespace App\Models;
 use App\Data\CanBeEnabled;
 use App\Data\HasCompany;
 use App\Data\HasFullSearch;
+use App\Data\HasProfilePhoto;
 use App\Data\HasUserActions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Fortify\TwoFactorAuthenticatable;
-use Laravel\Jetstream\HasProfilePhoto;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * @property mixed profile_photo_path
+ */
 class User extends Authenticatable
 {
     use HasFullSearch;
@@ -23,11 +26,9 @@ class User extends Authenticatable
     use SoftDeletes;
     use HasCompany;
     use HasUserActions;
-    use HasProfilePhoto;
     use Notifiable;
-    use TwoFactorAuthenticatable;
     use CanBeEnabled;
-
+    use HasProfilePhoto;
     /**
      * The attributes that are mass assignable.
      *
@@ -74,5 +75,22 @@ class User extends Authenticatable
     public function actions() : HasMany
     {
         return $this->hasMany(UserAction::class, 'user_id');
+    }
+    public function getProfilePhotoUrlAttribute()
+    {
+        
+        $path = $this->profile_photo_path;
+        
+        if (Storage::exists($path)){
+            return Storage::url($this->profile_photo_path);
+        }
+        elseif (!empty($path)){
+            // Use Photo URL from Social sites link...
+            return $path;
+        }
+        else {
+            //empty path. Use defaultProfilePhotoUrl
+            return $this->defaultProfilePhotoUrl();
+        }
     }
 }

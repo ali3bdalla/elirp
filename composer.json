@@ -18,7 +18,6 @@
         "kyslik/column-sortable": "^6.4",
         "laravel/framework": "^8.40",
         "laravel/horizon": "^5.7",
-        "laravel/jetstream": "^2.3",
         "laravel/octane": "^1.0",
         "laravel/sanctum": "^2.6",
         "laravel/scout": "^9.1",
