@@ -20,7 +20,7 @@ RUN docker-php-ext-install pcntl
 
 # Install script dependencies
 RUN apt-get install -yqq gnupg
-
+RUN apt install -yqq nano
 # Clear out the local repository of retrieved package files
 RUN apt-get clean && rm -r /var/lib/apt/lists/*
 
