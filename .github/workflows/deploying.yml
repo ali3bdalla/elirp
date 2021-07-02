@@ -1,10 +1,11 @@
 name: BuildingImageAndDeploying
 
- on:
-   release:
-     types: [prereleased,released]
-#on:
-#  push:
+# on:
+#   release:
+#     types: [prereleased,released]
+on:
+  push:
+    tags:
 #    # types: [prereleased,released]
 
 jobs:
