@@ -19,7 +19,7 @@ class CreateNewUserJob extends Job
      *
      * @return void
      */
-    public function __construct($name, $email, $password, $companyId, $locale = 'ar', $enabled = true)
+    public function __construct($name = '', $email = '', $password = '', $companyId, $locale = 'ar', $enabled = true)
     {
         //
         $this->name      = $name;
@@ -37,13 +37,15 @@ class CreateNewUserJob extends Job
      */
     public function handle() : User
     {
-        return User::create([
+        return User::create(
+            [
             'name'       => $this->name,
             'email'      => $this->email,
             'password'   => $this->password,
             'company_id' => $this->companyId,
             'locale'     => $this->locale,
             'enabled'    => $this->enabled
-        ]);
+            ]
+        );
     }
 }

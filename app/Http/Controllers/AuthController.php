@@ -15,10 +15,13 @@ class AuthController extends Controller
     {
         $user = Socialite::driver($driver)->user();
         if ($user) {
-            return $this->serve(LoginUserFeature::class, [
+            return $this->serve(
+                LoginUserFeature::class,
+                [
                 'user'   => $user,
                 'driver' => $driver
-            ]);
+                ]
+            );
         }
         return Socialite::driver($driver)->redirect();
     }

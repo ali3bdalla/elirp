@@ -21,7 +21,7 @@ class CreateSupervisorUserOperation extends Operation
      *
      * @return void
      */
-    public function __construct(Company $company, $email, $password, $name = '')
+    public function __construct(Company $company, $email = '', $password = '', $name = '')
     {
         //
         $this->company  = $company;
@@ -40,14 +40,17 @@ class CreateSupervisorUserOperation extends Operation
         if (Auth::check()) {
             $user = Auth::user();
         } else {
-            $user = $this->run(CreateNewUserJob::class, [
+            $user = $this->run(
+                CreateNewUserJob::class,
+                [
                 'name'      => $this->name,
                 'email'     => $this->email,
                 'password'  => Hash::make($this->password),
                 'companyId' => $this->company->id,
                 'locale'    => 'en-GB',
                 'enabled'   => '1',
-            ]);
+                ]
+            );
         }
 
         return   $user ;

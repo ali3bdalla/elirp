@@ -2,10 +2,10 @@
 
 type User  @model(class: "App\\Models\\User")  {
     id: ID!
-    name: String!
-    email: String!
+    name: String
+    email: String
     company_id: Int!
-    profile_photo_url: String!
+    profile_photo_url: String
     enabled: Boolean!,
     created_at: String!
     updated_at: String!

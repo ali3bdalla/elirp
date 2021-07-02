@@ -7,14 +7,14 @@ use Lucid\Units\Job;
 
 class GetUserByEmailJob extends Job
 {
-    private string $email;
+    private string|null $email;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(string $email)
+    public function __construct(string|null $email = null)
     {
         //
         $this->email=$email;
