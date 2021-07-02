@@ -32,8 +32,8 @@ return [
             // Logs in a user if they are authenticated. In contrast to Laravel's 'auth'
             // middleware, this delegates auth and permission checks to the field level.
             \Illuminate\Session\Middleware\StartSession::class,
-            \Nuwave\Lighthouse\Support\Http\Middleware\AttemptAuthentication::class,
-            \Illuminate\Cookie\Middleware\EncryptCookies::class,
+//            \Nuwave\Lighthouse\Support\Http\Middleware\AttemptAuthentication::class,
+            App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             // Logs every incoming GraphQL query.
             \Nuwave\Lighthouse\Support\Http\Middleware\LogGraphQLQueries::class,
@@ -57,7 +57,7 @@ return [
     |
     */
 
-    'guard' => 'sanctum',
+    'guard' => 'web',
 
     /*
     |--------------------------------------------------------------------------

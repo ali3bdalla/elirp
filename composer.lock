@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6101dc69625e93a0e8bee31bddfbed3f",
+    "content-hash": "eb07e6d76554a585a31ba4002f9d2e73",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1886,81 +1886,17 @@
             "time": "2021-06-22T15:33:00+00:00"
         },
         {
-            "name": "laravel/sanctum",
-            "version": "v2.11.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/sanctum.git",
-                "reference": "b21e65cbe13896946986cb0868180cd69e1bd5d3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sanctum/zipball/b21e65cbe13896946986cb0868180cd69e1bd5d3",
-                "reference": "b21e65cbe13896946986cb0868180cd69e1bd5d3",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "illuminate/contracts": "^6.9|^7.0|^8.0",
-                "illuminate/database": "^6.9|^7.0|^8.0",
-                "illuminate/support": "^6.9|^7.0|^8.0",
-                "php": "^7.2|^8.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "^1.0",
-                "orchestra/testbench": "^4.0|^5.0|^6.0",
-                "phpunit/phpunit": "^8.0|^9.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.x-dev"
-                },
-                "laravel": {
-                    "providers": [
-                        "Laravel\\Sanctum\\SanctumServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Laravel\\Sanctum\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                }
-            ],
-            "description": "Laravel Sanctum provides a featherweight authentication system for SPAs and simple APIs.",
-            "keywords": [
-                "auth",
-                "laravel",
-                "sanctum"
-            ],
-            "support": {
-                "issues": "https://github.com/laravel/sanctum/issues",
-                "source": "https://github.com/laravel/sanctum"
-            },
-            "time": "2021-06-15T15:56:21+00:00"
-        },
-        {
             "name": "laravel/scout",
-            "version": "v9.1.2",
+            "version": "v9.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/scout.git",
-                "reference": "ccd34d0efd99489059e3e2bcd223aaa360af62cf"
+                "reference": "c3cc2cfb0dff7e543d7e14f9e82117bcdfe5dffa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/scout/zipball/ccd34d0efd99489059e3e2bcd223aaa360af62cf",
-                "reference": "ccd34d0efd99489059e3e2bcd223aaa360af62cf",
+                "url": "https://api.github.com/repos/laravel/scout/zipball/c3cc2cfb0dff7e543d7e14f9e82117bcdfe5dffa",
+                "reference": "c3cc2cfb0dff7e543d7e14f9e82117bcdfe5dffa",
                 "shasum": ""
             },
             "require": {
@@ -2019,7 +1955,7 @@
                 "issues": "https://github.com/laravel/scout/issues",
                 "source": "https://github.com/laravel/scout"
             },
-            "time": "2021-06-15T16:00:14+00:00"
+            "time": "2021-06-29T21:51:02+00:00"
         },
         {
             "name": "laravel/socialite",
@@ -4478,114 +4414,6 @@
                 "source": "https://github.com/sabberworm/PHP-CSS-Parser/tree/8.3.1"
             },
             "time": "2020-06-01T09:10:00+00:00"
-        },
-        {
-            "name": "socialiteproviders/keycloak",
-            "version": "5.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/SocialiteProviders/Keycloak.git",
-                "reference": "889c025cb342f1f4e982fe575aaaefbe90a7735c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/SocialiteProviders/Keycloak/zipball/889c025cb342f1f4e982fe575aaaefbe90a7735c",
-                "reference": "889c025cb342f1f4e982fe575aaaefbe90a7735c",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "php": "^7.2 || ^8.0",
-                "socialiteproviders/manager": "~4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "SocialiteProviders\\Keycloak\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Oleg Kuchumov",
-                    "email": "voenniy@gmail.com"
-                }
-            ],
-            "description": "Keycloak OAuth2 Provider for Laravel Socialite",
-            "support": {
-                "source": "https://github.com/SocialiteProviders/Keycloak/tree/5.0.0"
-            },
-            "time": "2021-06-02T22:42:34+00:00"
-        },
-        {
-            "name": "socialiteproviders/manager",
-            "version": "4.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/SocialiteProviders/Manager.git",
-                "reference": "0f5e82af0404df0080bdc5c105cef936c1711524"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/SocialiteProviders/Manager/zipball/0f5e82af0404df0080bdc5c105cef936c1711524",
-                "reference": "0f5e82af0404df0080bdc5c105cef936c1711524",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "^6.0|^7.0|^8.0",
-                "laravel/socialite": "~4.0|~5.0",
-                "php": "^7.2 || ^8.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "^1.2",
-                "phpunit/phpunit": "^9.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "SocialiteProviders\\Manager\\ServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "SocialiteProviders\\Manager\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Andy Wendt",
-                    "email": "andy@awendt.com"
-                },
-                {
-                    "name": "Anton Komarev",
-                    "email": "a.komarev@cybercog.su"
-                },
-                {
-                    "name": "Miguel Piedrafita",
-                    "email": "soy@miguelpiedrafita.com"
-                },
-                {
-                    "name": "atymic",
-                    "email": "atymicq@gmail.com",
-                    "homepage": "https://atymic.dev"
-                }
-            ],
-            "description": "Easily add new or override built-in providers in Laravel Socialite.",
-            "homepage": "https://socialiteproviders.com/",
-            "support": {
-                "issues": "https://github.com/SocialiteProviders/Manager/issues",
-                "source": "https://github.com/SocialiteProviders/Manager/tree/4.0.1"
-            },
-            "time": "2020-12-01T23:09:06+00:00"
         },
         {
             "name": "spatie/enum",
@@ -7480,6 +7308,63 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/2.2.3"
             },
             "time": "2020-07-13T06:12:54+00:00"
+        },
+        {
+            "name": "vizir/laravel-keycloak-web-guard",
+            "version": "v2.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Vizir/laravel-keycloak-web-guard.git",
+                "reference": "84f18b5464b0f643f31c43774711536c0433e190"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Vizir/laravel-keycloak-web-guard/zipball/84f18b5464b0f643f31c43774711536c0433e190",
+                "reference": "84f18b5464b0f643f31c43774711536c0433e190",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.5|^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Vizir\\KeycloakWebGuard\\KeycloakWebGuardServiceProvider"
+                    ],
+                    "aliases": {
+                        "KeycloakWeb": "Vizir\\KeycloakWebGuard\\Facades\\KeycloakWeb"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Vizir\\KeycloakWebGuard\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mário Valney",
+                    "email": "mariovalney@gmail.com"
+                }
+            ],
+            "description": "Simple Keycloak Guard to Laravel Web Routes",
+            "homepage": "https://github.com/Vizir/laravel-keycloak-web-guard",
+            "keywords": [
+                "Authentication",
+                "jwt",
+                "keycloak",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/Vizir/laravel-keycloak-web-guard/issues",
+                "source": "https://github.com/Vizir/laravel-keycloak-web-guard/tree/v2.3.2"
+            },
+            "time": "2021-01-28T00:39:44+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

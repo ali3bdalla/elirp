@@ -154,7 +154,7 @@ return [
     |
     */
 
-    'domain' => env('SESSION_DOMAIN', 'elirp.com'),
+    'domain' => env('SESSION_DOMAIN', null),
 
     /*
     |--------------------------------------------------------------------------

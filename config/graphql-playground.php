@@ -16,7 +16,7 @@ return [
     'route' => [
         'uri'        => '/graphql_playground',
         'name'       => 'graphql-playground',
-        'middleware' => ['web', 'auth:sanctum']
+        'middleware' => ['web', 'keycloak-web']
         // 'prefix' => '',
         // 'domain' => 'graphql.' . env('APP_DOMAIN', 'localhost'),
     ],

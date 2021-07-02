@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
     |
     */
 
-Route::middleware(['auth', 'verified'])->group(
+Route::middleware(['keycloak-web'])->group(
     function () {
         Route::resource('users', UserController::class);
         Route::resource('items', ItemController::class);

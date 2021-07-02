@@ -26,9 +26,6 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
-        'SocialiteProviders\\Keycloak\\KeycloakExtendSocialite@handle',
-        ],
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
