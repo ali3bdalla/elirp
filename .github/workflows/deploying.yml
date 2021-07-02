@@ -38,9 +38,10 @@ jobs:
           file: Dockerfile.Production
           context: .
           push: true
-          tags: aliabdalla/elirp:${{ steps.get_version.outputs.VERSION }},aliabdalla/elirp:latest
+#          aliabdalla/elirp:${{ steps.get_version.outputs.VERSION }},
+          tags: aliabdalla/elirp:latest
   deploying:
-#    needs: building
+    needs: building
     name: deploying
     runs-on: ubuntu-latest
     steps:
@@ -60,4 +61,4 @@ jobs:
             helm dependency update
             sed -i "s/^version:.*$/version: ${{ github.run_number }}/" Chart.yaml
             sed -i "s/^appVersion:.*$/appVersion: ${{ github.run_number }}/" Chart.yaml
-            helm upgrade --install elirp  --version=${{ github.run_number }} -f values.yaml .
+            helm upgrade --install elirp  --version=${{ github.run_number }} -f values.yaml . --set image.tag=latest
