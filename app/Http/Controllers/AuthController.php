@@ -11,8 +11,9 @@ class AuthController extends Controller
     {
     }
 
-    public function auth(string $driver)
+    public function auth()
     {
+        $driver = 'keycloak';
         $user = Socialite::driver($driver)->user();
         if ($user) {
             return $this->serve(

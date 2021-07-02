@@ -31,12 +31,16 @@ Route::middleware('guest')->get(
         return Socialite::driver('keycloak')->redirect();
     }
 );
+Route::get(
+    '/auth/keycloak/redirect',
+    [AuthController::class,'auth']
+)->name('auth.keycloak.redirect');
 Route::middleware('guest')->get(
     '/login',
     function () {
         return Socialite::driver('keycloak')->redirect();
     }
-);
+)->name('login');
 // Route::group(
 //     ['prefix' => 'auth', 'as' => 'auth.', 'middleware' => 'guest'], function () {
 //         foreach (config('oauth-clients') as $client => $enabled) {
