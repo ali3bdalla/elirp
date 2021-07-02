@@ -29,18 +29,14 @@ return [
          */
         'middleware' => [
             \Nuwave\Lighthouse\Support\Http\Middleware\AcceptJson::class,
-
             // Logs in a user if they are authenticated. In contrast to Laravel's 'auth'
             // middleware, this delegates auth and permission checks to the field level.
             \Illuminate\Session\Middleware\StartSession::class,
             \Nuwave\Lighthouse\Support\Http\Middleware\AttemptAuthentication::class,
             \Illuminate\Cookie\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            //
-            //
             // Logs every incoming GraphQL query.
             \Nuwave\Lighthouse\Support\Http\Middleware\LogGraphQLQueries::class,
-            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
         ],
 
         /*

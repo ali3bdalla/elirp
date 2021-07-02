@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
-use Laravel\Sanctum\HasApiTokens;
 
 /**
  * @property mixed profile_photo_path
@@ -21,7 +20,6 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasFullSearch;
-    use HasApiTokens;
     use HasFactory;
     use SoftDeletes;
     use HasCompany;

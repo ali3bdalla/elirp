@@ -19,7 +19,6 @@
         "laravel/framework": "^8.40",
         "laravel/horizon": "^5.7",
         "laravel/octane": "^1.0",
-        "laravel/sanctum": "^2.6",
         "laravel/scout": "^9.1",
         "laravel/socialite": "^5.2",
         "laravel/tinker": "^2.5",
