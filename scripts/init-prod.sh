@@ -1,4 +1,6 @@
 #!/bin/sh
+echo 'npm run prod'
+npm run prod
 echo 'php artisan key:generate'
 php artisan key:generate
 
