@@ -1,6 +1,6 @@
 #!/bin/sh
-echo 'npm run prod'
-npm run prod
+echo 'copy public content'
+cp -rf /var/www/html/public/* /var/public
 echo 'php artisan key:generate'
 php artisan key:generate
 
