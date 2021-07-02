@@ -5,8 +5,8 @@ name: BuildingImageAndDeploying
 #     types: [prereleased,released]
 on:
   push:
-    tags:
-#    # types: [prereleased,released]
+#    tags:
+##    # types: [prereleased,released]
 
 jobs:
   building:
