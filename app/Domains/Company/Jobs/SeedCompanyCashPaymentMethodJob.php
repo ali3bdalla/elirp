@@ -27,10 +27,10 @@ class SeedCompanyCashPaymentMethodJob extends Job
     {
         return PaymentMethod::create(
             [
-                'name' => "Cash",
-                'description' => "Auto Created Cash Payment Method",
-                'company_id' => $this->company->id,
-                'enabled' => true
+                'name'        => 'Cash',
+                'description' => 'Auto Created Cash Payment Method',
+                'company_id'  => $this->company->id,
+                'enabled'     => true
             ]
         );
     }

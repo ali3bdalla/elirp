@@ -3,7 +3,6 @@
 namespace Tests\Unit\Services\Inventory\Operations;
 
 use Tests\TestCase;
-use App\Services\Inventory\Operations\CreateInventoryTransactionOperation;
 
 class CreateInventoryTransactionOperationTest extends TestCase
 {

@@ -26,10 +26,10 @@ class ValidateRefundableDocumentJob extends Job
      */
     public function handle()
     {
-        if (!$this->document->histories()->where('status', DocumentStatusEnum::paid())->first() && $this->document->histories()->where('status', DocumentStatusEnum::refunded())->first()) {
+        if (! $this->document->histories()->where('status', DocumentStatusEnum::paid())->first() && $this->document->histories()->where('status', DocumentStatusEnum::refunded())->first()) {
             throw ValidationException::withMessages(
                 [
-                'status' => 'invalid document status'
+                    'status' => 'invalid document status'
                 ]
             );
         }

@@ -13,9 +13,9 @@ class DocumentStatuses
      */
     public function __invoke($_, array $args)
     {
-        $type = isset($args['type']) && in_array($args['type'],['BILL','INVOICE']) ? $args['type'] : 'BILL';
+        $type   = isset($args['type']) && in_array($args['type'], ['BILL', 'INVOICE']) ? $args['type'] : 'BILL';
         $values = DocumentStatusEnum::invoice_statuses();
-        if(
+        if (
             DocumentTypeEnum::from($type)->equals(DocumentTypeEnum::BILL())) {
             $values = DocumentStatusEnum::bill_statuses();
         }

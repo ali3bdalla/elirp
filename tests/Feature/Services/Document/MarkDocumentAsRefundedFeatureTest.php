@@ -3,7 +3,6 @@
 namespace Tests\Feature\Services\Document;
 
 use Tests\TestCase;
-use App\Services\Document\Features\MarkDocumentAsRefundedFeature;
 
 class MarkDocumentAsRefundedFeatureTest extends TestCase
 {

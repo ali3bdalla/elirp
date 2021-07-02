@@ -76,15 +76,17 @@ class Document extends ModelFrame
     {
         return $this->hasMany(DocumentItemTax::class, 'document_id');
     }
+
     public static function generatedNextDocumentNumber(DocumentTypeEnum $documentTypeEnum)
     {
-        return Str::upper(Str::singular($documentTypeEnum->value)) . Str::studly(Carbon::now()->toDateString()) . company_id() . Auth::id() . random_int(3, 10) . random_int(10000, 999999);
+        return Str::upper(Str::singular($documentTypeEnum->value)).Str::studly(Carbon::now()->toDateString()).company_id().Auth::id().random_int(3, 10).random_int(10000, 999999);
     }
 
     public function contact() : BelongsTo
     {
         return $this->belongsTo(Contact::class);
     }
+
     public function items() : HasMany
     {
         return $this->hasMany(DocumentItem::class, 'document_id');
@@ -99,6 +101,7 @@ class Document extends ModelFrame
     {
         return $this->hasMany(Transaction::class);
     }
+
     public function inventoryTransactions() : HasMany
     {
         return $this->hasMany(InventoryTransaction::class, 'document_id');

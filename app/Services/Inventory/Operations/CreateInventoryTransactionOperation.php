@@ -24,9 +24,9 @@ class CreateInventoryTransactionOperation extends Operation
         public Item $item,
         public float $quantity,
         public InventoryTransactionTypeEnum $type,
-        public DocumentItem|null $documentItem = null,
-        public Entry|null $entry = null,
-        public float|null $unitCost = null,
+        public DocumentItem | null $documentItem = null,
+        public Entry | null $entry = null,
+        public float | null $unitCost = null,
         public bool $isReverseing = false,
     ) {
         //
@@ -42,25 +42,25 @@ class CreateInventoryTransactionOperation extends Operation
         $unitCost = $this->run(
             CalcNewTransactionUnitCostJob::class,
             [
-                'item' => $this->item,
-                'unitCost' => $this->unitCost,
+                'item'         => $this->item,
+                'unitCost'     => $this->unitCost,
                 'documentItem' => $this->documentItem,
                 'isReverseing' => $this->isReverseing,
             ]
         );
         $parameters = [
-            'unit_cost' => $unitCost,
-            'item_id' => $this->item->id,
-            'quantity' => $this->quantity,
-          'inventory_id' => $this->inventory->id,
-          'type' => $this->type
+            'unit_cost'    => $unitCost,
+            'item_id'      => $this->item->id,
+            'quantity'     => $this->quantity,
+            'inventory_id' => $this->inventory->id,
+            'type'         => $this->type
         ];
         if ($this->documentItem) {
             $parameters = array_merge(
                 $parameters,
                 [
-                'document_item_id' => $this->documentItem->id,
-                'document_id' => $this->documentItem->document_id,
+                    'document_item_id' => $this->documentItem->id,
+                    'document_id'      => $this->documentItem->document_id,
                 ]
             );
         }
@@ -71,13 +71,12 @@ class CreateInventoryTransactionOperation extends Operation
             ]
         );
 
-
         if ($this->entry) {
             $this->run(
                 CreateInventoryTransactionAccountingTransactionJob::class,
                 [
-                'inventoryTransaction' => $inventoryTransaction,
-                'entry' => $this->entry
+                    'inventoryTransaction' => $inventoryTransaction,
+                    'entry'                => $this->entry
                 ]
             );
         }

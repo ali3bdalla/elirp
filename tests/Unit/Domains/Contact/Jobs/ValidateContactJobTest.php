@@ -3,7 +3,6 @@
 namespace Tests\Unit\Domains\Contact\Jobs;
 
 use Tests\TestCase;
-use App\Domains\Contact\Jobs\ValidateContactJob;
 
 class ValidateContactJobTest extends TestCase
 {

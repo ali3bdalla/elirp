@@ -3,7 +3,6 @@
 namespace Tests\Unit\Domains\Payment\Jobs;
 
 use Tests\TestCase;
-use App\Domains\Payment\Jobs\CreatePaymentJob;
 
 class CreatePaymentJobTest extends TestCase
 {

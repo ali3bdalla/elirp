@@ -31,7 +31,7 @@ class ValidatePayableDocumentJob extends Job
         ) {
             throw ValidationException::withMessages(
                 [
-                'status' => 'invalid document status'
+                    'status' => 'invalid document status'
                 ]
             );
         }

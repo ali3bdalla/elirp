@@ -16,19 +16,19 @@ class CreateSupervisorUserOperation extends Operation
     private $name;
     private $password;
     private $keycloakId;
-    
+
     /**
      * Create a new operation instance.
      *
      * @return void
      */
-    public function __construct(Company $company,$keycloakId, $email = '', $password = '', $name = '')
+    public function __construct(Company $company, $keycloakId, $email = '', $password = '', $name = '')
     {
         //
-        $this->company  = $company;
-        $this->email    = $email;
-        $this->password = $password;
-        $this->name     = $name;
+        $this->company   = $company;
+        $this->email     = $email;
+        $this->password  = $password;
+        $this->name      = $name;
         $this->keycloakId=$keycloakId;
     }
 
@@ -39,23 +39,17 @@ class CreateSupervisorUserOperation extends Operation
      */
     public function handle() : User
     {
-        if (Auth::check()) {
-            $user = Auth::user();
-        } else {
-            $user = $this->run(
+          return $this->run(
                 CreateNewUserJob::class,
                 [
-                'keycloakId'      => $this->keycloakId,
-                'name'      => $this->name,
-                'email'     => $this->email,
-                'password'  => Hash::make($this->password),
-                'companyId' => $this->company->id,
-                'locale'    => 'en-GB',
-                'enabled'   => '1',
+                    'keycloakId'      => $this->keycloakId,
+                    'name'            => $this->name,
+                    'email'           => $this->email,
+                    'password'        => Hash::make($this->password),
+                    'companyId'       => $this->company->id,
+                    'locale'          => 'en-GB',
+                    'enabled'         => '1',
                 ]
             );
-        }
-
-        return   $user ;
     }
 }

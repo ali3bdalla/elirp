@@ -12,7 +12,7 @@ if (! function_exists('company_id')) {
 if (! function_exists('company')) {
     function company()
     {
-        $user = Auth::user();
+        $user = Auth::web('web')->user();
         return $user->company;
     }
 }

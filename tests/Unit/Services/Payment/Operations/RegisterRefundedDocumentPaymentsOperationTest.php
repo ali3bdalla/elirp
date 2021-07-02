@@ -3,7 +3,6 @@
 namespace Tests\Unit\Services\Payment\Operations;
 
 use Tests\TestCase;
-use App\Services\Payment\Operations\RegisterRefundedDocumentPaymentsOperation;
 
 class RegisterRefundedDocumentPaymentsOperationTest extends TestCase
 {

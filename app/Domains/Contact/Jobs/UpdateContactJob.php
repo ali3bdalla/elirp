@@ -9,12 +9,12 @@ class UpdateContactJob extends Job
 {
     private array $data;
     private Contact $contact;
-    public function __construct( Contact $contact,  $data = [])
+
+    public function __construct(Contact $contact, $data = [])
     {
         $this->contact = $contact;
-        $this->data = $data;
+        $this->data    = $data;
     }
-
 
     /**
      * Execute the job.
@@ -23,7 +23,7 @@ class UpdateContactJob extends Job
      */
     public function handle() : Contact
     {
-        Contact::where('id',$this->contact->id)->update($this->data);
+        Contact::where('id', $this->contact->id)->update($this->data);
         return $this->contact;
     }
 }

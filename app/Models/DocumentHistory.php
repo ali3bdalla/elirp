@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Data\HasCompany;
-use App\Data\HasUserActions;
 use App\Frame\ModelFrame;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;

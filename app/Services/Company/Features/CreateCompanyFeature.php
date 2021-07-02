@@ -31,36 +31,36 @@ class CreateCompanyFeature extends Feature
                 $company = $this->run(
                     StoreCompanyJob::class,
                     [
-                    'companyName'  => $request->input('name'),
-                    'companyEmail' => $request->input('email'),
+                        'companyName'  => $request->input('name'),
+                        'companyEmail' => $request->input('email'),
                     ]
                 );
                 $this->run(
                     SeedCompanyBaseAccountsOperation::class,
                     [
-                    'company' => $company
+                        'company' => $company
                     ]
                 );
                 $this->run(
                     SeedCompanyMainInventoryJob::class,
                     [
-                    'company' => $company
+                        'company' => $company
                     ]
                 );
                 $this->run(
                     SeedCompanyCashPaymentMethodJob::class,
                     [
-                    'company' => $company
+                        'company' => $company
                     ]
                 );
                 return $this->run(
                     CreateSupervisorUserOperation::class,
                     [
-                    'company'  => $company,
-                    'name'     => $request->input('name'),
-                    'keycloakId'     => $request->input('keycloakId'),
-                    'email'    => $request->input('email'),
-                    'password' => $request->input('password'),
+                        'company'        => $company,
+                        'name'           => $request->input('name'),
+                        'keycloakId'     => $request->input('keycloakId'),
+                        'email'          => $request->input('email'),
+                        'password'       => $request->input('password'),
                     ]
                 );
             }

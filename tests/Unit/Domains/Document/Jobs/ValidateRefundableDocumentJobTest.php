@@ -3,7 +3,6 @@
 namespace Tests\Unit\Domains\Document\Jobs;
 
 use Tests\TestCase;
-use App\Domains\Document\Jobs\ValidateRefundableDocumentJob;
 
 class ValidateRefundableDocumentJobTest extends TestCase
 {

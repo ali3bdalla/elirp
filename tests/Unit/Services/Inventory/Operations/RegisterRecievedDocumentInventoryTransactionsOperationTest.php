@@ -3,7 +3,6 @@
 namespace Tests\Unit\Services\Inventory\Operations;
 
 use Tests\TestCase;
-use App\Services\Inventory\Operations\RegisterRecievedDocumentInventoryTransactionsOperation;
 
 class RegisterRecievedDocumentInventoryTransactionsOperationTest extends TestCase
 {

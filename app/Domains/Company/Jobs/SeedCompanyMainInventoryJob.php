@@ -27,10 +27,10 @@ class SeedCompanyMainInventoryJob extends Job
     {
         return Inventory::create(
             [
-                'name' => "Main Inventory",
-                'description' => "Auto Created Main Inventory",
-                'company_id' => $this->company->id,
-                'enabled' => true
+                'name'        => 'Main Inventory',
+                'description' => 'Auto Created Main Inventory',
+                'company_id'  => $this->company->id,
+                'enabled'     => true
             ]
         );
     }

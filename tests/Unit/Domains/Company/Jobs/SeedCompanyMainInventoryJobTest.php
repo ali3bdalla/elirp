@@ -3,7 +3,6 @@
 namespace Tests\Unit\Domains\Company\Jobs;
 
 use Tests\TestCase;
-use App\Domains\Company\Jobs\SeedCompanyMainInventoryJob;
 
 class SeedCompanyMainInventoryJobTest extends TestCase
 {

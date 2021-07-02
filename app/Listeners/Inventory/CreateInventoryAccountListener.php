@@ -5,13 +5,12 @@ namespace App\Listeners\Inventory;
 use App\Domains\Accounting\Jobs\CreateInventoryAccountJob;
 use App\Events\Inventory\InventoryCreatedEvent;
 use App\Models\Account;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Lucid\Bus\UnitDispatcher;
 
 class CreateInventoryAccountListener
 {
     use UnitDispatcher;
+
     /**
      * Create the event listener.
      *
@@ -34,7 +33,7 @@ class CreateInventoryAccountListener
             return $this->run(
                 CreateInventoryAccountJob::class,
                 [
-                'inventory' => $event->inventory
+                    'inventory' => $event->inventory
                 ]
             );
         }

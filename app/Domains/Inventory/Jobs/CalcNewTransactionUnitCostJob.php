@@ -17,8 +17,8 @@ class CalcNewTransactionUnitCostJob extends Job
      */
     public function __construct(
         public Item $item,
-        public DocumentItem|null $documentItem = null,
-        public float|null $unitCost = null,
+        public DocumentItem | null $documentItem = null,
+        public float | null $unitCost = null,
         public bool $isReverseing = false
     ) {
         //
@@ -42,11 +42,11 @@ class CalcNewTransactionUnitCostJob extends Job
                 if ($this->isReverseing) {
                     return $this->documentItem->unit_cost;
                 } else {
-                    $job = new GetItemUnitCostJob($this->documentItem->item);
+                    $job      = new GetItemUnitCostJob($this->documentItem->item);
                     $unitCost =  $job->handle();
                     $this->documentItem->update(
                         [
-                        'unit_cost' => $unitCost
+                            'unit_cost' => $unitCost
                         ]
                     );
                     return $unitCost;

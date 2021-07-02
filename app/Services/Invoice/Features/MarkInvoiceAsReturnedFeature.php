@@ -9,7 +9,6 @@ use App\Domains\Accouting\Jobs\StoreDeliveredInvoiceCustomerTransactionJob;
 use App\Domains\Accouting\Jobs\StoreDeliveredInvoiceTaxTransactionsJob;
 use App\Domains\Document\Jobs\ChangeDocumentStatusJob;
 use App\Domains\Document\Jobs\StoreDocumentHistoryJob;
-use App\Domains\Invoice\Jobs\ValidateDeliverableInvoiceJob;
 use App\Domains\Invoice\Jobs\ValidateReturnableInvoiceJob;
 use App\Enums\AccountingTypeEnum;
 use App\Enums\DocumentStatusEnum;
@@ -28,7 +27,7 @@ class MarkInvoiceAsReturnedFeature extends Feature
         $this->document = $document;
     }
 
-    public function handle(Request $request): Document
+    public function handle(Request $request) : Document
     {
         return DB::transaction(
             function () {
@@ -53,7 +52,7 @@ class MarkInvoiceAsReturnedFeature extends Feature
                         [
                             'entry'    => $entry,
                             'document' => $this->document,
-                            'reverse' => true
+                            'reverse'  => true
                         ]
                     );
                     $this->run(
@@ -61,7 +60,7 @@ class MarkInvoiceAsReturnedFeature extends Feature
                         [
                             'entry'    => $entry,
                             'document' => $this->document,
-                            'reverse' => true
+                            'reverse'  => true
                         ]
                     );
                     $this->run(
@@ -69,17 +68,17 @@ class MarkInvoiceAsReturnedFeature extends Feature
                         [
                             'entry'    => $entry,
                             'document' => $this->document,
-                            'reverse' => true
+                            'reverse'  => true
                         ]
                     );
 
                     $this->run(
                         StoreDeliveredInvoiceCogsTransactionsJob::class,
                         [
-                            'entry'    => $entry,
+                            'entry'                 => $entry,
                             'inventoryTransactions' => $inventoryTransactions,
-                            'document' => $this->document,
-                            'reverse' => true
+                            'document'              => $this->document,
+                            'reverse'               => true
                         ]
                     );
 
@@ -88,20 +87,15 @@ class MarkInvoiceAsReturnedFeature extends Feature
                         [
                             'entry'    => $entry,
                             'document' => $this->document,
-                            'reverse' => true
+                            'reverse'  => true
                         ]
                     );
-
 
                     $entry->update(
                         [
                             'amount' => $entry->transactions()->where('type', AccountingTypeEnum::DEBIT())->sum('amount')
                         ]
                     );
-
-
-
-
 
                     $this->run(
                         ChangeDocumentStatusJob::class,
@@ -110,7 +104,6 @@ class MarkInvoiceAsReturnedFeature extends Feature
                             'documentStatusEnum' => DocumentStatusEnum::returned()
                         ]
                     );
-
 
                     $this->run(
                         StoreDocumentHistoryJob::class,

@@ -28,12 +28,12 @@ class StoreCompanyJob extends Job
         return Company::create(
             $request->only(
                 [
-                'name'     => $this->companyName,
-                'email'    => $this->companyEmail,
-                'domain'   => '',
-                'currency' => 'SAR',
-                'locale'   => 'ar-SA',
-                'enabled'  => '1',
+                    'name'     => $this->companyName,
+                    'email'    => $this->companyEmail,
+                    'domain'   => '',
+                    'currency' => 'SAR',
+                    'locale'   => 'ar-SA',
+                    'enabled'  => '1',
                 ]
             )
         );

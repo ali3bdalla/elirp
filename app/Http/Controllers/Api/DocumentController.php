@@ -4,16 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Document;
-use App\Services\Bill\Features\MarkBillAsPaidFeature;
 use App\Services\Bill\Features\MarkBillAsReceivedFeature;
 use App\Services\Bill\Features\MarkBillAsReturnedFeature;
 use App\Services\Document\Features\MarkDocumentAsPaidFeature;
 use App\Services\Document\Features\MarkDocumentAsRefundedFeature;
-use App\Services\Document\Features\MarkDocumentAsReturnedFeature;
 use App\Services\Document\Features\StoreDocumentFeature;
 use App\Services\Invoice\Features\MarkInvoiceAsDeliveredFeature;
 use App\Services\Invoice\Features\MarkInvoiceAsReturnedFeature;
-use Illuminate\Http\Request;
 
 class DocumentController extends Controller
 {
@@ -22,13 +19,12 @@ class DocumentController extends Controller
         return $this->serve(StoreDocumentFeature::class);
     }
 
-
     public function recieved(Document $document)
     {
         return $this->serve(
             MarkBillAsReceivedFeature::class,
             [
-            'document' => $document
+                'document' => $document
             ]
         );
     }
@@ -38,7 +34,7 @@ class DocumentController extends Controller
         return $this->serve(
             MarkDocumentAsPaidFeature::class,
             [
-            'document' => $document
+                'document' => $document
             ]
         );
     }
@@ -48,7 +44,7 @@ class DocumentController extends Controller
         return $this->serve(
             MarkDocumentAsRefundedFeature::class,
             [
-            'document' => $document
+                'document' => $document
             ]
         );
     }
@@ -58,7 +54,7 @@ class DocumentController extends Controller
         return $this->serve(
             MarkBillAsReturnedFeature::class,
             [
-            'document' => $document
+                'document' => $document
             ]
         );
     }
@@ -68,7 +64,7 @@ class DocumentController extends Controller
         return $this->serve(
             MarkInvoiceAsDeliveredFeature::class,
             [
-            'document' => $document
+                'document' => $document
             ]
         );
     }
@@ -78,7 +74,7 @@ class DocumentController extends Controller
         return $this->serve(
             MarkInvoiceAsReturnedFeature::class,
             [
-            'document' => $document
+                'document' => $document
             ]
         );
     }

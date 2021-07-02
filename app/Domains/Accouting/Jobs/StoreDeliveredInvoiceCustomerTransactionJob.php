@@ -34,7 +34,7 @@ class StoreDeliveredInvoiceCustomerTransactionJob extends Job
      */
     public function handle() : Transaction
     {
-        $payable = Account::default(AccountSlugsEnum::DEFAULT_RECEIVABLE_ACCOUNT());
+        $payable               = Account::default(AccountSlugsEnum::DEFAULT_RECEIVABLE_ACCOUNT());
         $data['entry_id']      = $this->entry->id;
         $data['is_pending']    = $this->entry->is_pending;
         $data['reference']     = uniqid('transaction_');

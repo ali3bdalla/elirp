@@ -3,7 +3,6 @@
 namespace Tests\Unit\Domains\Item\Jobs;
 
 use Tests\TestCase;
-use App\Domains\Item\Jobs\GetItemUnitCostJob;
 
 class GetItemUnitCostJobTest extends TestCase
 {

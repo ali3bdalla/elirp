@@ -31,7 +31,7 @@ class StoreDeliveredInvoiceCogsTransactionsJob extends Job
         foreach (collect($this->inventoryTransactions) as $item) {
             $cogsAmount = $cogsAmount + (round($item->unit_cost * $item->quantity, 2));
         }
-        $payable = Account::default(AccountSlugsEnum::DEFAULT_COGS_ACCOUNT());
+        $payable               = Account::default(AccountSlugsEnum::DEFAULT_COGS_ACCOUNT());
         $data['entry_id']      = $this->entry->id;
         $data['is_pending']    = $this->entry->is_pending;
         $data['reference']     = uniqid('transaction_');

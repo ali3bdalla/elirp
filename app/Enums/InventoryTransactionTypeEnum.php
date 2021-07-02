@@ -36,11 +36,11 @@ use Spatie\Enum\Laravel\Enum;
 
 class InventoryTransactionTypeEnum extends Enum
 {
-    public static function toLabels(): array
+    public static function toLabels() : array
     {
         return [
-            'IR' => "ITEM RECEIVED",
-            'IS' => "ITEM SOLD",
+            'IR' => 'ITEM RECEIVED',
+            'IS' => 'ITEM SOLD',
         ];
     }
 }

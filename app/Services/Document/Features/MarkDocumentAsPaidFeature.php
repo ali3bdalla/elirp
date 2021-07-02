@@ -21,61 +21,55 @@ class MarkDocumentAsPaidFeature extends Feature
     {
     }
 
-    public function handle(Request $request): Document
+    public function handle(Request $request) : Document
     {
         return DB::transaction(
             function () {
                 if ($this->run(
                     ValidatePayableDocumentJob::class,
                     [
-                    'document' => $this->document
+                        'document' => $this->document
                     ]
                 )
                 ) {
                     $entry = $this->run(
                         CreateBaseEntryJob::class,
                         [
-                        'documentId'  => $this->document->id,
-                        'description' => 'private-key::document_paid',
-                        'isPending'   => false
+                            'documentId'  => $this->document->id,
+                            'description' => 'private-key::document_paid',
+                            'isPending'   => false
                         ]
                     );
 
                     $payment = $this->run(
                         RegisterPaidDocumentPaymentsOperation::class,
                         [
-                             'entry'    => $entry,
+                            'entry'    => $entry,
                             'document' => $this->document
                         ]
                     );
 
-
                     $this->run(
                         StorePaidDocumentContactTransactionJob::class,
                         [
-                        'document' => $this->document,
-                        'payment' => $payment,
-                        'entry' => $entry
+                            'document' => $this->document,
+                            'payment'  => $payment,
+                            'entry'    => $entry
                         ]
                     );
                     $entry->update(
                         [
-                        'amount' => $entry->transactions()->where('type', AccountingTypeEnum::DEBIT())->sum('amount')
+                            'amount' => $entry->transactions()->where('type', AccountingTypeEnum::DEBIT())->sum('amount')
                         ]
                     );
-
-
-
-
 
                     $this->run(
                         ChangeDocumentStatusJob::class,
                         [
-                        'document'           => $this->document,
-                        'documentStatusEnum' => DocumentStatusEnum::paid()
+                            'document'           => $this->document,
+                            'documentStatusEnum' => DocumentStatusEnum::paid()
                         ]
                     );
-
 
                     $this->run(
                         StoreDocumentHistoryJob::class,

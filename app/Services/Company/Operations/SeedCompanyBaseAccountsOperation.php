@@ -38,32 +38,32 @@ class SeedCompanyBaseAccountsOperation extends Operation
                 $this->run(
                     SeedCompanyAccountingAssetsAccountsJob::class,
                     [
-                    'company' => $this->company
+                        'company' => $this->company
                     ]
                 );
                 $this->run(
                     SeedCompanyAccountingLiabilitiesAccountsJob::class,
                     [
-                    'company' => $this->company
+                        'company' => $this->company
                     ]
                 );
 
                 $this->run(
                     SeedCompanyAccountingEquityAccountsJob::class,
                     [
-                    'company' => $this->company
+                        'company' => $this->company
                     ]
                 );
                 $this->run(
                     SeedCompanyAccountingIncomeAccountsJob::class,
                     [
-                    'company' => $this->company
+                        'company' => $this->company
                     ]
                 );
                 $this->run(
                     SeedCompanyAccountingExpenseAccountsJob::class,
                     [
-                    'company' => $this->company
+                        'company' => $this->company
                     ]
                 );
             }

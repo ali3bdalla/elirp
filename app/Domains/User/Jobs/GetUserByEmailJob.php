@@ -14,7 +14,7 @@ class GetUserByEmailJob extends Job
      *
      * @return void
      */
-    public function __construct( $keycloakId = null)
+    public function __construct($keycloakId = null)
     {
         //
         $this->keycloakId = $keycloakId;

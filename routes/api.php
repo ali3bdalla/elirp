@@ -27,14 +27,14 @@ Route::middleware(['keycloak-web'])->group(
         Route::resource('contacts', ContactController::class);
         Route::resource('documents', DocumentController::class);
         Route::group(
-            ['prefix' => 'documents/{document}','as' => 'documents.'],
+            ['prefix' => 'documents/{document}', 'as' => 'documents.'],
             function () {
-                Route::put('received', [DocumentController::class,'recieved'])->name('received');
-                Route::put('paid', [DocumentController::class,'paid'])->name('paid');
-                Route::put('refunded', [DocumentController::class,'refunded'])->name('refunded');
-                Route::put('invoice_returned', [DocumentController::class,'invoiceReturned'])->name('invoice_returned');
-                Route::put('bill_returned', [DocumentController::class,'billReturned'])->name('bill_returned');
-                Route::put('delivered', [DocumentController::class,'delivered'])->name('delivered');
+                Route::put('received', [DocumentController::class, 'recieved'])->name('received');
+                Route::put('paid', [DocumentController::class, 'paid'])->name('paid');
+                Route::put('refunded', [DocumentController::class, 'refunded'])->name('refunded');
+                Route::put('invoice_returned', [DocumentController::class, 'invoiceReturned'])->name('invoice_returned');
+                Route::put('bill_returned', [DocumentController::class, 'billReturned'])->name('bill_returned');
+                Route::put('delivered', [DocumentController::class, 'delivered'])->name('delivered');
             }
         );
         Route::resource('accounts', AccountController::class);

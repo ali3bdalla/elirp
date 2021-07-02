@@ -37,7 +37,7 @@ class CreatePaymentMethodAccountJob extends Job
         $account->save();
         $this->paymentMethod->update(
             [
-            'account_id' => $account->id
+                'account_id' => $account->id
             ]
         );
 

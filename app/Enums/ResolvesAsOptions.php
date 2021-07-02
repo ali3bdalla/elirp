@@ -2,8 +2,9 @@
 
 namespace App\Enums;
 
-use Spatie\Enum\Laravel\Enum;
 use Illuminate\Support\Str;
+use Spatie\Enum\Laravel\Enum;
+
 /**
  * Trait ResolvesAsOptions.
  *
@@ -17,13 +18,13 @@ trait ResolvesAsOptions
     {
         $array = [];
 
-        if(count($values) === 0) {
+        if (count($values) === 0) {
             $values = static::toArray();
         }
 
         foreach ($values as $value => $label) {
             $array[] = ['value' => $value, 'label' => Str::studly($label)
-        ];
+            ];
         }
 
         return $array;

@@ -2,15 +2,15 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Cookie\Middleware\EncryptCookies as Middleware;
 use Illuminate\Contracts\Encryption\Encrypter as EncrypterContract;
+use Illuminate\Cookie\Middleware\EncryptCookies as Middleware;
 
 class EncryptCookies extends Middleware
 {
     public function __construct(EncrypterContract $encrypter)
     {
         parent::__construct($encrypter);
-        
+
         /**
          * This will disable in runtime.
          *
@@ -19,6 +19,7 @@ class EncryptCookies extends Middleware
          */
         $this->disableFor(config('session.cookie'));
     }
+
     /**
      * The names of the cookies that should not be encrypted.
      *

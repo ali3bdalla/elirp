@@ -96,7 +96,7 @@ class ValidateCreateNewUserJobTest extends TestCase
 
     public function test_validate_create_new_user_job()
     {
-         $password = $this->faker->password(25, 100);
+        $password = $this->faker->password(25, 100);
         $this->expectNotToPerformAssertions();
 
         $job = new ValidateCreateNewUserJob([

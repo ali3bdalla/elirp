@@ -3,7 +3,6 @@
 namespace Tests\Feature\Services\Invoice;
 
 use Tests\TestCase;
-use App\Services\Invoice\Features\MarkInvoiceAsDeliveredFeature;
 
 class MarkInvoiceAsDeliveredFeatureTest extends TestCase
 {

@@ -56,7 +56,7 @@ class DocumentItem extends ModelFrame
         return $this->hasMany(DocumentItemTax::class, 'document_item_id');
     }
 
-    public function item(): BelongsTo
+    public function item() : BelongsTo
     {
         return $this->BelongsTo(Item::class);
     }

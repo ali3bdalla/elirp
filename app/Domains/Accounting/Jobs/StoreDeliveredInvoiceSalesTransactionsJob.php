@@ -29,10 +29,8 @@ class StoreDeliveredInvoiceSalesTransactionsJob extends Job
     {
         $totalSalesAmount = $this->document->items()->sum('total');
 
-
-
         if ($totalSalesAmount) {
-            $salesIncomes = Account::default(AccountSlugsEnum::DEFAULT_SALES_INCOMES_ACCOUNT());
+            $salesIncomes          = Account::default(AccountSlugsEnum::DEFAULT_SALES_INCOMES_ACCOUNT());
             $data['entry_id']      = $this->entry->id;
             $data['is_pending']    = $this->entry->is_pending;
             $data['reference']     = uniqid('transaction_');
@@ -45,10 +43,9 @@ class StoreDeliveredInvoiceSalesTransactionsJob extends Job
             $salesIncomes->transactions()->create($data);
         }
 
-
         $totalSalesDiscountAmont = $this->document->items()->sum('discount');
         if ($totalSalesDiscountAmont) {
-            $salesDiscounts = Account::default(AccountSlugsEnum::DEFUALT_SALES_DISCOUNTS_ACCOUNT());
+            $salesDiscounts        = Account::default(AccountSlugsEnum::DEFUALT_SALES_DISCOUNTS_ACCOUNT());
             $data['entry_id']      = $this->entry->id;
             $data['is_pending']    = $this->entry->is_pending;
             $data['reference']     = uniqid('transaction_');

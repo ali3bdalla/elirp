@@ -2,14 +2,14 @@
 
 return [
     /**
-     * Keycloak Url
+     * Keycloak Url.
      *
      * Generally https://your-server.com/auth
      */
     'base_url' => env('KEYCLOAK_BASE_URL', ''),
 
     /**
-     * Keycloak Realm
+     * Keycloak Realm.
      *
      * Default is master
      */
@@ -23,14 +23,14 @@ return [
     'realm_public_key' => env('KEYCLOAK_REALM_PUBLIC_KEY', null),
 
     /**
-     * Keycloak Client ID
+     * Keycloak Client ID.
      *
      * @see Keycloak >> Clients >> Installation
      */
     'client_id' => env('KEYCLOAK_CLIENT_ID', null),
 
     /**
-     * Keycloak Client Secret
+     * Keycloak Client Secret.
      *
      * @see Keycloak >> Clients >> Installation
      */
@@ -38,21 +38,21 @@ return [
 
     /**
      * We can cache the OpenId Configuration
-     * The result from /realms/{realm-name}/.well-known/openid-configuration
+     * The result from /realms/{realm-name}/.well-known/openid-configuration.
      *
      * @link https://www.keycloak.org/docs/3.2/securing_apps/topics/oidc/oidc-generic.html
      */
     'cache_openid' => env('KEYCLOAK_CACHE_OPENID', false),
 
     /**
-     * Page to redirect after callback if there's no "intent"
+     * Page to redirect after callback if there's no "intent".
      *
      * @see Vizir\KeycloakWebGuard\Controllers\AuthController::callback()
      */
     'redirect_url' => '/',
 
     /**
-     * The routes for authenticate
+     * The routes for authenticate.
      *
      * Accept a string as the first parameter of route() or false to disable the route.
      *
@@ -61,16 +61,16 @@ return [
      * the Vizir\KeycloakWebGuard\Controllers\AuthController controller.
      */
     'routes' => [
-        'login' => 'login',
-        'logout' => 'logout',
+        'login'    => 'login',
+        'logout'   => 'logout',
         'register' => 'register',
-        'callback' => 'callback',
+        'callback' => 'auth.callback',
     ],
 
     /**
-    * GuzzleHttp Client options
+    * GuzzleHttp Client options.
     *
     * @link http://docs.guzzlephp.org/en/stable/request-options.html
     */
-   'guzzle_options' => [],
+    'guzzle_options' => [],
 ];

@@ -2,7 +2,6 @@
 
 namespace App\Services\Inventory\Operations;
 
-use App\Domains\Inventory\Jobs\CreateInventoryTransacitonJob;
 use App\Domains\Inventory\Jobs\GetCurrentInventoryJob;
 use App\Enums\DocumentTypeEnum;
 use App\Enums\InventoryTransactionTypeEnum;
@@ -27,10 +26,10 @@ class RegisterDocumentInventoryTransactionsOperation extends Operation
      *
      * @return array
      */
-    public function handle(): array
+    public function handle() : array
     {
         $transactions = [];
-        $inventory = $this->run(GetCurrentInventoryJob::class);
+        $inventory    = $this->run(GetCurrentInventoryJob::class);
 
         $type = InventoryTransactionTypeEnum::IS();
         if ($this->document->type->equals(DocumentTypeEnum::BILL())) {
@@ -43,12 +42,12 @@ class RegisterDocumentInventoryTransactionsOperation extends Operation
             $transactions[] = $this->run(
                 CreateInventoryTransactionOperation::class,
                 [
-                    'inventory' => $inventory,
-                    'item' => $documentItem->item,
-                    'quantity' => $documentItem->quantity,
+                    'inventory'    => $inventory,
+                    'item'         => $documentItem->item,
+                    'quantity'     => $documentItem->quantity,
                     'documentItem' => $documentItem,
-                    'type' => $type,
-                    'entry' => $this->entry,
+                    'type'         => $type,
+                    'entry'        => $this->entry,
                     'isReverseing' => $this->reverse
                 ]
             );

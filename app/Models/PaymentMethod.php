@@ -24,7 +24,7 @@ class PaymentMethod extends ModelFrame
 
     protected $guarded = [];
 
-    public function account(): BelongsTo
+    public function account() : BelongsTo
     {
         return $this->belongsTo(Account::class);
     }

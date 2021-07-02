@@ -3,7 +3,6 @@
 namespace Tests\Feature\Services\Document;
 
 use Tests\TestCase;
-use App\Services\Document\Features\MarkDocumentAsPaidFeature;
 
 class MarkDocumentAsPaidFeatureTest extends TestCase
 {

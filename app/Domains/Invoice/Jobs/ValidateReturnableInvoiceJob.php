@@ -28,11 +28,11 @@ class ValidateReturnableInvoiceJob extends Job
     public function handle()
     {
         if ($this->document->histories()->where('status', DocumentStatusEnum::returned())->first()
-            || !$this->document->histories()->where('status', DocumentStatusEnum::delivered())->first() || !$this->document->type->equals(DocumentTypeEnum::INVOICE())
+            || ! $this->document->histories()->where('status', DocumentStatusEnum::delivered())->first() || ! $this->document->type->equals(DocumentTypeEnum::INVOICE())
         ) {
             throw ValidationException::withMessages(
                 [
-                'status' => 'invalid document status'
+                    'status' => 'invalid document status'
                 ]
             );
         }

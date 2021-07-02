@@ -3,7 +3,6 @@
 namespace Tests\Feature\Services\Contact;
 
 use Tests\TestCase;
-use App\Services\Contact\Features\StoreContactFeature;
 
 class StoreContactFeatureTest extends TestCase
 {

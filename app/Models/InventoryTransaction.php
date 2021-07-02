@@ -24,6 +24,7 @@ class InventoryTransaction extends ModelFrame
     protected $casts = [
         'type' => InventoryTransactionTypeEnum::class
     ];
+
     public function inventory()
     {
         return $this->belongsTo(Inventory::class);

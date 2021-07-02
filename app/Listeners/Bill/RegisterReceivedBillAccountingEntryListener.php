@@ -5,7 +5,6 @@ namespace App\Listeners\Bill;
 use App\Events\Bill\BillHasBeenMarkedAsReceivedEvent;
 use App\Models\Entry;
 use App\Services\Accounting\Operations\StoreReceivedBillEntryOperation;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Lucid\Bus\UnitDispatcher;
 
 class RegisterReceivedBillAccountingEntryListener

@@ -28,20 +28,20 @@ class CreatePaymentAccountingTransactionJob extends Job
      */
     public function handle()
     {
-        $account = $this->payment->paymentMethod?->account;
+        $account         = $this->payment->paymentMethod?->account;
         $transactionType = $this->payment->type->equals(PaymentTypeEnum::PAYMENT()) ? AccountingTypeEnum::CREDIT() : AccountingTypeEnum::DEBIT();
-        $amount =round($this->payment->amount, 2);
+        $amount          =round($this->payment->amount, 2);
         return Transaction::create(
             [
-                'document_id' => $this->payment->document_id,
-                'account_id' => $account->id,
-                'payment_id' => $this->payment->id,
-                'amount' => $amount,
-                'type' => $transactionType,
-                'entry_id' => $this->entry->id,
+                'document_id'   => $this->payment->document_id,
+                'account_id'    => $account->id,
+                'payment_id'    => $this->payment->id,
+                'amount'        => $amount,
+                'type'          => $transactionType,
+                'entry_id'      => $this->entry->id,
                 'currency_code' => 'USD',
                 'currency_rate' => 1,
-                'company_id' => company_id(),
+                'company_id'    => company_id(),
             ]
         );
     }

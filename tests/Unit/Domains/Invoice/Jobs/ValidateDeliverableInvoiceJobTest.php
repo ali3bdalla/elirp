@@ -3,7 +3,6 @@
 namespace Tests\Unit\Domains\Invoice\Jobs;
 
 use Tests\TestCase;
-use App\Domains\Invoice\Jobs\ValidateDeliverableInvoiceJob;
 
 class ValidateDeliverableInvoiceJobTest extends TestCase
 {

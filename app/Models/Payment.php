@@ -24,6 +24,7 @@ class Payment extends ModelFrame
     protected $casts = [
         'type' => PaymentTypeEnum::class
     ];
+
     public function paymentMethod() : BelongsTo
     {
         return $this->belongsTo(PaymentMethod::class);

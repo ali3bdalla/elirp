@@ -3,7 +3,6 @@
 namespace Tests\Feature\Services\Inventory;
 
 use Tests\TestCase;
-use App\Services\Inventory\Features\StoreReceviedBillInventoryTransactionsFeature;
 
 class StoreReceviedBillInventoryTransactionsFeatureTest extends TestCase
 {

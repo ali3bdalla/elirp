@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Web;
 use App\Enums\DocumentTypeEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Document;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class BillController extends Controller
@@ -15,22 +14,23 @@ class BillController extends Controller
         return Inertia::render(
             'Documents/Index',
             [
-            'type' => DocumentTypeEnum::BILL()->value,
-            'title' => 'Bill',
-            'create_url' => route('bills.create'),
-            'url' => route('bills.index')
+                'type'       => DocumentTypeEnum::BILL()->value,
+                'title'      => 'Bill',
+                'create_url' => route('bills.create'),
+                'url'        => route('bills.index')
             ]
         );
     }
+
     public function create()
     {
         return Inertia::render(
             'Documents/Create',
             [
-            'document_number' => Document::generatedNextDocumentNumber(DocumentTypeEnum::BILL()),
-            'type' => DocumentTypeEnum::BILL()->label,
-            'title' => 'Bill',
-            'url' => route('bills.index')
+                'document_number' => Document::generatedNextDocumentNumber(DocumentTypeEnum::BILL()),
+                'type'            => DocumentTypeEnum::BILL()->label,
+                'title'           => 'Bill',
+                'url'             => route('bills.index')
             ]
         );
     }
@@ -40,10 +40,10 @@ class BillController extends Controller
         return Inertia::render(
             'Documents/Edit',
             [
-            'type' => $bill->type,
-            'document' => $bill->load('items.item', 'contact', 'histories.createdBy', 'transactions.account', 'inventoryTransactions.item'),
-            'title' => 'Bill',
-            'url' => route('bills.index')
+                'type'     => $bill->type,
+                'document' => $bill->load('items.item', 'contact', 'histories.createdBy', 'transactions.account', 'inventoryTransactions.item'),
+                'title'    => 'Bill',
+                'url'      => route('bills.index')
             ]
         );
     }

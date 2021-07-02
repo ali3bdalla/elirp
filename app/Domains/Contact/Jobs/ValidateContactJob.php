@@ -8,6 +8,7 @@ use Lucid\Units\Job;
 class ValidateContactJob extends Job
 {
     public FormRequest $request;
+
     /**
      * Create a new job instance.
      *
@@ -25,17 +26,17 @@ class ValidateContactJob extends Job
      */
     public function handle()
     {
-       $this->request->validate([
-            'email'                 => 'nullable|email:rfc,dns,spoof,filter,strict',
-            'reference'              => 'nullable|min:3|string|max:200',
+        $this->request->validate([
+            'email'                         => 'nullable|email:rfc,dns,spoof,filter,strict',
+            'reference'                     => 'nullable|min:3|string|max:200',
             'website'                       => 'nullable|string|active_url',
-            'tax_number'              => 'nullable|min:3|string|max:200',
-            'phone'              => 'nullable|min:8|string|max:200',
-            'address'              => 'nullable|min:3|string|max:200',
-            'is_vendor'              => 'required|boolean',
-            'is_customer'              => 'required|boolean',
-            'currency_code'              => 'nullable|min:2|string|max:4',
-            'name'                  => 'required|string|max:30'
+            'tax_number'                    => 'nullable|min:3|string|max:200',
+            'phone'                         => 'nullable|min:8|string|max:200',
+            'address'                       => 'nullable|min:3|string|max:200',
+            'is_vendor'                     => 'required|boolean',
+            'is_customer'                   => 'required|boolean',
+            'currency_code'                 => 'nullable|min:2|string|max:4',
+            'name'                          => 'required|string|max:30'
         ]);
     }
 }

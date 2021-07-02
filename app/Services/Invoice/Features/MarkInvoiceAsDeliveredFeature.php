@@ -27,55 +27,54 @@ class MarkInvoiceAsDeliveredFeature extends Feature
         $this->document = $document;
     }
 
-    public function handle(Request $request): Document
+    public function handle(Request $request) : Document
     {
         return DB::transaction(
             function () {
                 if ($this->run(
                     ValidateDeliverableInvoiceJob::class,
                     [
-                    'document' => $this->document
+                        'document' => $this->document
                     ]
                 )
                 ) {
                     $entry = $this->run(
                         CreateBaseEntryJob::class,
                         [
-                        'documentId'  => $this->document->id,
-                        'description' => 'private-key::invoice_delivered',
-                        'isPending'   => false
+                            'documentId'  => $this->document->id,
+                            'description' => 'private-key::invoice_delivered',
+                            'isPending'   => false
                         ]
                     );
 
                     $inventoryTransactions =  $this->run(
                         RegisterDocumentInventoryTransactionsOperation::class,
                         [
-                             'entry'    => $entry,
+                            'entry'    => $entry,
                             'document' => $this->document
                         ]
                     );
                     $this->run(
                         StoreDeliveredInvoiceCustomerTransactionJob::class,
                         [
-                        'entry'    => $entry,
-                        'document' => $this->document
+                            'entry'    => $entry,
+                            'document' => $this->document
                         ]
                     );
                     $this->run(
                         StoreDeliveredInvoiceTaxTransactionsJob::class,
                         [
-                        'entry'    => $entry,
-                        'document' => $this->document
+                            'entry'    => $entry,
+                            'document' => $this->document
                         ]
                     );
-
 
                     $this->run(
                         StoreDeliveredInvoiceCogsTransactionsJob::class,
                         [
-                            'entry'    => $entry,
+                            'entry'                 => $entry,
                             'inventoryTransactions' => $inventoryTransactions,
-                            'document' => $this->document
+                            'document'              => $this->document
                         ]
                     );
 
@@ -87,32 +86,26 @@ class MarkInvoiceAsDeliveredFeature extends Feature
                         ]
                     );
 
-
                     $entry->update(
                         [
-                        'amount' => $entry->transactions()->where('type', AccountingTypeEnum::DEBIT())->sum('amount')
+                            'amount' => $entry->transactions()->where('type', AccountingTypeEnum::DEBIT())->sum('amount')
                         ]
                     );
-
-
-
-
 
                     $this->run(
                         ChangeDocumentStatusJob::class,
                         [
-                        'document'           => $this->document,
-                        'documentStatusEnum' => DocumentStatusEnum::delivered()
+                            'document'           => $this->document,
+                            'documentStatusEnum' => DocumentStatusEnum::delivered()
                         ]
                     );
-
 
                     $this->run(
                         StoreDocumentHistoryJob::class,
                         [
-                        'document'    => $this->document->fresh(),
-                        'notify'      => 0,
-                        'description' => 'Marked as Delivered'
+                            'document'    => $this->document->fresh(),
+                            'notify'      => 0,
+                            'description' => 'Marked as Delivered'
                         ]
                     );
 

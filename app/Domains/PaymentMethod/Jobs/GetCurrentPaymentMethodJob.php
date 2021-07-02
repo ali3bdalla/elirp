@@ -18,7 +18,6 @@ class GetCurrentPaymentMethodJob extends Job
         //
     }
 
-
     /**
      * Execute the job.
      *
@@ -27,8 +26,8 @@ class GetCurrentPaymentMethodJob extends Job
     public function handle() : PaymentMethod
     {
         $paymentMethod = PaymentMethod::first();
-        if (!$paymentMethod) {
-            $createJob = new SeedCompanyCashPaymentMethodJob(company());
+        if (! $paymentMethod) {
+            $createJob    = new SeedCompanyCashPaymentMethodJob(company());
             $paymentMethod= $createJob->handle();
         }
         return $paymentMethod;

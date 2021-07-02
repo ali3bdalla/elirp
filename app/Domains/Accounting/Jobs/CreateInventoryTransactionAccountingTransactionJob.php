@@ -28,24 +28,24 @@ class CreateInventoryTransactionAccountingTransactionJob extends Job
      */
     public function handle()
     {
-        $account = $this->inventoryTransaction->inventory?->account;
+        $account         = $this->inventoryTransaction->inventory?->account;
         $transactionType = $this->inventoryTransaction->type->equals(InventoryTransactionTypeEnum::IR()) ? AccountingTypeEnum::DEBIT() : AccountingTypeEnum::CREDIT();
 
         $amount =round($this->inventoryTransaction->unit_cost * $this->inventoryTransaction->quantity, 2);
 
         return Transaction::create(
             [
-                'document_id' => $this->inventoryTransaction->document_id,
+                'document_id'              => $this->inventoryTransaction->document_id,
                 'inventory_transaction_id' => $this->inventoryTransaction->id,
-                'document_item_id' => $this->inventoryTransaction->document_item_id,
-                'account_id' => $account->id,
-                'amount' => $amount,
-                'type' => $transactionType,
-                'entry_id' => $this->entry->id,
-                'item_id' => $this->inventoryTransaction->item_id,
-                'currency_code' => 'USD',
-                'currency_rate' => 1,
-                'company_id' => company_id(),
+                'document_item_id'         => $this->inventoryTransaction->document_item_id,
+                'account_id'               => $account->id,
+                'amount'                   => $amount,
+                'type'                     => $transactionType,
+                'entry_id'                 => $this->entry->id,
+                'item_id'                  => $this->inventoryTransaction->item_id,
+                'currency_code'            => 'USD',
+                'currency_rate'            => 1,
+                'company_id'               => company_id(),
             ]
         );
     }

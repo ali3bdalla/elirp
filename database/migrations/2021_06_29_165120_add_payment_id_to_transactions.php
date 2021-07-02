@@ -16,7 +16,7 @@ class AddPaymentIdToTransactions extends Migration
         Schema::table('transactions', function (Blueprint $table) {
             $table->unsignedBigInteger('payment_id')->nullable();
 
-                $table->foreign('payment_id')->references('id')->on('payments');
+            $table->foreign('payment_id')->references('id')->on('payments');
         });
     }
 

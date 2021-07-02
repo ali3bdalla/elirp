@@ -22,6 +22,7 @@ class RegisterPaidDocumentPaymentsOperation extends Operation
     {
         //
     }
+
     /**
      * Execute the operation.
      *
@@ -30,27 +31,26 @@ class RegisterPaidDocumentPaymentsOperation extends Operation
     public function handle()
     {
         $paymentMethod = $this->run(GetCurrentPaymentMethodJob::class);
-        $parameters = [
-            'amount' => $this->document->amount,
-            'document_id' => $this->document->id,
+        $parameters    = [
+            'amount'            => $this->document->amount,
+            'document_id'       => $this->document->id,
             'payment_method_id' => $paymentMethod->id,
-            'contact_id' => $this->document->contact_id,
-            'type' =>
-            $this->document->type->equals(DocumentTypeEnum::BILL()) ? PaymentTypeEnum::PAYMENT() : PaymentTypeEnum::RECEIPT()
+            'contact_id'        => $this->document->contact_id,
+            'type'              => $this->document->type->equals(DocumentTypeEnum::BILL()) ? PaymentTypeEnum::PAYMENT() : PaymentTypeEnum::RECEIPT()
         ];
 
         $payment = $this->run(
             CreatePaymentJob::class,
             [
-            'data' => $parameters
+                'data' => $parameters
             ]
         );
 
         $this->run(
             CreatePaymentAccountingTransactionJob::class,
             [
-            'payment' =>$payment,
-            'entry' => $this->entry
+                'payment' => $payment,
+                'entry'   => $this->entry
             ]
         );
 

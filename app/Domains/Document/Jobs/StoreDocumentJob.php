@@ -38,10 +38,10 @@ class StoreDocumentJob extends Job
             'contact_id'      => 'required|integer|exists:contacts,id',
             'document_number' => 'required|string',
 
-            'status'          => ['required','string',new EnumRule(DocumentStatusEnum::class)],
+            'status'          => ['required', 'string', new EnumRule(DocumentStatusEnum::class)],
             'issued_at'       => 'required|date',
             'due_at'          => 'required|date',
-            'notes'          => 'nullable|string|max:500',
+            'notes'           => 'nullable|string|max:500',
             'currency_code'   => 'required|string|currency',
             'currency_rate'   => 'required|numeric',
         ]);
@@ -57,7 +57,7 @@ class StoreDocumentJob extends Job
         $document->contact_address = $contact->address;
         $document->footer          = $this->request->input('footer');
         $document->notes           = $this->request->input('notes');
-        $document->amount          = $this->request->input('amount',0);
+        $document->amount          = $this->request->input('amount', 0);
         $document->issued_at       = $this->request->input('issued_at');
         $document->due_at          = $this->request->input('due_at');
         $document->status          = $this->request->input('status');

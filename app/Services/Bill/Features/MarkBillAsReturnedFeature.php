@@ -22,7 +22,7 @@ class MarkBillAsReturnedFeature extends Feature
     {
     }
 
-    public function handle(Request $request): Document
+    public function handle(Request $request) : Document
     {
         return DB::transaction(
             function () {
@@ -47,7 +47,7 @@ class MarkBillAsReturnedFeature extends Feature
                         [
                             'entry'    => $entry,
                             'document' => $this->document,
-                            'reverse' => true
+                            'reverse'  => true
                         ]
                     );
                     $this->run(
@@ -55,7 +55,7 @@ class MarkBillAsReturnedFeature extends Feature
                         [
                             'entry'    => $entry,
                             'document' => $this->document,
-                            'reverse' => true
+                            'reverse'  => true
                         ]
                     );
                     $this->run(
@@ -63,7 +63,7 @@ class MarkBillAsReturnedFeature extends Feature
                         [
                             'entry'    => $entry,
                             'document' => $this->document,
-                            'reverse' => true
+                            'reverse'  => true
                         ]
                     );
 
@@ -73,7 +73,6 @@ class MarkBillAsReturnedFeature extends Feature
                         ]
                     );
 
-
                     $this->run(
                         ChangeDocumentStatusJob::class,
                         [
@@ -81,7 +80,6 @@ class MarkBillAsReturnedFeature extends Feature
                             'documentStatusEnum' => DocumentStatusEnum::returned()
                         ]
                     );
-
 
                     $this->run(
                         StoreDocumentHistoryJob::class,

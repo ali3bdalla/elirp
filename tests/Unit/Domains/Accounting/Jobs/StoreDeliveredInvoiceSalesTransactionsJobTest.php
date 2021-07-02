@@ -3,7 +3,6 @@
 namespace Tests\Unit\Domains\Accounting\Jobs;
 
 use Tests\TestCase;
-use App\Domains\Accounting\Jobs\StoreDeliveredInvoiceSalesTransactionsJob;
 
 class StoreDeliveredInvoiceSalesTransactionsJobTest extends TestCase
 {

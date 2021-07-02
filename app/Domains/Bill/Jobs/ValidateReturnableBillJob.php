@@ -28,11 +28,11 @@ class ValidateReturnableBillJob extends Job
     public function handle()
     {
         if ($this->document->histories()->where('status', DocumentStatusEnum::returned())->first()
-            || !$this->document->histories()->where('status', DocumentStatusEnum::received())->first() || !$this->document->type->equals(DocumentTypeEnum::BILL())
+            || ! $this->document->histories()->where('status', DocumentStatusEnum::received())->first() || ! $this->document->type->equals(DocumentTypeEnum::BILL())
         ) {
             throw ValidationException::withMessages(
                 [
-                'status' => 'invalid document status'
+                    'status' => 'invalid document status'
                 ]
             );
         }

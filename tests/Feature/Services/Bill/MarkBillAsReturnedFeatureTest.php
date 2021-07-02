@@ -3,7 +3,6 @@
 namespace Tests\Feature\Services\Bill;
 
 use Tests\TestCase;
-use App\Services\Bill\Features\MarkBillAsReturnedFeature;
 
 class MarkBillAsReturnedFeatureTest extends TestCase
 {

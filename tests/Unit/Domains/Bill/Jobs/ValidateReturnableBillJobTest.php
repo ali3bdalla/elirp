@@ -3,7 +3,6 @@
 namespace Tests\Unit\Domains\Bill\Jobs;
 
 use Tests\TestCase;
-use App\Domains\Bill\Jobs\ValidateReturnableBillJob;
 
 class ValidateReturnableBillJobTest extends TestCase
 {

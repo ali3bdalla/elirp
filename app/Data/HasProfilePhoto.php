@@ -1,11 +1,10 @@
 <?php
-    
-    
+
     namespace App\Data;
 
     use Illuminate\Http\UploadedFile;
     use Illuminate\Support\Facades\Storage;
-    
+
     trait HasProfilePhoto
     {
         /**
@@ -19,16 +18,17 @@
             tap($this->profile_photo_path, function ($previous) use ($photo) {
                 $this->forceFill([
                     'profile_photo_path' => $photo->storePublicly(
-                        'profile-photos', ['disk' => $this->profilePhotoDisk()]
+                        'profile-photos',
+                        ['disk' => $this->profilePhotoDisk()]
                     ),
                 ])->save();
-            
+
                 if ($previous) {
                     Storage::disk($this->profilePhotoDisk())->delete($previous);
                 }
             });
         }
-    
+
         /**
          * Delete the user's profile photo.
          *
@@ -36,14 +36,13 @@
          */
         public function deleteProfilePhoto()
         {
-         
             Storage::disk($this->profilePhotoDisk())->delete($this->profile_photo_path);
-        
+
             $this->forceFill([
                 'profile_photo_path' => null,
             ])->save();
         }
-    
+
         /**
          * Get the URL to the user's profile photo.
          *
@@ -55,7 +54,7 @@
                 ? Storage::disk($this->profilePhotoDisk())->url($this->profile_photo_path)
                 : $this->defaultProfilePhotoUrl();
         }
-    
+
         /**
          * Get the default profile photo URL if no profile photo has been uploaded.
          *
@@ -65,7 +64,7 @@
         {
             return 'https://ui-avatars.com/api/?name='.urlencode($this->name).'&color=7F9CF5&background=EBF4FF';
         }
-    
+
         /**
          * Get the disk that profile photos should be stored on.
          *

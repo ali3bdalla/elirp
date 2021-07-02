@@ -22,7 +22,7 @@ class CreateInventoryTransacitonJob extends Job
      *
      * @return InventoryTransaction
      */
-    public function handle(): InventoryTransaction
+    public function handle() : InventoryTransaction
     {
         $this->data['company_id'] = company_id();
         return InventoryTransaction::create($this->data);

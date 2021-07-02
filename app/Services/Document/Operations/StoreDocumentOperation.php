@@ -2,7 +2,6 @@
 
 namespace App\Services\Document\Operations;
 
-use App\Domains\Document\Jobs\CreateDocumentRecurringJob;
 use App\Domains\Document\Jobs\StoreDocumentHistoryJob;
 use App\Domains\Document\Jobs\StoreDocumentJob;
 use App\Domains\Document\Jobs\StoreDocumentTotalJob;
@@ -43,38 +42,38 @@ class StoreDocumentOperation extends Operation
                 $document = $this->run(
                     StoreDocumentJob::class,
                     [
-                    'request'          => $this->request,
-                    'documentTypeEnum' => $this->documentTypeEnum
+                        'request'          => $this->request,
+                        'documentTypeEnum' => $this->documentTypeEnum
                     ]
                 );
                 $this->run(
                     UploadDocumentAttachmentJob::class,
                     [
-                    'document' => $document,
-                    'request'  => $this->request
+                        'document' => $document,
+                        'request'  => $this->request
                     ]
                 );
                 $items = $this->run(
                     StoreDocumentItemsOperation::class,
                     [
-                    'request'  => $this->request,
-                    'discount' => $this->request->input('discount', 0),
-                    'document' => $document
+                        'request'  => $this->request,
+                        'discount' => $this->request->input('discount', 0),
+                        'document' => $document
                     ]
                 );
                 $this->run(
                     StoreDocumentTotalJob::class,
                     [
-                    'document' => $document,
+                        'document' => $document,
                     ]
                 );
 
                 $this->run(
                     StoreDocumentHistoryJob::class,
                     [
-                    'document'    => $document,
-                    'notify'      => 0,
-                    'description' => "Created As Draft"
+                        'document'    => $document,
+                        'notify'      => 0,
+                        'description' => 'Created As Draft'
                     ]
                 );
                 if ($document->type == DocumentTypeEnum::INVOICE()) {

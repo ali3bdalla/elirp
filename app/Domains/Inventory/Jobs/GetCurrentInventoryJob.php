@@ -26,9 +26,9 @@ class GetCurrentInventoryJob extends Job
     public function handle() : Inventory
     {
         $inventory = Inventory::first();
-        if (!$inventory) {
+        if (! $inventory) {
             $createJob = new SeedCompanyMainInventoryJob(company());
-            $inventory= $createJob->handle();
+            $inventory = $createJob->handle();
         }
         return $inventory;
     }

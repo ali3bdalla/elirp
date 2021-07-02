@@ -10,8 +10,6 @@ use Lucid\Units\Job;
 
 class CreateInventoryAccountJob extends Job
 {
-
-
     /**
      * Create a new job instance.
      *
@@ -39,7 +37,7 @@ class CreateInventoryAccountJob extends Job
         $account->save();
         $this->inventory->update(
             [
-            'account_id' => $account->id
+                'account_id' => $account->id
             ]
         );
 

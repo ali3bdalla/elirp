@@ -43,7 +43,7 @@ class DocumentItemFactory extends Factory
             'item_id'       => null,
             'quantity'      => $quantity,
             'price'         => $price,
-            'discount' => $discountRate,
+            'discount'      => $discountRate,
             'subtotal'      => $subtotal,
             'total'         => $total,
             'tax'           => 0,

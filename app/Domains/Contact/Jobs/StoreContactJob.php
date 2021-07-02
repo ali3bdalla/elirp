@@ -14,7 +14,6 @@ class StoreContactJob extends Job
      */
     public function __construct(public array $data)
     {
-
     }
 
     /**
@@ -24,7 +23,7 @@ class StoreContactJob extends Job
      */
     public function handle() : Contact
     {
-        $data = $this->data;
+        $data               = $this->data;
         $data['company_id'] = company_id();
         return Contact::create($data);
     }

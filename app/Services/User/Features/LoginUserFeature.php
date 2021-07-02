@@ -8,38 +8,37 @@
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Str;
-    use Laravel\Socialite\Two\User as SocialiteUser;
     use Lucid\Units\Feature;
 
 class LoginUserFeature extends Feature
 {
-    private SocialiteUser $user;
-    private string $driver;
+    private $keycloakId;
+    private $keycloakProfile;
 
-    public function __construct(SocialiteUser $user, string $driver)
+    public function __construct($keycloakId, $keycloakProfile = [])
     {
-        $this->user  =$user;
-        $this->driver=$driver;
+        $this->keycloakId     =$keycloakId;
+        $this->keycloakProfile=collect($keycloakProfile);
     }
 
     public function handle(Request $request)
     {
-        $keycloakId   =$this->user->getId();
-        $authUser=$this->run(GetUserByEmailJob::class, ['keycloakId'=>$keycloakId]);
+        $authUser=$this->run(GetUserByEmailJob::class, ['keycloakId'=>$this->keycloakId]);
         if (! $authUser) {
-            $authUser=$this->run(CreateCompanyFeature::class, ['request'=>[
-                'keycloakId' => $this->user->getId(),
-                'name'=>$this->user->getName(), 'email'=>$this->user->getEmail(), 'password'=>Str::random(20)]]);
+            $authUser=$this->run(CreateCompanyFeature::class, ['request'=> [
+                'keycloakId' => $this->keycloakId,
+                'name'       => $this->keycloakProfile->get('name'), 'email'=>$this->keycloakProfile->get('password'), 'password'=>Str::random(20)]]);
         }
         $authUser->update(
             [
-                'name'=>$this->user->getName(),
-                'email'=>$this->user->getEmail(),
-            'email_verified_at' => now()
-                ]
+                'keycloak_id' =>  $this->keycloakId,
+                'name'              => $this->keycloakProfile->get('name'),
+                'email'             => $this->keycloakProfile->get('email'),
+                'email_verified_at' => now()
+            ]
         );
-        Auth::login($authUser);
-        $this->run(CreateUserClientTokenJob::class, ['user'=>$authUser, 'expiresIn'=>$this->user->expiresIn, 'token'=>$this->user->token, 'name'=>$this->user->getName(), 'email'=>$this->user->getEmail(), 'id'=>$this->user->getId(), 'avatar'=>$this->user->getAvatar(), 'nickname'=>$this->user->getNickname(), ]);
+        Auth::guard('web')->login($authUser);
+//        $this->run(CreateUserClientTokenJob::class, ['user'=>$authUser, 'expiresIn'=>$this->user->expiresIn, 'token'=>$this->user->token, 'name'=>$this->user->getName(), 'email'=>$this->user->getEmail(), 'id'=>$this->user->getId(), 'avatar'=>$this->user->getAvatar(), 'nickname'=>$this->user->getNickname(), ]);
         return redirect(route('dashboard'));
     }
 }

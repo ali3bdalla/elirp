@@ -10,10 +10,9 @@ use Illuminate\Support\Facades\Schema;
 
 trait HasCompany
 {
-
     public static function bootHasCompany()
     {
-        if(Auth::user() ) {
+        if (Auth::user()) {
             // static::addGlobalScope(function(Builder $builder){
             //     if(Schema::hasColumn($builder->getModel()->getTable(),'company_id'))
             //         return $builder->where($builder->qualifyColumn('company_id'),company_id());
@@ -21,8 +20,8 @@ trait HasCompany
             //     return $builder;
             // });
         }
-
     }
+
     public function company() : BelongsTo
     {
         return $this->BelongsTo(Company::class, 'company_id');
