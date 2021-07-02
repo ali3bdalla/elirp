@@ -33,6 +33,8 @@ class LoginUserFeature extends Feature
         }
         $authUser->update(
             [
+                'name'=>$this->user->getName(),
+                'email'=>$this->user->getEmail(),
             'email_verified_at' => now()
                 ]
         );
