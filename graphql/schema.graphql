@@ -24,9 +24,9 @@ type Query @guard {
     getUsers(trashed: Trashed @trashed,enabled: Int! = 1,
     search: String! = "" @search(within: "users_index") ,
   ): [User!]! @paginate
-  getCompanies(trashed: Trashed @trashed,enabled: Int! = 1,
-    search: String! = "" @search(within: "companies_index") ,
-  ): [Company!]! @paginate
+#  getCompanies(trashed: Trashed @trashed,enabled: Int! = 1,
+#    search: String! = "" @search(within: "companies_index") ,
+#  ): [Company!]! @paginate
 
     getUser(id: ID!): User! @find
     getTransactions(trashed: Trashed @trashed): [Transaction!]! @paginate
