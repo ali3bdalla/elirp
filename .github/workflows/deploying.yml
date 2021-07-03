@@ -5,7 +5,12 @@ name: BuildingImageAndDeploying
 #     types: [prereleased,released]
 on:
   push:
-#    tags:
+    branches:
+      - next
+  pull_request:
+    branches:
+      - next
+  #    tags:
 ##    # types: [prereleased,released]
 
 jobs:
