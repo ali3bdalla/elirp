@@ -16,10 +16,12 @@ class CreateItemTaxesTable extends Migration
         Schema::create('item_taxes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('company_id');
-            $table->integer('item_id');
-            $table->integer('tax_id')->nullable();
+            $table->unsignedBigInteger('item_id');
+            $table->unsignedBigInteger('tax_id');
             $table->boolean('enabled')->default(true);
             $table->foreign('company_id')->references('id')->on('companies');
+            $table->foreign('item_id')->references('id')->on('items');
+            $table->foreign('tax_id')->references('id')->on('taxes');
             $table->timestamps();
             $table->softDeletes();
         });
