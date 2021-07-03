@@ -36,6 +36,7 @@ use Illuminate\Support\Str;
  * @property mixed currency_rate
  * @property mixed histories()
  * @property integer id
+ * @property Contact contact
  */
 class Document extends ModelFrame
 {

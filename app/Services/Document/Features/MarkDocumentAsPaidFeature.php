@@ -10,6 +10,7 @@ use App\Domains\Document\Jobs\ValidatePayableDocumentJob;
 use App\Enums\AccountingTypeEnum;
 use App\Enums\DocumentStatusEnum;
 use App\Models\Document;
+use App\Notifications\Document\DocumentPaidNotification;
 use App\Services\Payment\Operations\RegisterPaidDocumentPaymentsOperation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -79,7 +80,7 @@ class MarkDocumentAsPaidFeature extends Feature
                             'description' => 'Marked as Paid'
                         ]
                     );
-
+                    $this->document->contact->notify(new DocumentPaidNotification($this->document));
                     return $this->document;
                 }
             }

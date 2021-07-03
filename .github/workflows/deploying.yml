@@ -69,3 +69,4 @@ jobs:
             sed -i "s/^buildVersion:.*$/buildVersion: ${{ github.run_number }}/" values.yaml
             helm upgrade --install elirp  --version=${{ github.run_number }} -f values.yaml . --set image.tag=latest
             exit
+            exit

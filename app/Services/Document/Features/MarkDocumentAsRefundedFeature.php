@@ -10,6 +10,7 @@ use App\Domains\Document\Jobs\ValidateRefundableDocumentJob;
 use App\Enums\AccountingTypeEnum;
 use App\Enums\DocumentStatusEnum;
 use App\Models\Document;
+use App\Notifications\Document\DocumentRefundedNotification;
 use App\Services\Payment\Operations\RegisterRefundedDocumentPaymentsOperation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -79,7 +80,7 @@ class MarkDocumentAsRefundedFeature extends Feature
                             'description' => 'Marked as Paid'
                         ]
                     );
-
+                    $this->document->contact->notify(new DocumentRefundedNotification($this->document));
                     return $this->document;
                 }
             }

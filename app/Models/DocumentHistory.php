@@ -17,8 +17,8 @@ class DocumentHistory extends ModelFrame
 
     protected $casts = [
         'created_at' => 'datetime:Y-m-d',
-        'type'       => DocumentTypeEnum::class .':nullable',
-        'status'     => DocumentStatusEnum::class .':nullable',
+        'type'       => DocumentTypeEnum::class.':nullable',
+        'status'     => DocumentStatusEnum::class.':nullable',
     ];
 
     protected $fillable = [

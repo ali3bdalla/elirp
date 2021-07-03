@@ -10,10 +10,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class DocumentDraftedNotification extends Notification implements ShouldQueue
+class DocumentRefundedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
     use DocumentNotification;
+
     private Document $document;
 
     /**
@@ -29,22 +30,13 @@ class DocumentDraftedNotification extends Notification implements ShouldQueue
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
-        $invoice = $this->run(GetDocumentPdfJob::class, ['document' => $this->document]);
-        $type    = $this->document->type->equals(DocumentTypeEnum::INVOICE()) ? 'Sales' : 'Purchase';
-        return (new MailMessage)
-            ->subject($this->document->document_number.' Has Been Created As Draft '.$type)
-            ->greeting('Dear '.$notifiable->name.'!')
-            ->line('Document: '.$this->document->document_number.' has been created!')
-            ->line('please have look into this mail attachments')
-            ->line('Thank you for using our application!')
-            ->attachData($invoice->download(), $this->document->document_number.'.pdf', [
-                'mime' => 'application/pdf',
-            ]);
+        $invoice=$this->run(GetDocumentPdfJob::class, ['document'=>$this->document]);
+        return (new MailMessage)->subject($this->document->document_number.' Refunded ')->greeting('Dear '.$notifiable->name.'!')->line('Document: '.$this->document->document_number.'  has been refunded!')->line('please have look into this mail attachments')->line('Thank you for using our application!')->attachData($invoice->download(), $this->document->document_number.'.pdf', ['mime'=>'application/pdf', ]);
     }
 
     /**

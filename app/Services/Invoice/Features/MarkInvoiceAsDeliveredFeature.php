@@ -13,6 +13,7 @@ use App\Domains\Invoice\Jobs\ValidateDeliverableInvoiceJob;
 use App\Enums\AccountingTypeEnum;
 use App\Enums\DocumentStatusEnum;
 use App\Models\Document;
+use App\Notifications\Document\DocumentDeliveredNotification;
 use App\Services\Inventory\Operations\RegisterDocumentInventoryTransactionsOperation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -108,7 +109,7 @@ class MarkInvoiceAsDeliveredFeature extends Feature
                             'description' => 'Marked as Delivered'
                         ]
                     );
-
+                    $this->document->contact->notify(new DocumentDeliveredNotification($this->document));
                     return $this->document;
                 }
             }

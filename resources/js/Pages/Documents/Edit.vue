@@ -162,7 +162,9 @@ export default {
     function confirmAction(callback) {
       askUser().then((res) => {
         if (res.isConfirmed) {
-          callback(props.document.id);
+          callback(props.document.id,function(){
+            location.reload()
+          });
         }
       });
     }

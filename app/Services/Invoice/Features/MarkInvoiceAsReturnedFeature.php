@@ -13,6 +13,7 @@ use App\Domains\Invoice\Jobs\ValidateReturnableInvoiceJob;
 use App\Enums\AccountingTypeEnum;
 use App\Enums\DocumentStatusEnum;
 use App\Models\Document;
+use App\Notifications\Document\DocumentReturnedNotification;
 use App\Services\Inventory\Operations\RegisterDocumentInventoryTransactionsOperation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -113,7 +114,7 @@ class MarkInvoiceAsReturnedFeature extends Feature
                             'description' => 'Marked as Returned'
                         ]
                     );
-
+                    $this->document->contact->notify(new DocumentReturnedNotification($this->document));
                     return $this->document;
                 }
             }

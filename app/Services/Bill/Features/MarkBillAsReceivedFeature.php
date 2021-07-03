@@ -11,6 +11,7 @@ use App\Domains\Document\Jobs\StoreDocumentHistoryJob;
 use App\Enums\AccountingTypeEnum;
 use App\Enums\DocumentStatusEnum;
 use App\Models\Document;
+use App\Notifications\Document\DocumentReceivedNotification;
 use App\Services\Inventory\Operations\RegisterDocumentInventoryTransactionsOperation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -90,6 +91,7 @@ class MarkBillAsReceivedFeature extends Feature
                         ]
                     );
 
+                    $this->document->contact->notify(new DocumentReceivedNotification($this->document));
                     return $this->document;
                 }
             }

@@ -2,14 +2,17 @@
 
 namespace App\Notifications\Document;
 
+use App\Domains\Document\Jobs\GetDocumentPdfJob;
+use App\Enums\DocumentTypeEnum;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class DocumentPaidNotifcation extends Notification
+class DocumentPaidNotification extends Notification implements ShouldQueue
 {
     use Queueable;
+    use DocumentNotification;
 
     /**
      * Create a new notification instance.
@@ -35,15 +38,13 @@ class DocumentPaidNotifcation extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        $invoice=$this->run(GetDocumentPdfJob::class, ['document'=>$this->document]);
+        return (new MailMessage)->subject($this->document->document_number.' Paid ')->greeting('Dear '.$notifiable->name.'!')->line('Document: '.$this->document->document_number.' has been marked as paid!')->line('please have look into this mail attachments')->line('Thank you for using our application!')->attachData($invoice->download(), $this->document->document_number.'.pdf', ['mime'=>'application/pdf', ]);
     }
 
     /**

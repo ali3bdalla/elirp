@@ -194,7 +194,6 @@ export default {
     }
 
     function sortChanged(attribute, order) {
-      console.log(attribute);
     }
     watch(searching, function (value) {
       let params = paramters.value;

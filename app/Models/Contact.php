@@ -10,6 +10,7 @@ use App\Frame\ModelFrame;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
+
 /**
  * @property mixed company_id
  */
@@ -23,12 +24,12 @@ class Contact extends ModelFrame
     use CanBeEnabled;
     use Notifiable;
     protected $guarded = [];
-    
-    public function preferredNotificationChannel(): string
+
+    public function preferredNotificationChannel() : string
     {
-       return 'mail';
+        return 'mail';
     }
-    
+
     /**
      * Route notifications for the mail channel.
      *
@@ -40,7 +41,7 @@ class Contact extends ModelFrame
         // Return email address only...
 //        return "ali.dev.sd@gmail.com";
 //        return $this->email_address;
-        
+
         // Return email address and name...
         return [$this->email => $this->name];
     }

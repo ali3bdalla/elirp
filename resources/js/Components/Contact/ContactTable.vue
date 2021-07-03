@@ -142,12 +142,10 @@ export default {
     },
   },
   setup(props) {
-    console.log(props);
     const page = ref(1);
     const searching = ref("");
     const { result, loading } = useQuery(
-      gql`
-        query getContacts(
+      gql`query getContacts(
           $page: Int!
           $search: String!
           $isVendor: String
