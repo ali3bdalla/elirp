@@ -15,9 +15,11 @@ if (! function_exists('company')) {
     }
 }
 if (! function_exists('webUser')) {
-    function webUser()
+    function webUser(): ?\Illuminate\Contracts\Auth\Authenticatable
     {
-        return Auth::guard('web')->user();
+        return optional(Auth::guard('web')->user(),function($value) {
+            return $value;
+        });
     }
 }
 if (! function_exists('user_id')) {
