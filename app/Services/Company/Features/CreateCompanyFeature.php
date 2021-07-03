@@ -8,6 +8,7 @@ use App\Domains\Company\Jobs\StoreCompanyJob;
 use App\Models\User;
 use App\Services\Company\Operations\SeedCompanyBaseAccountsOperation;
 use App\Services\User\Operations\CreateSupervisorUserOperation;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Lucid\Units\Feature;
 
@@ -35,6 +36,18 @@ class CreateCompanyFeature extends Feature
                         'companyEmail' => $request->input('email'),
                     ]
                 );
+    
+                $authUser = $this->run(
+                    CreateSupervisorUserOperation::class,
+                    [
+                        'company'        => $company,
+                        'name'           => $request->input('name'),
+                        'keycloakId'     => $request->input('keycloakId'),
+                        'email'          => $request->input('email'),
+                        'password'       => $request->input('password'),
+                    ]
+                );
+                Auth::guard('web')->login($authUser);
                 $this->run(
                     SeedCompanyBaseAccountsOperation::class,
                     [
@@ -53,16 +66,7 @@ class CreateCompanyFeature extends Feature
                         'company' => $company
                     ]
                 );
-                return $this->run(
-                    CreateSupervisorUserOperation::class,
-                    [
-                        'company'        => $company,
-                        'name'           => $request->input('name'),
-                        'keycloakId'     => $request->input('keycloakId'),
-                        'email'          => $request->input('email'),
-                        'password'       => $request->input('password'),
-                    ]
-                );
+                return $authUser;
             }
         );
     }
