@@ -12,13 +12,13 @@ trait HasCompany
 {
     public static function bootHasCompany()
     {
-        if (Auth::user()) {
-            // static::addGlobalScope(function(Builder $builder){
-            //     if(Schema::hasColumn($builder->getModel()->getTable(),'company_id'))
-            //         return $builder->where($builder->qualifyColumn('company_id'),company_id());
+        if (webUser()) {
+             static::addGlobalScope(function(Builder $builder){
+                 if(Schema::hasColumn($builder->getModel()->getTable(),'company_id'))
+                     return $builder->where($builder->qualifyColumn('company_id'),company_id());
 
-            //     return $builder;
-            // });
+                 return $builder;
+             });
         }
     }
 

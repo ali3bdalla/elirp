@@ -17,11 +17,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $company = Company::first();
-        User::factory(['company_id' =>   $company->id])->count(10)->create();
-        Item::factory(['company_id' => $company->id])->count(10)->create();
-        Contact::factory(['company_id' => $company->id])->count(10)->create();
-        // dd(Company::factory()->disabledFactoryState()->create());
-        // \App\Models\User::factory(10)->create();
+        $companies = Company::get();
+        foreach($companies as $company) {
+            User::factory(['company_id' =>   $company->id])->count(10)->create();
+            Item::factory(['company_id' => $company->id])->count(10)->create();
+            Contact::factory(['company_id' => $company->id])->count(10)->create();
+            // dd(Company::factory()->disabledFactoryState()->create());
+            // \App\Models\User::factory(10)->create();
+        }
+      
     }
 }

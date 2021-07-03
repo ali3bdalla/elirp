@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Data\CanBeEnabled;
+use App\Data\HasFullSearch;
 use App\Data\HasUserActions;
 use App\Frame\ModelFrame;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,7 +19,7 @@ class Company extends ModelFrame
     use HasUserActions;
     use SoftDeletes;
     use CanBeEnabled;
-
+    use HasFullSearch;
     protected $fillable = [
         'domain',
         'enabled',
