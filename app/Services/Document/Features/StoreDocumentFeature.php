@@ -6,6 +6,7 @@ use App\Enums\DocumentTypeEnum;
 use App\Notifications\Document\DocumentDraftedNotification;
 use App\Services\Document\Operations\StoreDocumentOperation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Lucid\Units\Feature;
 use Illuminate\Support\Facades\Notification;
 class StoreDocumentFeature extends Feature
@@ -16,7 +17,7 @@ class StoreDocumentFeature extends Feature
             'request'          => $request->all(),
             'documentTypeEnum' => DocumentTypeEnum::from($request->input('type'))
         ]);
-        Notification::send($document->contact, new DocumentDraftedNotification($document));
+//        Notification::send($document->contact, new DocumentDraftedNotification($document));
         return $document;
     }
 }

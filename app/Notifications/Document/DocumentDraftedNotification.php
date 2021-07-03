@@ -32,7 +32,8 @@ class DocumentDraftedNotification extends Notification implements ShouldQueue
      */
     public function via(Contact $notifiable): array
     {
-        return [$notifiable->preferredNotificationChannel(),'database'];
+//        $notifiable->preferredNotificationChannel(),'database'
+        return ['mail'];
     }
 
     /**
