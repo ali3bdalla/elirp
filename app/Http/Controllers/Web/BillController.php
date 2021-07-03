@@ -15,7 +15,7 @@ class BillController extends Controller
             'Documents/Index',
             [
                 'type'       => DocumentTypeEnum::BILL()->value,
-                'title'      => 'Bill',
+                'title'      => 'bill',
                 'create_url' => route('bills.create'),
                 'url'        => route('bills.index')
             ]
@@ -29,7 +29,7 @@ class BillController extends Controller
             [
                 'document_number' => Document::generatedNextDocumentNumber(DocumentTypeEnum::BILL()),
                 'type'            => DocumentTypeEnum::BILL()->label,
-                'title'           => 'Bill',
+                'title'           => 'bill',
                 'url'             => route('bills.index')
             ]
         );
@@ -42,7 +42,7 @@ class BillController extends Controller
             [
                 'type'     => $bill->type,
                 'document' => $bill->load('items.item', 'contact', 'histories.createdBy', 'transactions.account', 'inventoryTransactions.item'),
-                'title'    => 'Bill',
+                'title'    => 'bill',
                 'url'      => route('bills.index')
             ]
         );

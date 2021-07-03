@@ -3,13 +3,13 @@
     <table class="table table-striped table-bordered text-center ">
       <thead class="bg-primary text-white">
         <tr>
-          <th scope="col">sku</th>
-          <th scope="col">Item</th>
-          <th scope="col">Price</th>
-          <th scope="col">Quantity</th>
-          <th scope="col">Total</th>
-          <th scope="col">Discount</th>
-          <th scope="col">Subtotal</th>
+          <th scope="col">{{ $page.props.locale.inventory.sku }}</th>
+          <th scope="col">{{ $page.props.locale.inventory.item }}</th>
+          <th scope="col">{{ $page.props.locale.invoicing.price }}</th>
+          <th scope="col">{{ $page.props.locale.invoicing.quantity }}</th>
+          <th scope="col">{{ $page.props.locale.invoicing.total }}</th>
+          <th scope="col">{{ $page.props.locale.invoicing.discount }}</th>
+          <th scope="col">{{ $page.props.locale.invoicing.subtotal }}</th>
         </tr>
       </thead>
       <tbody>
@@ -42,7 +42,7 @@
                 :class="{'is-invalid': $page.props.errors[`items.${index}.price`]}"
                 class="form-control"
                 v-model="item.price"
-                placeholder="Price"
+                :placeholder="$page.props.locale.invoicing.price"
               />
               <error-message-utility :error="$page.props.errors[`items.${index}.price`]"></error-message-utility>
             </div>
@@ -55,7 +55,7 @@
               :class="{'is-invalid': $page.props.errors[`items.${index}.quantity`]}"
               class="form-control"
               v-model="item.quantity"
-              placeholder="quantity"
+              :placeholder="$page.props.locale.invoicing.quantity"
             />
             <error-message-utility :error="$page.props.errors[`items.${index}.quantity`]"></error-message-utility>
           </td>
@@ -66,7 +66,7 @@
               :class="{'is-invalid': $page.props.errors[`items.${index}.total`]}"
               class="form-control"
               v-model="item.total"
-              placeholder="total"
+              :placeholder="$page.props.locale.invoicing.total"
             />
             <error-message-utility :error="$page.props.errors[`items.${index}.total`]"></error-message-utility>
           </td>
@@ -78,7 +78,7 @@
               :class="{'is-invalid': $page.props.errors[`items.${index}.discount`]}"
               class="form-control"
               v-model="item.discount"
-              placeholder="discount"
+              :placeholder="$page.props.locale.invoicing.discount"
             />
             <error-message-utility :error="$page.props.errors[`items.${index}.discount`]"></error-message-utility>
           </td>
@@ -106,7 +106,7 @@
               :remoteMethod="filterItems"
               class="form-control"
               popper-class="shadow"
-              placeholder="Item"
+              :placeholder="$page.props.locale.inventory.item"
             >
               <el-option
                 v-for="item in items"

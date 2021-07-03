@@ -3,18 +3,14 @@
     <div class="card-header">
       <div class="d-flex align-items-center justify-content-between">
         <div>
-          <!-- <el-radio-group v-model="enabledStatus">
-            <el-radio-button :label="1">All ({{totalitems}})</el-radio-button>
-            <el-radio-button :label="2">Active ({{totalActiveitems}})</el-radio-button>
-            <el-radio-button :label="3">In Active ({{totalInActiveitems}})</el-radio-button>
-          </el-radio-group> -->
+
         </div>
 
         <div>
           <input
             type="text"
             class="form-control form-control-sm"
-            placeholder="search..."
+            :placeholder="$page.props.locale.app.search"
             v-model="searching"
           />
         </div>
@@ -26,10 +22,9 @@
       :items="items"
       :paginator-info="paginatorInfo"
     >
-      <template v-slot:title>hello</template>
       <template v-slot:rows>
         <data-grid-column
-          label="id"
+          :label="$page.props.locale.app.id"
           props="id"
           width="100"
         >
@@ -39,7 +34,7 @@
         </data-grid-column>
         <data-grid-column
           width="200"
-          label="Name"
+          :label="$page.props.locale.app.name"
           props="name"
         >
           <template v-slot:default="{ item }">
@@ -53,7 +48,7 @@
           </template>
         </data-grid-column>
         <data-grid-column
-          label="E-mail Address"
+          :label="$page.props.locale.app.email"
           props="email"
         >
           <template v-slot:default="{ item }">
@@ -61,7 +56,7 @@
           </template>
         </data-grid-column>
         <data-grid-column
-          label="Phone"
+          :label="$page.props.locale.app.phone"
           props="phone"
         >
           <template v-slot:default="{ item }">
@@ -70,7 +65,7 @@
         </data-grid-column>
 
         <data-grid-column
-          label="Address"
+          :label="$page.props.locale.invoicing.address"
           props="address"
         >
           <template v-slot:default="{ item }">
@@ -78,7 +73,7 @@
           </template>
         </data-grid-column>
         <data-grid-column
-          label="reference"
+          :label="$page.props.locale.invoicing.reference"
           props="reference"
         >
           <template v-slot:default="{ item }">
@@ -86,7 +81,7 @@
           </template>
         </data-grid-column>
         <data-grid-column
-          label="Tax Number"
+          :label="$page.props.locale.invoicing.tax_number"
           props="tax_number"
         >
           <template v-slot:default="{ item }">
@@ -94,17 +89,17 @@
           </template>
         </data-grid-column>
 
-        <data-grid-column label="Option">
+        <data-grid-column :label="$page.props.locale.app.manage">
           <template v-slot:default="{ item }">
             <el-dropdown>
               <button class="btn btn-primary btn-sm">
-                Manage
+                {{ $page.props.locale.app.manage }}
               </button>
               <template #dropdown>
                 <el-dropdown-menu>
 
                   <inertia-link :href="`${url}/${item.id}/edit`">
-                    <el-dropdown-item>Edit</el-dropdown-item>
+                    <el-dropdown-item>{{$page.props.locale.app.edit}}</el-dropdown-item>
                   </inertia-link>
 
                 </el-dropdown-menu>
@@ -145,7 +140,8 @@ export default {
     const page = ref(1);
     const searching = ref("");
     const { result, loading } = useQuery(
-      gql`query getContacts(
+      gql`
+        query getContacts(
           $page: Int!
           $search: String!
           $isVendor: String

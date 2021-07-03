@@ -1,14 +1,14 @@
 <template>
   <app-layout>
     <template #title>
-      Create Item
+      {{ $page.props.locale.app.add }} {{ $page.props.locale.inventory.item }}
     </template>
     <template #actions>
       <inertia-link
         :href="route('items.index')"
         class="btn btn-default"
       >
-        Back to Items
+        {{ $page.props.locale.app.back_to }} {{ $page.props.locale.app.items }}
       </inertia-link>
     </template>
     <item-form
@@ -19,7 +19,7 @@
         <button
           class="btn btn-primary"
           @click="saveItem(form,onSuccess)"
-        >Save</button>
+        >{{ $page.props.locale.app.save }}</button>
       </template>
     </item-form>
 
@@ -28,7 +28,7 @@
 
 <script>
 import AppLayout from "../../Layouts/AppLayout.vue";
-import { useMutation } from "@vue/apollo-composable";
+
 import gql from "graphql-tag";
 import { saveItem } from "../../Api/items";
 import { computed, watch, ref } from "vue";

@@ -1,14 +1,14 @@
 <template>
   <app-layout>
     <template #title>
-      Update {{title }}
+      {{ $page.props.locale.app.manage }} {{  $page.props.locale.invoicing[`${title}`] }}
     </template>
     <template #actions>
       <inertia-link
         :href="url"
         class="btn btn-default"
       >
-        Back to {{title }}s
+        {{ $page.props.locale.app.back_to }} {{  $page.props.locale.app[`${title}s`] }}
       </inertia-link>
     </template>
     <document-form
@@ -22,40 +22,40 @@
         <a
           class="btn btn-secondary mx-2"
           :href="route('documents.print',document.id)"
-        ><i class="fas fa-print"></i> Print {{ title }}</a>
+        ><i class="fas fa-print"></i> {{  $page.props.locale.invoicing.print }} {{  $page.props.locale.invoicing[`${title}`] }}</a>
         <button
           class="btn btn-danger mx-2"
           v-if="showReturnInvoiceButton()"
           @click="confirmAction(invoiceReturn)"
-        ><i class="el-icon-refresh"></i> Return</button>
+        ><i class="el-icon-refresh"></i> {{  $page.props.locale.invoicing.returned }}</button>
         <button
           class="btn btn-danger mx-2"
           v-if="showReturnBillButton()"
           @click="confirmAction(billReturn)"
-        ><i class="el-icon-refresh"></i> Return</button>
+        ><i class="el-icon-refresh"></i> {{  $page.props.locale.invoicing.returned }}</button>
         <button
           class="btn btn-warning mx-2"
           v-if="showRefundButton()"
           @click="confirmAction(refunded)"
-        ><i class="el-icon-back"></i> Refund</button>
+        ><i class="el-icon-back"></i> {{  $page.props.locale.invoicing.refunded }}</button>
 
         <button
           class="btn btn-success mx-2"
           v-if="showDeliveredButton()"
           @click="confirmAction(delivered)"
-        ><i class="el-icon-coin"></i> Deliver</button>
+        ><i class="el-icon-coin"></i> {{  $page.props.locale.invoicing.delivered }}</button>
 
         <button
           class="btn btn-success mx-2"
           v-if="showRecievedButton()"
           @click="confirmAction(received)"
-        ><i class="el-icon-coin"></i> Receive</button>
+        ><i class="el-icon-coin"></i> {{  $page.props.locale.invoicing.received }}</button>
 
         <button
           class="btn btn-warning mx-2"
           v-if="showPaidButton()"
           @click="confirmAction(paid)"
-        ><i class="el-icon-money"></i> Pay</button>
+        ><i class="el-icon-money"></i> {{  $page.props.locale.invoicing.paid }}</button>
 
       </template>
     </document-form>
@@ -162,8 +162,8 @@ export default {
     function confirmAction(callback) {
       askUser().then((res) => {
         if (res.isConfirmed) {
-          callback(props.document.id,function(){
-            location.reload()
+          callback(props.document.id, function () {
+            location.reload();
           });
         }
       });

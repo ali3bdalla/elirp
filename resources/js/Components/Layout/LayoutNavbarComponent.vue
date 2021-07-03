@@ -25,7 +25,7 @@
         :href="route('dashboard')"
       >
         <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Dashboard</span></a>
+        <span>{{ $page.props.locale.app.dashboard }}</span></a>
     </li>
 
     <!-- Divider -->
@@ -33,7 +33,7 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-      Interface
+      {{ $page.props.locale.app.main }}
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
@@ -47,7 +47,7 @@
         aria-controls="collapseTwo"
       >
         <i class="fas fa-warehouse"></i>
-        <span>Inventory</span>
+        <span>{{ $page.props.locale.app.inventory }}</span>
       </a>
       <div
         id="collapseTwo"
@@ -60,7 +60,7 @@
           <a
             class="collapse-item"
             :href="route('items.index')"
-          >Items ({{ total.totalItems }})</a>
+          >{{ $page.props.locale.app.items }} ({{ total.totalItems }})</a>
           <!-- <a
             class="collapse-item"
             href="cards.html"
@@ -83,7 +83,7 @@
         aria-controls="purchasesCollapse"
       >
         <i class="fas fa-store-alt"></i>
-        <span>Purchases</span>
+        <span>{{ $page.props.locale.app.purchases }}</span>
       </a>
       <div
         id="purchasesCollapse"
@@ -96,11 +96,11 @@
           <a
             class="collapse-item"
             :href="route('bills.index')"
-          >Bills ({{ total.totalBills }})</a>
+          >{{ $page.props.locale.app.bills }} ({{ total.totalBills }})</a>
           <a
             class="collapse-item"
             :href="route('vendors.index')"
-          >Vendors ({{ total.totalVendors }})</a>
+          >{{ $page.props.locale.app.vendors }} ({{ total.totalVendors }})</a>
           <!-- <a
             class="collapse-item"
             href="cards.html"
@@ -119,7 +119,7 @@
         aria-controls="salesCollapse"
       >
         <i class="fas fa-receipt"></i>
-        <span>Sales</span>
+        <span>{{ $page.props.locale.app.sales }}</span>
       </a>
       <div
         id="salesCollapse"
@@ -132,11 +132,11 @@
           <a
             class="collapse-item"
             :href="route('invoices.index')"
-          >Invoices ({{ total.totalInvoices }})</a>
+          >{{ $page.props.locale.app.invoices }} ({{ total.totalInvoices }})</a>
           <a
             class="collapse-item"
             :href="route('customers.index')"
-          >Customers ({{ total.totalCustomers}})</a>
+          >{{ $page.props.locale.app.customers }} ({{ total.totalCustomers}})</a>
           <!-- <a
             class="collapse-item"
             href="cards.html"
@@ -181,15 +181,15 @@
         </div>
       </div>
     </li> -->
-    <li class="nav-item">
+    <!-- <li class="nav-item">
       <inertia-link
         class="nav-link"
         :href="route('users.index')"
       >
         <i class="fas fa-fw fa-users"></i>
-        <span>Users</span>
+        <span>{{ $page.props.locale.app.dashboard }}</span>
       </inertia-link>
-    </li>
+    </li> -->
 
   </ul>
 </template>

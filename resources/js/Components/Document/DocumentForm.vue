@@ -8,14 +8,14 @@
       <div class="row">
         <div class="col-lg-6 col-sm-12">
           <div class="form-group">
-            <label for="document_number"><i class="el-icon-number"></i> Number</label>
+            <label for="document_number"><i class="el-icon-number"></i>{{  $page.props.locale.invoicing.document_number }}</label>
             <div>
               <input
                 disabled
                 :class="{'is-invalid': $page.props.errors.document_number}"
                 class="form-control"
                 v-model="value.document_number"
-                placeholder="Document Number"
+                :placeholder="$page.props.locale.invoicing.document_number"
               />
             </div>
 
@@ -27,7 +27,7 @@
 
         <div class="col-lg-4 col-md-6 col-sm-12">
           <div class="form-group">
-            <label for="name"><i class="fab fa-product-hunt"></i> {{ contactTitle }}</label>
+            <label for="name"><i class="fab fa-product-hunt"></i> {{ $page.props.locale.invoicing[`${contactTitle}`] }}</label>
             <div v-if="show">
               {{  value.contact_name }} - {{  value.contact_email }} - {{  value.contact_address }}
             </div>
@@ -40,7 +40,7 @@
               :remoteMethod="filterContacts"
               class="form-control"
               popper-class="shadow"
-              :placeholder="contactTitle"
+              :placeholder="$page.props.locale.invoicing[`${contactTitle}`]"
               :class="{'is-invalid': $page.props.errors.contact_id}"
             >
               <el-option
@@ -61,7 +61,7 @@
         </div>
         <div class="col-lg-3 col-md-6 col-sm-12">
           <div class="form-group">
-            <label for="issued_at"><i class="el-icon-date"></i> Issued At</label>
+            <label for="issued_at"><i class="el-icon-date"></i> {{$page.props.locale.invoicing.issued_at }}</label>
             <div>
               <el-date-picker
                 :disabled="show"
@@ -70,7 +70,7 @@
                 type="date"
                 class="form-control w-100"
                 :class="{'is-invalid': $page.props.errors.issued_at}"
-                placeholder="Issued At"
+                :placeholder="$page.props.locale.invoicing.issued_at"
               >
               </el-date-picker>
             </div>
@@ -80,7 +80,7 @@
         </div>
         <div class="col-lg-3 col-md-6 col-sm-12">
           <div class="form-group">
-            <label for="due_at"><i class="el-icon-date"></i> Due At</label>
+            <label for="due_at"><i class="el-icon-date"></i> {{$page.props.locale.invoicing.due_at}}</label>
             <div>
               <el-date-picker
                 :disabled="show"
@@ -89,7 +89,7 @@
                 type="date"
                 class="form-control w-100"
                 :class="{'is-invalid': $page.props.errors.due_at}"
-                placeholder="Due At"
+                :placeholder="$page.props.locale.invoicing.due_at"
               >
               </el-date-picker>
             </div>
@@ -99,14 +99,14 @@
 
         <div class="col-lg-2 col-md-6 col-sm-12">
           <div class="form-group">
-            <label for="status"><i class="el-icon-date"></i>Status</label>
+            <label for="status"><i class="el-icon-date"></i>{{ $page.props.locale.invoicing.status }}</label>
             <el-select
               :disabled="true"
               v-model="value.status"
               filterable
               class="form-control"
               popper-class="shadow"
-              placeholder="Status"
+              :placeholder="$page.props.locale.invoicing.status"
               :class="{'is-invalid': $page.props.errors.status}"
             >
               <el-option
@@ -146,13 +146,13 @@
       <div class="row">
         <div class="col-lg-12 col-sm-12">
           <div class="form-group">
-            <label for="address"><i class="fas fa-audio-description"></i> Notes</label>
+            <label for="address"><i class="fas fa-audio-description"></i> {{$page.props.locale.invoicing.notes}}</label>
             <textarea
               :disabled="show"
               :class="{'is-invalid': $page.props.errors.notes}"
               class="form-control"
               v-model="value.notes"
-              placeholder="Notes"
+              :placeholder="$page.props.locale.invoicing.notes"
             ></textarea>
             <error-message-utility :error="$page.props.errors.notes"></error-message-utility>
           </div>
@@ -200,11 +200,11 @@ export default {
   setup(props, context) {
     const contactSearch = ref("");
     let is_vendor = "";
-    let contactTitle = "Customer";
+    let contactTitle = "customer";
     let is_customer = "true";
     if (props.type == "BILL") {
       is_vendor = "true";
-      contactTitle = "Vendor";
+      contactTitle = "vendor";
       is_customer = "";
     }
     const { result, loading } = useQuery(

@@ -1,7 +1,7 @@
 <template>
   <app-layout>
     <template #title>
-      Update Item
+      {{ $page.props.locale.app.edit }} {{ $page.props.locale.inventory.item }}
     </template>
     <template #actions>
       <inertia-link

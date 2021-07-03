@@ -15,7 +15,7 @@ class InvoiceController extends Controller
             'Documents/Index',
             [
                 'type'       => DocumentTypeEnum::INVOICE()->value,
-                'title'      => 'Invoice',
+                'title'      => 'invoice',
                 'create_url' => route('invoices.create'),
                 'url'        => route('invoices.index')
             ]
@@ -29,7 +29,7 @@ class InvoiceController extends Controller
             [
                 'document_number' => Document::generatedNextDocumentNumber(DocumentTypeEnum::INVOICE()),
                 'type'            => DocumentTypeEnum::INVOICE()->label,
-                'title'           => 'Invoice',
+                'title'           => 'invoice',
                 'url'             => route('invoices.index')
             ]
         );
@@ -42,7 +42,7 @@ class InvoiceController extends Controller
             [
                 'type'     => $invoice->type,
                 'document' => $invoice->load('items.item', 'contact', 'histories.createdBy', 'transactions.account', 'inventoryTransactions.item'),
-                'title'    => 'Invoice',
+                'title'    => 'invoice',
                 'url'      => route('invoices.index')
             ]
         );

@@ -1,14 +1,14 @@
 <template>
   <app-layout>
     <template #title>
-      Update {{ title }}
+      {{ $page.props.locale.app.edit }} {{  $page.props.locale.invoicing[`${title}`] }}
     </template>
     <template #actions>
       <inertia-link
         :href="url"
         class="btn btn-default"
       >
-        back to {{ title }}s
+        {{ $page.props.locale.app.back_to }} {{  $page.props.locale.app[`${title}s`] }}
       </inertia-link>
     </template>
     <contact-form
@@ -20,7 +20,7 @@
         <button
           class="btn btn-primary"
           @click="updateContact(form,contactId,onSuccess)"
-        >Update</button>
+        >{{ $page.props.locale.app.save }}</button>
       </template>
     </contact-form>
 

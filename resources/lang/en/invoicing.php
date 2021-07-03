@@ -1,0 +1,30 @@
+<?php
+
+return [
+ 'bill' => "Bill",
+ "invoice" => "Invoice",
+   "document_number" => "#number",
+   "vendor" => "Vendor",
+   "customer" => "Customer",
+   "issued_at" => "Issued At",
+   "due_at" => "Due At",
+   "status" => "Status",
+   "quantity" => "Quantity",
+   "price" => "Price",
+   "total" => "Total",
+   "discount" => "Discount",
+   "subtotal" => "Subtotal",
+   "history" => "History",
+   "notes" => "Notes",
+   "totals" => "Totals",
+   "paid" => "Paid",
+   "received" => "Received",
+   "returned" => "Returned",
+   "refunded" => "Refunded",
+   "delivered" => "Delivered",
+   "print" => "Print",
+      "reference" =>"Reference",
+   "address" =>"Address",
+   "tax_number" =>"Tax Number",
+   "website" => "Website"
+];

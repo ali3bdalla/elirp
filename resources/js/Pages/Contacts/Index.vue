@@ -1,14 +1,14 @@
 <template>
   <app-layout>
     <template #title>
-      {{  title }}s List
+      {{  $page.props.locale.app[`${title}s`] }}
     </template>
     <template #actions>
       <inertia-link
         :href="create_url"
         class='btn btn-success'
       >
-        Create {{  title }}
+        {{ $page.props.locale.app.add }} {{  $page.props.locale.invoicing[`${title}`] }}
       </inertia-link>
     </template>
 

@@ -28,7 +28,6 @@
 
 <script>
 import AppLayout from "../../Layouts/AppLayout.vue";
-import { useMutation } from "@vue/apollo-composable";
 import gql from "graphql-tag";
 import { updateUser } from "../../Api/users";
 import { computed, watch, ref } from "vue";

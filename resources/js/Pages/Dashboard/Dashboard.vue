@@ -1,7 +1,7 @@
 <template>
   <app-layout>
     <template #title>
-      Dashboard
+      {{  $page.props.locale.app.dashboard }}
     </template>
     <div class="card-body">
       <!-- Content Row -->
@@ -13,7 +13,7 @@
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                   <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                    Invoices Amount
+                    {{ $page.props.locale.app.total_invoices_amount }}
                   </div>
                   <div class="h5 mb-0 font-weight-bold text-gray-800">
                     {{ parseFloat(result.totalInvoicesAmount).toFixed(2) }}
@@ -34,7 +34,7 @@
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                   <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                    Invoices
+                    {{ $page.props.locale.app.invoices_count }}
                   </div>
                   <div class="h5 mb-0 font-weight-bold text-gray-800">
                     {{ result.totalInvoices }}
@@ -55,7 +55,7 @@
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                   <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                    Bills
+                    {{ $page.props.locale.app.bills_count }}
                   </div>
                   <div class="row no-gutters align-items-center">
                     <div class="col-auto">
@@ -91,7 +91,7 @@
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
                   <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                    User
+                    {{ $page.props.locale.app.users_count }}
                   </div>
                   <div class="h5 mb-0 font-weight-bold text-gray-800">
                     {{ result.totalUsers }}
@@ -110,12 +110,11 @@
 
         <!-- Pie Chart -->
 
-
         <div class="col-sm-12">
           <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-              <h6 class="m-0 font-weight-bold text-primary">Incomes & Outcomes $</h6>
+              <h6 class="m-0 font-weight-bold text-primary">{{ $page.props.locale.app.incomes_and_outcomes_chart }}</h6>
             </div>
             <!-- Card Body -->
             <div class="card-body">
@@ -131,14 +130,13 @@
 
 <script>
 import AppLayout from "../../Layouts/AppLayout";
-import {useQuery, useResult} from "@vue/apollo-composable";
+import { useQuery, useResult } from "@vue/apollo-composable";
 import gql from "graphql-tag";
-import {watch} from "vue";
 import DashboardSalesChart from "../../Components/Dashboard/DashboardSalesChart";
 
 export default {
   setup() {
-    const {result} = useQuery(gql`
+    const { result } = useQuery(gql`
       query {
         totalInvoicesAmount
         totalUsers
@@ -152,22 +150,22 @@ export default {
         }
 
         DashboardSalesChartQuery {
-              dates
-              datasets {
-                label
-                data
-                fill
-                backgroundColor
-                tension
-            }
+          dates
+          datasets {
+            label
+            data
+            fill
+            backgroundColor
+            tension
           }
+        }
       }
     `);
     return {
       result: useResult(result, {}, result.data),
-      DashboardSalesChartQuery: useResult(result, {}, (data) =>  {
+      DashboardSalesChartQuery: useResult(result, {}, (data) => {
         return data.DashboardSalesChartQuery;
-      })
+      }),
     };
   },
   components: {

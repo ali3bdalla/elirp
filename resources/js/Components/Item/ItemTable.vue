@@ -14,7 +14,7 @@
           <input
             type="text"
             class="form-control form-control-sm"
-            placeholder="search..."
+            :placeholder="$page.props.locale.app.search"
             v-model="searching"
           />
         </div>
@@ -26,10 +26,9 @@
       :items="items"
       :paginator-info="paginatorInfo"
     >
-      <template v-slot:title>hello</template>
       <template v-slot:rows>
         <data-grid-column
-          label="id"
+          :label="$page.props.locale.app.id"
           props="id"
           width="100"
         >
@@ -39,7 +38,7 @@
         </data-grid-column>
         <data-grid-column
           width="200"
-          label="Name"
+          :label="$page.props.locale.app.name"
           props="name"
         >
           <template v-slot:default="{ item }">
@@ -53,7 +52,7 @@
           </template>
         </data-grid-column>
         <data-grid-column
-          label="SKU"
+          :label="$page.props.locale.inventory.sku"
           props="sku"
         >
           <template v-slot:default="{ item }">
@@ -61,7 +60,7 @@
           </template>
         </data-grid-column>
         <data-grid-column
-          label="Brand"
+          :label="$page.props.locale.inventory.brand"
           props="brand"
         >
           <template v-slot:default="{ item }">
@@ -70,7 +69,7 @@
         </data-grid-column>
 
         <data-grid-column
-          label="Model Name"
+          :label="$page.props.locale.inventory.model_name"
           props="model_name"
         >
           <template v-slot:default="{ item }">
@@ -78,7 +77,7 @@
           </template>
         </data-grid-column>
         <data-grid-column
-          label="Model Number"
+          :label="$page.props.locale.inventory.model_number"
           props="model_number"
         >
           <template v-slot:default="{ item }">
@@ -87,7 +86,7 @@
         </data-grid-column>
         <data-grid-column
           width="150"
-          label="P.Price"
+          :label="$page.props.locale.inventory.purchase_price"
           props="purchase_price"
         >
           <template v-slot:default="{ item }">
@@ -96,7 +95,7 @@
         </data-grid-column>
         <data-grid-column
           width="150"
-          label="S.Price"
+          :label="$page.props.locale.inventory.sale_price"
           props="sale_price"
         >
           <template v-slot:default="{ item }">
@@ -133,17 +132,17 @@
           </template>
         </data-grid-column> -->
 
-        <data-grid-column label="Option">
+        <data-grid-column :label="$page.props.locale.app.manage">
           <template v-slot:default="{ item }">
             <el-dropdown>
               <button class="btn btn-primary btn-sm">
-                Manage
+                {{ $page.props.locale.app.manage }}
               </button>
               <template #dropdown>
                 <el-dropdown-menu>
 
                   <inertia-link :href="route('items.edit',`${item.id}`)">
-                    <el-dropdown-item>Edit</el-dropdown-item>
+                    <el-dropdown-item>{{ $page.props.locale.app.edit }}</el-dropdown-item>
                   </inertia-link>
 
                 </el-dropdown-menu>

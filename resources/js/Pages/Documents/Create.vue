@@ -1,14 +1,14 @@
 <template>
   <app-layout>
     <template #title>
-      Create {{title }}
+      {{ $page.props.locale.app.add }} {{  $page.props.locale.invoicing[`${title}`] }}
     </template>
     <template #actions>
       <inertia-link
         :href="url"
         class="btn btn-default"
       >
-        Back to {{title }}s
+        {{ $page.props.locale.app.back_to }} {{  $page.props.locale.app[`${title}s`] }}
       </inertia-link>
     </template>
     <document-form
@@ -21,7 +21,7 @@
         <button
           class="btn btn-primary"
           @click="save(form,onSuccess)"
-        >Save</button>
+        > {{ $page.props.locale.app.save }}</button>
       </template>
     </document-form>
 

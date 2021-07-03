@@ -10,30 +10,39 @@ class VendorController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Contacts/Index', [
+        return Inertia::render(
+            'Contacts/Index',
+            [
             'is_vendor'  => 'true',
-            'title'      => 'Vendor',
+            'title'      => 'vendor',
             'create_url' => route('vendors.create'),
             'url'        => route('vendors.index')
-        ]);
+            ]
+        );
     }
 
     public function create()
     {
-        return Inertia::render('Contacts/Create', [
+        return Inertia::render(
+            'Contacts/Create',
+            [
             'is_vendor' => 'true',
-            'title'     => 'Vendor',
+            'title'     => 'vendor',
             'url'       => route('vendors.index')
-        ]);
+            ]
+        );
     }
 
     public function edit(Contact $vendor)
     {
-        return Inertia::render('Contacts/Edit', [
+        return Inertia::render(
+            'Contacts/Edit',
+            [
             'is_vendor' => 'true',
             'contact'   => $vendor,
-            'title'     => 'Vendor',
+            'title'     => 'vendor',
             'url'       => route('vendors.index')
-        ]);
+            ]
+        );
     }
 }

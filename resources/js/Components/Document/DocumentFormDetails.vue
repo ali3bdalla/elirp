@@ -6,7 +6,7 @@
         v-if="histories"
       >
         <div class="bg-primary text-white p-2 font-bold">
-          History
+          {{  $page.props.locale.invoicing.history }}
         </div>
         <div
           class="border-bottom  p-2 font-bold d-flex justify-content-between
@@ -17,9 +17,9 @@
           <div class="w-25">
             {{  history.status }}
           </div>
-          <div class="w-25">
+          <!-- <div class="w-25">
             {{  history.description }}
-          </div>
+          </div> -->
           <div class="w-25">
             {{  history.created_by ?  history.created_by.name : " " }}
           </div>
@@ -32,7 +32,7 @@
 
       <div class="col-md-4 offset-md-2 col-sm-12">
         <div class="bg-primary text-white p-2 font-bold">
-          Totals
+          {{  $page.props.locale.invoicing.totals }}
         </div>
         <div
           class="border-bottom  p-2 font-bold d-flex justify-content-between
@@ -41,7 +41,7 @@
           :key="index"
         >
           <div>
-            {{  total.name }}
+            {{  $page.props.locale.invoicing[`${total.name}`] }}
           </div>
           <div class="font-bold text-bold bold text-lg">
             {{  total.amount }}
@@ -195,15 +195,15 @@ export default {
     const totals = computed(function () {
       let t = [];
       t.push({
-        name: "Total",
+        name: "total",
         amount: sm("total"),
       });
       t.push({
-        name: "Discount",
+        name: "discount",
         amount: sm("discount"),
       });
       t.push({
-        name: "Subtotal",
+        name: "subtotal",
         amount: sm("subtotal"),
       });
 

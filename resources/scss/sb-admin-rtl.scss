@@ -1,0 +1,58 @@
+
+@font-face {
+  font-family: "NotoKufiArabic";
+  src:
+	url("./../fonts/NotoKufiArabic-Regular.ttf") format("ttf"),
+  url("./../fonts/NotoKufiArabic-Bold.ttf") format("ttf")
+       ;
+}
+
+.el-select__popper {
+    margin-right: -20px !important;
+	 margin-left: none;
+}
+
+.navbar-nav {
+	padding-left: inherit !important;
+	padding-right: 0px !important;
+}
+
+body {
+	text-align: right;
+}
+
+.sidebar .nav-item .nav-link[data-toggle="collapse"]::after {
+	float: left;
+}
+
+.sidebar .nav-item .nav-link {
+	text-align: right;
+}
+
+.sidebar .nav-item .nav-link i {
+	margin-right: 0px;
+	margin-left: 0.25rem;
+}
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@700&display=swap');
+* {
+	    font-family: 'Tajawal', sans-serif;
+	// font-family: "NotoKufiArabic", "Open Sans", sans-serif;
+}
+
+.ml-auto, .mx-auto {
+	margin-right: auto !important;
+	margin-left: inherit !important;
+}
+
+.sidebar .nav-item.dropdown .dropdown-toggle::after span {
+	margin-left: 12px;
+}
+
+.dropdown-item {
+	text-align: right;
+}
+
+.mr-2 {
+	margin-left: 0.5rem !important;
+	margin-right: 0px !important;
+}

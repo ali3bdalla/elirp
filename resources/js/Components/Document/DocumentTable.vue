@@ -7,7 +7,7 @@
           <input
             type="text"
             class="form-control form-control-sm"
-            placeholder="search..."
+            :placeholder="$page.props.locale.app.search"
             v-model="searching"
           />
         </div>
@@ -22,7 +22,7 @@
       <template v-slot:title></template>
       <template v-slot:rows>
         <data-grid-column
-          label="Number"
+          :label="$page.props.locale.invoicing.document_number"
           props="document_number"
         >
           <template v-slot:default="{ item }">
@@ -30,54 +30,54 @@
           </template>
         </data-grid-column>
         <data-grid-column
-          :label="`${contactTitle} Name`"
+          :label="`${$page.props.locale.invoicing[`${contactTitle}`]}`"
           props="contact_name"
         >
 
         </data-grid-column>
 
         <data-grid-column
-          label="Amount"
+          :label="$page.props.locale.invoicing.subtotal"
           props="amount"
         >
 
         </data-grid-column>
 
         <data-grid-column
-          label="Issued At"
+          :label="$page.props.locale.invoicing.issued_at"
           props="issued_at"
         >
 
         </data-grid-column>
         <data-grid-column
-          label="Due At"
+          :label="$page.props.locale.invoicing.due_at"
           props="due_at"
         >
 
         </data-grid-column>
         <data-grid-column
-          label="Status"
+          :label="$page.props.locale.invoicing.status"
           props="status"
         >
 
         </data-grid-column>
         <data-grid-column
-          label="Created At"
+          :label="$page.props.locale.app.created_at"
           props="created_at"
         >
 
         </data-grid-column>
-        <data-grid-column label="Option">
+        <data-grid-column :label="$page.props.locale.app.manage">
           <template v-slot:default="{ item }">
             <el-dropdown>
               <button class="btn btn-primary btn-sm">
-                Manage
+                {{  $page.props.locale.app.manage  }}
               </button>
               <template #dropdown>
                 <el-dropdown-menu>
 
                   <inertia-link :href="`${url}/${item.id}/edit`">
-                    <el-dropdown-item>Edit</el-dropdown-item>
+                    <el-dropdown-item>{{$page.props.locale.app.manage}}</el-dropdown-item>
                   </inertia-link>
 
                 </el-dropdown-menu>
@@ -159,7 +159,7 @@ export default {
     }
 
     return {
-      contactTitle: props.type === "BILL" ? "Vendor" : "Customer",
+      contactTitle: props.type === "BILL" ? "vendor" : "customer",
       searching,
       pageChanged,
       items,
