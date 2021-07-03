@@ -5,21 +5,13 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 # scalar DataGridAttribute @scalar(class: "App\\GraphQL\\Scalars\\DataGridAttribute")
 
-input  OrderByInput {
-  column: String!
-  order: String!
-}
 
-type EnumOption {
-  label: String
-  value: String
-}
 #import models.graphql
+#import types.graphql
 #   orderBy: _ @orderBy(columns: ["id", "name","email","enabled","created_at"])
 type Query @guard {
 
-
-
+    DashboardSalesChartQuery: ChartData
     me: User @auth
     getUsers(trashed: Trashed @trashed,enabled: Int! = 1,
     search: String! = "" @search(within: "users_index") ,
@@ -70,6 +62,7 @@ type Query @guard {
     getDocument(id: ID!): Document! @find
     totalBills: Int!  @eq(key: "type",value: "BILL")  @aggregate(model: "Document", column: "id", function: count)
     totalInvoices: Int! @eq(key: "type",value: "INVOICE")  @aggregate(model: "Document", column: "id", function: count)
-    totalInvoicesAmount: Int! @eq(key: "type",value: "INVOICE")  @aggregate(model: "Document", column: "amount", function: sum)
+    totalInvoicesAmount: Float! @eq(key: "type",value: "INVOICE")  @aggregate(model: "Document", column: "amount",
+      function: sum)
 
 }

@@ -19,10 +19,11 @@ use Illuminate\Support\HigherOrderCollectionProxy;
  * @property float discount
  * @property float total
  * @property mixed taxes()
- * @property mixed id
- * @property mixed quantity
+ * @property integer id
+ * @property float quantity
  * @property mixed tax
- * @property mixed item_id
+ * @property integer item_id
+ * @property float subtotal
  */
 class DocumentItem extends ModelFrame
 {
@@ -59,5 +60,10 @@ class DocumentItem extends ModelFrame
     public function item() : BelongsTo
     {
         return $this->BelongsTo(Item::class);
+    }
+
+    public function document() : BelongsTo
+    {
+        return $this->BelongsTo(Document::class);
     }
 }

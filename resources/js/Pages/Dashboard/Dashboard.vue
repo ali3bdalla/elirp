@@ -16,7 +16,7 @@
                     Invoices Amount
                   </div>
                   <div class="h5 mb-0 font-weight-bold text-gray-800">
-                    {{  parseFloat(result.totalInvoicesAmount).toFixed(2) }}
+                    {{ parseFloat(result.totalInvoicesAmount).toFixed(2) }}
                   </div>
                 </div>
                 <div class="col-auto">
@@ -37,7 +37,7 @@
                     Invoices
                   </div>
                   <div class="h5 mb-0 font-weight-bold text-gray-800">
-                    {{  result.totalInvoices }}
+                    {{ result.totalInvoices }}
                   </div>
                 </div>
                 <div class="col-auto">
@@ -60,7 +60,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col-auto">
                       <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                        {{  result.totalBills }}
+                        {{ result.totalBills }}
                       </div>
                     </div>
                     <div class="col">
@@ -94,7 +94,7 @@
                     User
                   </div>
                   <div class="h5 mb-0 font-weight-bold text-gray-800">
-                    {{  result.totalUsers }}
+                    {{ result.totalUsers }}
                   </div>
                 </div>
                 <div class="col-auto">
@@ -106,18 +106,39 @@
         </div>
       </div>
 
+      <div class="row">
+
+        <!-- Pie Chart -->
+
+
+        <div class="col-sm-12">
+          <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">Incomes & Outcomes $</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+              <DashboardSalesChart></DashboardSalesChart>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </app-layout>
 </template>
 
 <script>
 import AppLayout from "../../Layouts/AppLayout";
-import { useQuery, useResult } from "@vue/apollo-composable";
+import {useQuery, useResult} from "@vue/apollo-composable";
 import gql from "graphql-tag";
-import { watch } from "vue";
+import {watch} from "vue";
+import DashboardSalesChart from "../../Components/Dashboard/DashboardSalesChart";
+
 export default {
   setup() {
-    const { result } = useQuery(gql`
+    const {result} = useQuery(gql`
       query {
         totalInvoicesAmount
         totalUsers
@@ -129,14 +150,28 @@ export default {
             name
           }
         }
+
+        DashboardSalesChartQuery {
+              dates
+              datasets {
+                label
+                data
+                fill
+                backgroundColor
+                tension
+            }
+          }
       }
     `);
-
     return {
       result: useResult(result, {}, result.data),
+      DashboardSalesChartQuery: useResult(result, {}, (data) =>  {
+        return data.DashboardSalesChartQuery;
+      })
     };
   },
   components: {
+    DashboardSalesChart,
     AppLayout,
   },
 };

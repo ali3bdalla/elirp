@@ -19,6 +19,8 @@ class CreateDocumentHistoriesTable extends Migration
             $table->unsignedBigInteger('document_id');
             $table->unsignedBigInteger('created_by_id');
             $table->string('status')->nullable();
+            $table->string('type')->nullable();
+            $table->float('amount', 100, 2)->nullable();
             $table->boolean('notify')->default(true);
             $table->boolean('notified')->default(false);
             $table->boolean('views')->default(false);

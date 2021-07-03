@@ -31,7 +31,8 @@
             </div>
 
           </div>
-          <div class='card  shadow h-100'>
+<!--          card  shadow h-100-->
+          <div class=''>
             <slot></slot>
           </div>
         </div>

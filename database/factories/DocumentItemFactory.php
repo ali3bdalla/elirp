@@ -28,9 +28,9 @@ class DocumentItemFactory extends Factory
      */
     public function definition() : array
     {
-        $price        = $this->faker->randomFloat(2, 1, 1000);
-        $discountRate = $this->faker->randomFloat(2, 1, 100);
-        $quantity     = $this->faker->numberBetween(10);
+        $price        = $this->faker->randomFloat(2, 1, 50);
+        $discountRate = $this->faker->randomFloat(2, 1, 1);
+        $quantity     = $this->faker->numberBetween(10, 100);
         $total        = $price * $quantity;
         $subtotal     = $total - ($total * ($discountRate / 100));
         return [
@@ -78,6 +78,10 @@ class DocumentItemFactory extends Factory
                 $documentItem->type = $document->type;
             }
             return $documentItem;
+        })->afterCreating(function (DocumentItem $documentItem) {
+            $documentItem->document->update([
+                'amount' => $documentItem->subtotal
+            ]);
         });
     }
 }

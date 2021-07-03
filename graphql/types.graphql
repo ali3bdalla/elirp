@@ -1,0 +1,22 @@
+input  OrderByInput {
+    column: String!
+    order: String!
+}
+
+type EnumOption {
+    label: String
+    value: String
+}
+
+type ChartData {
+    dates: [String]
+    datasets: [ChartDataSet]
+}
+type ChartDataSet {
+    label: String
+    data: [Float]
+    fill: Boolean
+    borderColor: String
+    tension: Float
+    backgroundColor: String
+}

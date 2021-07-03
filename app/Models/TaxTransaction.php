@@ -16,6 +16,6 @@ class TaxTransaction extends ModelFrame
     use HasCompany;
     use HasUserActions;
     use CanBeEnabled;
-    
+
     protected $guarded = [];
 }

@@ -5,7 +5,6 @@ namespace App\Data;
 use App\Models\Company;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 
 trait HasCompany
@@ -13,12 +12,13 @@ trait HasCompany
     public static function bootHasCompany()
     {
         if (webUser()) {
-             static::addGlobalScope(function(Builder $builder){
-                 if(Schema::hasColumn($builder->getModel()->getTable(),'company_id'))
-                     return $builder->where($builder->qualifyColumn('company_id'),company_id());
+            static::addGlobalScope(function (Builder $builder) {
+                if (Schema::hasColumn($builder->getModel()->getTable(), 'company_id')) {
+                    return $builder->where($builder->qualifyColumn('company_id'), company_id());
+                }
 
-                 return $builder;
-             });
+                return $builder;
+            });
         }
     }
 

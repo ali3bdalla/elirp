@@ -32,7 +32,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password', 'enabled', 'company_id', 'locale','keycloak_id'];
+    protected $fillable = ['name', 'email', 'password', 'enabled', 'company_id', 'locale', 'keycloak_id'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -53,7 +53,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $appends = ['profile_photo_url' ];
+    protected $appends = ['profile_photo_url'];
 
     /**
      * Get the user's preferred locale.

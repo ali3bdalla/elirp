@@ -31,7 +31,7 @@ class LoginUserFeature extends Feature
         }
         $authUser->update(
             [
-                'keycloak_id' =>  $this->keycloakId,
+                'keycloak_id'       => $this->keycloakId,
                 'name'              => $this->keycloakProfile->get('name'),
                 'email'             => $this->keycloakProfile->get('email'),
                 'email_verified_at' => now()

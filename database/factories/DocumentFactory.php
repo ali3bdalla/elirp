@@ -40,6 +40,7 @@ class DocumentFactory extends Factory
             'type'          => $this->faker->randomElement(DocumentTypeEnum::toValues()),
             'currency_code' => 'usd',
             'currency_rate' => '1',
+            'status'        => 'draft',
             'notes'         => $this->faker->text(5),
             'amount'        => '0',
         ];
@@ -54,7 +55,7 @@ class DocumentFactory extends Factory
             $contact = Contact::factory()->customer()->create([
                 'company_id' => $attributes['company_id'],
             ]);
-            $statuses = ['draft', 'sent', 'viewed', 'partial', 'paid', 'cancelled'];
+//            $statuses = ['draft', 'sent', 'viewed', 'partial', 'paid', 'cancelled'];
             return [
                 'type'               => DocumentTypeEnum::INVOICE(),
                 'document_number'    => 'next',
@@ -64,7 +65,7 @@ class DocumentFactory extends Factory
                 'contact_tax_number' => $contact->tax_number,
                 'contact_phone'      => $contact->phone,
                 'contact_address'    => $contact->address,
-                'status'             => $this->faker->randomElement($statuses),
+                //                'status'             => $this->faker->randomElement($statuses),
             ];
         });
     }
@@ -89,7 +90,7 @@ class DocumentFactory extends Factory
                 'contact_tax_number' => $contact->tax_number,
                 'contact_phone'      => $contact->phone,
                 'contact_address'    => $contact->address,
-                'status'             => $this->faker->randomElement($statuses),
+                //                'status'             => $this->faker->randomElement($statuses),
             ];
         });
     }
@@ -203,15 +204,15 @@ class DocumentFactory extends Factory
         return $this->state(function (array $attributes) {
             $amount = $this->faker->randomFloat(2, 1, 1000);
 
-            $taxes = Tax::enabled()->get();
+//            $taxes = Tax::enabled()->get();
+//
+//            if ($taxes->count()) {
+//                $tax = $taxes->random(1)->first();
+//            } else {
+//                $tax = Tax::factory()->enabledFactoryState()->create();
+//            }
 
-            if ($taxes->count()) {
-                $tax = $taxes->random(1)->first();
-            } else {
-                $tax = Tax::factory()->enabledFactoryState()->create();
-            }
-
-            $items = Item::enabled()->get();
+            $items = Item::get();
 
             if ($items->count()) {
                 $item = $items->random(1)->first();
@@ -225,7 +226,7 @@ class DocumentFactory extends Factory
                     'name'        => $item->name,
                     'description' => $this->faker->text,
                     'item_id'     => $item->id,
-                    'tax_ids'     => [$tax->id],
+                    //                    'tax_ids'     => [$tax->id],
                     'quantity'    => '1',
                     'price'       => $amount,
                     'currency'    => 'usd',

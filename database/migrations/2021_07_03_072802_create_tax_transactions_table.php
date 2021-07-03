@@ -24,13 +24,13 @@ class CreateTaxTransactionsTable extends Migration
             $table->string('type')->nullable();
             $table->string('reference')->default(uniqid());
             $table->boolean('enabled')->default(true);
-    
+
             $table->foreign('item_id')->references('id')->on('items');
             $table->foreign('company_id')->references('id')->on('companies');
             $table->foreign('document_item_id')->references('id')->on('document_items');
             $table->foreign('document_id')->references('id')->on('documents');
             $table->foreign('tax_id')->references('id')->on('taxes');
-    
+
             $table->timestamps();
             $table->softDeletes();
         });

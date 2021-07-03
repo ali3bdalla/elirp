@@ -25,7 +25,7 @@
         |
         */
     Route::get('/auth/callback', [AuthController::class, 'callback'])->name('keycloak.callback');
-    Route::middleware(['keycloak-web','auth:web'])->group(function () {
+    Route::middleware(['keycloak-web', 'auth:web'])->group(function () {
         Route::get('/', DashboardController::class)->name('dashboard');
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
         Route::resource('users', UserController::class);

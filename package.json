@@ -30,6 +30,7 @@
         "vue-loader": "^16.1.2"
     },
     "dependencies": {
+        "@j-t-mcc/vue3-chartjs": "^1.1.2",
         "@vue/apollo-composable": "*",
         "apollo-boost": "^0.4.9",
         "apollo-cache-inmemory": "^1.6.6",
@@ -37,6 +38,9 @@
         "apollo-link": "^1.2.14",
         "apollo-link-http": "^1.5.17",
         "bootstrap": "^5.0.2",
+        "chart.js": "^3.4.0",
+        "chartjs-plugin-datalabels": "^2.0.0",
+        "chartjs-plugin-zoom": "^1.1.0",
         "element-plus": "^1.0.2-beta.53",
         "graphql": "^15.5.1",
         "graphql-tag": "^2.12.5",

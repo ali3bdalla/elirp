@@ -39,13 +39,14 @@ class StoreDocumentHistoryJob extends Job
 
         return  DocumentHistory::create(
             [
-                'company_id'    => $this->document->company_id,
-                'type'          => $this->document->type,
-                'document_id'   => $this->document->id,
-                'status'        => $this->document->status,
-                'created_by_id' => user_id(),
-                'notify'        => $this->notify,
-                'description'   => $description,
+                'company_id'      => $this->document->company_id,
+                'type'            => $this->document->type,
+                'amount'          => $this->document->amount,
+                'document_id'     => $this->document->id,
+                'status'          => $this->document->status,
+                'created_by_id'   => user_id(),
+                'notify'          => $this->notify,
+                'description'     => $description,
             ]
         );
     }

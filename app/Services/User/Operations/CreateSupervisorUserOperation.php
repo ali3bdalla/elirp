@@ -5,7 +5,6 @@ namespace App\Services\User\Operations;
 use App\Domains\User\Jobs\CreateNewUserJob;
 use App\Models\Company;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Lucid\Units\Operation;
 
@@ -39,17 +38,17 @@ class CreateSupervisorUserOperation extends Operation
      */
     public function handle() : User
     {
-          return $this->run(
-                CreateNewUserJob::class,
-                [
-                    'keycloakId'      => $this->keycloakId,
-                    'name'            => $this->name,
-                    'email'           => $this->email,
-                    'password'        => Hash::make($this->password),
-                    'companyId'       => $this->company->id,
-                    'locale'          => 'en-GB',
-                    'enabled'         => '1',
-                ]
-            );
+        return $this->run(
+            CreateNewUserJob::class,
+            [
+                'keycloakId'      => $this->keycloakId,
+                'name'            => $this->name,
+                'email'           => $this->email,
+                'password'        => Hash::make($this->password),
+                'companyId'       => $this->company->id,
+                'locale'          => 'en-GB',
+                'enabled'         => '1',
+            ]
+        );
     }
 }
