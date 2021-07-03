@@ -1,6 +1,8 @@
 #!/bin/sh
 echo 'copy public content'
 cp -rf /var/www/html/public/* /var/public
+echo "run supervisord"
+supervisord
 echo 'php artisan key:generate'
 php artisan key:generate
 
