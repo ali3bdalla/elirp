@@ -38,10 +38,10 @@ class Contact extends ModelFrame
     public function routeNotificationForMail($notification)
     {
         // Return email address only...
-        return "ali.dev.sd@gmail.com";
+//        return "ali.dev.sd@gmail.com";
 //        return $this->email_address;
         
         // Return email address and name...
-        return [$this->email_address => $this->name];
+        return [$this->email => $this->name];
     }
 }

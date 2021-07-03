@@ -17,7 +17,7 @@ class StoreDocumentFeature extends Feature
             'request'          => $request->all(),
             'documentTypeEnum' => DocumentTypeEnum::from($request->input('type'))
         ]);
-//        Notification::send($document->contact, new DocumentDraftedNotification($document));
+        Notification::send($document->contact, new DocumentDraftedNotification($document));
         return $document;
     }
 }
