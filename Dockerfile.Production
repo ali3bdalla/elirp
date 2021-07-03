@@ -17,8 +17,10 @@ RUN docker-php-ext-enable swoole
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 # Install Node
 RUN apt-get install -yqq nodejs
+RUN apt install -yqq  supervisor
 RUN apt install -yqq nano
 COPY ./scripts/memory-limit-php.ini /usr/local/etc/php/conf.d/memory-limit-php.ini
+COPY ./scripts/supervisor-prod.conf /etc/supervisor/conf.d/app.conf
 
 WORKDIR /var/www/html
 COPY . .
