@@ -12,7 +12,6 @@ use Illuminate\Notifications\Notification;
 class DocumentDraftedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
-    public $afterCommit = true;
     private Document $document;
     
     /**
