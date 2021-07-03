@@ -61,4 +61,5 @@ jobs:
             helm dependency update
             sed -i "s/^version:.*$/version: ${{ github.run_number }}/" Chart.yaml
             sed -i "s/^appVersion:.*$/appVersion: ${{ github.run_number }}/" Chart.yaml
+            sed -i "s/^buildVersion:.*$/buildVersion: ${{ github.run_number }}/" values.yaml
             helm upgrade --install elirp  --version=${{ github.run_number }} -f values.yaml . --set image.tag=latest
