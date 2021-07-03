@@ -17,7 +17,7 @@ if (! function_exists('company')) {
 if (! function_exists('webUser')) {
     function webUser()
     {
-        return (new \Illuminate\Support\Optional(Auth::guard('web')->user()))?->id;
+        return (new \Illuminate\Support\Optional(Auth::guard('web')->user()));
     }
 }
 if (! function_exists('user_id')) {
