@@ -27,6 +27,6 @@ class GetUserByEmailJob extends Job
      */
     public function handle() : ?User
     {
-        return User::where('keycloak_id', $this->keycloakId)->first();
+        return User::where('keycloak_id', $this->keycloakId)->withoutGlobalScope('HasCompanyScope')->first();
     }
 }

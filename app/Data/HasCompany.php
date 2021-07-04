@@ -12,7 +12,7 @@ trait HasCompany
     public static function bootHasCompany()
     {
         if (webUser()) {
-            static::addGlobalScope(function (Builder $builder) {
+            static::addGlobalScope('HasCompanyScope',function (Builder $builder) {
                 if (Schema::hasColumn($builder->getModel()->getTable(), 'company_id')) {
                     return $builder->where($builder->qualifyColumn('company_id'), company_id());
                 }
