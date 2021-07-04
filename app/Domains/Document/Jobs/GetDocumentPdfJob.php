@@ -35,33 +35,41 @@ class GetDocumentPdfJob extends Job
     {
         $document = $this->document;
         if ($document->type === DocumentTypeEnum::BILL()) {
-            $buyer = new Buyer([
-                'name'          => webUser()->name,
+            $buyer = new Buyer(
+                [
+                'name'          => webUser()?->name,
                 'custom_fields' => [
-                    'email' => webUser()->email,
+                    'email' => webUser()?->email,
                 ],
-            ]);
+                ]
+            );
 
-            $seller = new Buyer([
+            $seller = new Buyer(
+                [
                 'name'          => $document->contact_name,
                 'custom_fields' => [
                     'email' => $document->contact_email,
                 ],
-            ]);
+                ]
+            );
         } else {
-            $buyer = new Buyer([
+            $buyer = new Buyer(
+                [
                 'name'          => $document->contact_name,
                 'custom_fields' => [
                     'email' => $document->contact_email,
                 ],
-            ]);
+                ]
+            );
 
-            $seller = new Buyer([
-                'name'          => webUser()->name,
+            $seller = new Buyer(
+                [
+                'name'          => webUser()?->name,
                 'custom_fields' => [
-                    'email' => webUser()->email,
+                    'email' => webUser()?->email,
                 ],
-            ]);
+                ]
+            );
         }
 
         return Invoice::make()
@@ -74,11 +82,15 @@ class GetDocumentPdfJob extends Job
             ->notes("{$document->notes}")
             ->date(Carbon::parse($document->issued_at))
             ->template()
-            ->addItems($document->items()->get()->map(function (DocumentItem $documentItem) {
-                return  (new InvoiceItem())->title($documentItem->name)->pricePerUnit($documentItem->price)
-                    ->quantity($documentItem->quantity)
-                    ->subTotalPrice($documentItem->subtotal)
-                    ->discount($documentItem->discount);
-            }));
+            ->addItems(
+                $document->items()->get()->map(
+                    function (DocumentItem $documentItem) {
+                        return  (new InvoiceItem())->title($documentItem->name)->pricePerUnit($documentItem->price)
+                            ->quantity($documentItem->quantity)
+                            ->subTotalPrice($documentItem->subtotal)
+                            ->discount($documentItem->discount);
+                    }
+                )
+            );
     }
 }
