@@ -1,0 +1,3 @@
+@echo off
+echo Initializing node development environment for Windows...
+:: Windows does not execute .sh files natively. Please run: sh scripts/node-dev-init.sh
